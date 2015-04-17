@@ -2,8 +2,8 @@
 # Developer: Filipe Marques <eagle[dot]software3[at]gmail[dot]com>
 
 pkgname=vicky
-pkgver=1.6.0
-pkgrel=1
+pkgver=1.6.2
+pkgrel=2
 pkgdesc="GUI program that converts video files to sound files using ffmpeg"
 arch=('i686' 'x86_64')
 url="https://github.com/filipe-marques/vicky"
@@ -11,7 +11,7 @@ license=('GPL')
 depends=('ffmpeg' 'qt5-base')
 makedepends=('qt5-tools')
 source=("$url/archive/$pkgname-$pkgver.tar.gz")
-md5sums=('c6a4a2f585ae3cd0d9975f20e72cd9e6')
+md5sums=('9bafae05a128c1fe3ace4fe8da9049d8')
 
 build() {
   cd $srcdir/vicky-$pkgname-$pkgver
