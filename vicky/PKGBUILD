@@ -2,8 +2,8 @@
 # Developer: Filipe Marques <eagle[dot]software3[at]gmail[dot]com>
 
 pkgname=vicky
-pkgver=1.6.0
-pkgrel=1
+pkgver=1.6.2
+pkgrel=2
 pkgdesc="GUI program that converts video files to sound files using ffmpeg"
 arch=('i686' 'x86_64')
 url="https://github.com/filipe-marques/vicky"
