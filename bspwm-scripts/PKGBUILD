@@ -23,6 +23,7 @@ package () {
     install -d -m644 "$pkgdir/etc/skel/.config/sxhkd"
     install -m755 "$srcdir/$pkgname/MouseCenter" "$pkgdir/usr/bin/MouseCenter"
     	install -m644 "$srcdir/$pkgname/configs/bspwm/bspwmrc" "$pkgdir/etc/skel/.config/bspwm/bspwmrc"
+    	install -m644 "$srcdir/$pkgname/configs/bspwm/autostart" "$pkgdir/etc/skel/.config/bspwm/autostart"
     	install -m644 "$srcdir/$pkgname/configs/bspwm/panel/conkyrc" "$pkgdir/etc/skel/.config/bspwm/panel/conkyrc"
     	install -m644 "$srcdir/$pkgname/configs/bspwm/panel/conkyrc-laptop" "$pkgdir/etc/skel/.config/bspwm/panel/conkyrc-laptop"
     	install -m644 "$srcdir/$pkgname/configs/bspwm/panel/conkyrc-desktop" "$pkgdir/etc/skel/.config/bspwm/panel/conkyrc-desktop"
