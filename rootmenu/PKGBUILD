@@ -1,7 +1,7 @@
 # Maintainer: Chrysostomus @forum.manjaro.org
 
 pkgname=rootmenu
-pkgver=0.3
+pkgver=0.4
 pkgrel=1
 pkgdesc="A wm independent desktop menu"
 arch=(any)

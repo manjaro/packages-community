@@ -2,7 +2,7 @@
 # Maintainer: aksr <aksr at t-com dot me>
 
 pkgname=wmutils
-pkgver=1.0.25.g7b86e8b
+pkgver=1.1.25.g7b86e8b
 pkgrel=1
 pkgdesc="A set of tools for X windows manipulation."
 url="https://github.com/wmutils/core"
