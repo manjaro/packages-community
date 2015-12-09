@@ -1,8 +1,3 @@
-# Hard workaround for unload nvidia_nomodeset module.
-# Reference: https://github.com/arafey/Bumblebee/commit/5636b24fa86a005a5d2e30bd794516db13ccba56
-# https://github.com/Bumblebee-Project/Bumblebee/issues/699
-# Merged with: https://github.com/Bumblebee-Project/Bumblebee/commit/2073f8537412aa47755eb6f3f22a114403e5285b
-
 diff --git a/bumblebee-3.2.1/src/bbsecondary.c b/bumblebee-3.2.1/src/bbsecondary.c
 --- a/bumblebee-3.2.1/src/bbsecondary.c
 +++ b/bumblebee-3.2.1/src/bbsecondary.c
@@ -18,14 +13,46 @@ diff --git a/bumblebee-3.2.1/src/bbsecondary.c b/bumblebee-3.2.1/src/bbsecondary
 diff --git a/bumblebee-3.2.1/src/module.c b/bumblebee-3.2.1/src/module.c
 --- a/bumblebee-3.2.1/src/module.c
 +++ b/bumblebee-3.2.1/src/module.c
-@@ -96,7 +96,9 @@
+@@ -92,11 +92,15 @@
+  * @return 1 if the driver is succesfully unloaded, 0 otherwise
+  */
+ int module_unload(char *driver) {
+-  if (module_is_loaded(driver) == 1) {
++
++  if (module_is_loaded(driver) == 1 &&
++            module_is_loaded("nvidia_modeset") == 1) {
      int retries = 30;
      bb_log(LOG_INFO, "Unloading %s driver\n", driver);
      char *mod_argv[] = {
 -      "rmmod",
 +      "modprobe",
 +      "-r",
-+      "nvidia_modeset",
++      "nvidia-modeset",
        driver,
        NULL
      };
+@@ -109,6 +113,24 @@
+       return 0;
+     }
+   }
++    else if (module_is_loaded(driver) == 1) {
++      int retries = 30;
++      bb_log(LOG_INFO, "Unloading %s driver\n", driver);
++      char *mod_argv[] = {
++        "modprobe",
++        "-r",
++        driver,
++        NULL
++      };
++      bb_run_fork_wait(mod_argv, 10);
++      while (retries-- > 0 && module_is_loaded(driver) == 1) {
++        usleep(100000);
++      }
++      if (module_is_loaded(driver) == 1) {
++        bb_log(LOG_ERR, "Unloading %s driver timed out.\n", driver);
++        return 0;
++      }
++    }
+   return 1;
+ }
+ 

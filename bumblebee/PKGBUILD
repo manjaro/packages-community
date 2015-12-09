@@ -1,10 +1,11 @@
 # Maintainer: Sven-Hendrik Haase <sh@lutzhaase.com>
 # Maintainer: Roland Singer <roland@manjaro.org>
 # Maintainer: Philip Mueller <philm@manjaro.org>
+# Maintainer: FadeMind < fademind@gmail.com>
 
 pkgname=bumblebee
 pkgver=3.2.1
-pkgrel=7
+pkgrel=7.1
 pkgdesc="NVIDIA Optimus support for Linux through Primus/VirtualGL"
 arch=('i686' 'x86_64')
 depends=('primus' 'glib2' 'mesa-libgl')
@@ -26,14 +27,28 @@ backup=('etc/bumblebee/bumblebee.conf'
         'etc/bumblebee/xorg.conf.nvidia')
 source=("http://www.bumblebee-project.org/${pkgname}-${pkgver}.tar.gz" "bb_hexadicimal_bug699.patch")
 md5sums=('30974e677bb13e8a3825fd6f3e7d3b24'
-         '09d3c01ad86d92e51ec14a67f4a92c2a')
+         '4335ca07af8d4e61f15b9c1aa4ffae7c')
 
 build() {
-    # Hard workaround for unload nvidia_nomodeset module.
-    # Reference: https://github.com/arafey/Bumblebee/commit/5636b24fa86a005a5d2e30bd794516db13ccba56
-    # https://github.com/Bumblebee-Project/Bumblebee/issues/699
-    # Merged with: https://github.com/Bumblebee-Project/Bumblebee/commit/2073f8537412aa47755eb6f3f22a114403e5285b
-    # in one patch file
+    ###############################################################################################################################
+    # PATCH for issue #699 | Updated 2015-12-09                                                                                   #
+    #-----------------------------------------------------------------------------------------------------------------------------#
+    # Dirty fix for issue #699 version improved This should fix issue #699 without causing any problems for non-affected users.   #
+    # It should correctly detect if nvidia and nvidia_modeset are loaded, unload nvidia_modeset using modprobe -r nvidia_modeset  #
+    # (this also unloads nvidia), and log errors (as before). If it doesn't detect nvidia_modeset but detects "driver",           #
+    # then it will unload the detected driver just like before, except it does so using modprobe -r "driver" for consistency.     #
+    # https://github.com/Bumblebee-Project/Bumblebee/issues/699                                                                   #
+    # https://github.com/arafey/Bumblebee/commit/09d537e8e5313cd0f2c7bf6620ca70454de8a04a
+    ###############################################################################################################################
+    # PATCH for issue #573                                                                                                        #
+    #-----------------------------------------------------------------------------------------------------------------------------#
+    # Fix devices with a bus larger than 9 (GH-573)                                                                               #
+    # The `-isolateDevice` option accepts a PCI ID in decimal format, not hex.                                                    #
+    # https://github.com/Bumblebee-Project/Bumblebee/issues/573                                                                   #
+    # https://github.com/Bumblebee-Project/Bumblebee/commit/2073f8537412aa47755eb6f3f22a114403e5285b                              #
+    ###############################################################################################################################
+    # Patches #573 and #699 was merged                                                                                            #
+    ###############################################################################################################################
     patch -p1 -i ${srcdir}/bb_hexadicimal_bug699.patch
     
     cd "${srcdir}/${pkgname}-${pkgver}"
@@ -67,4 +82,3 @@ package() {
     # Adjust ServerGroup to users
     sed -i "/#/!s|ServerGroup[ ]*=.*|ServerGroup=users|g" "${pkgdir}/etc/bumblebee/bumblebee.conf"
 }
-
