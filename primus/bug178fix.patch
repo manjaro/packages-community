@@ -1,0 +1,16 @@
+--- a/primus/primusrun
++++ b/primus/primusrun
+@@ -26,11 +26,12 @@
+ # export PRIMUS_libGLd=${PRIMUS_libGLd:-'/usr/$LIB/libGL.so.1'}
+ 
+ # Directory containing primus libGL
+-PRIMUS_libGL=${PRIMUS_libGL:-$(dirname `readlink -ne $0`)/'$LIB'}
++PRIMUS_libGL='/usr/$LIB/primus'
+ 
+ # On some distributions, e.g. on Ubuntu, libnvidia-tls.so is not available
+ # in default search paths.  Add its path manually after the primus library
+ # PRIMUS_libGL=${PRIMUS_libGL}:/usr/lib/nvidia-current:/usr/lib32/nvidia-current
++PRIMUS_libGL=${PRIMUS_libGL}:/usr/lib/nvidia:/usr/lib32/nvidia
+ 
+ # Mesa drivers need a few symbols to be visible
+ # export PRIMUS_LOAD_GLOBAL=${PRIMUS_LOAD_GLOBAL:-'libglapi.so.0'}
