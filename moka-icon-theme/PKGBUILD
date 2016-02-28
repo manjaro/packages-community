@@ -1,0 +1,25 @@
+# Maintainer: Stefano Capitani (Ste74) <capitani74atgmaildotcom>
+# Autor: Moka Project
+
+pkgname=moka-icon-theme
+pkgver=5.0
+pkgrel=15.1
+_fedora_release=22
+pkgdesc="An icon theme designed with a minimal, flat style, using simple geometry & colours.Packages based on last Fedora realese"
+arch=('any')
+url="http://snwh.org/moka/"
+license=('GPL3')
+depends=('gtk-update-icon-cache')
+conflicts=("${pkgname}" "${pkgname}-git")
+provides=("${pkgname}")
+replaces=("${pkgname}")
+options=(!strip)
+source=(http://download.opensuse.org/repositories/home:/snwh:/moka-project/Fedora_${_fedora_release}/noarch/${pkgname}-${pkgver}-${pkgrel}.noarch.rpm)
+install=${pkgname}.install
+sha256sums=('44c9b3b18b9cd1943cb0733be769eeaaf125c5b92faac4ac0109400aa991830e')
+
+package() {
+	install -dm755 $srcdir/./usr/share/ $pkgdir/usr/share/icons/Moka/
+	cp -r $srcdir/./usr/share/icons/Moka/ $pkgdir/usr/share/icons/
+}
+
