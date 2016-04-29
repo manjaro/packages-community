@@ -4,7 +4,7 @@
 
 pkgname=firefox-kde
 _pkgname=firefox
-pkgver=45.0.2
+pkgver=46.0
 pkgrel=1
 pkgdesc="Standalone web browser from mozilla.org with OpenSUSE patch, integrate better with KDE"
 arch=('i686' 'x86_64')
@@ -22,7 +22,7 @@ provides=("firefox=${pkgver}")
 conflicts=('firefox' 'firefox-kde-opensuse')
 install=firefox.install
 options=('!emptydirs' '!makeflags')
-_patchrev=6a889427cd4f
+_patchrev=a3615665211f
 _patchurl=http://www.rosenauer.org/hg/mozilla/raw-file/$_patchrev
 #_patchurl=http://88.198.125.221/hg/mozilla/raw-file/$_patchrev
 source=(https://ftp.mozilla.org/pub/mozilla.org/firefox/releases/$pkgver/source/firefox-$pkgver.source.tar.xz
@@ -47,7 +47,7 @@ source=(https://ftp.mozilla.org/pub/mozilla.org/firefox/releases/$pkgver/source/
         add_missing_pgo_rule.patch
         pgo_fix_missing_kdejs.patch)
 
-sha256sums=('a6b09bac0390d4e48b752026ec1aaa934332dee31fb3ff3ca59f8209f4217a53'
+sha256sums=('b35aa05162362d73cd308066adca207f7aa40ceae10931fa4819371df6c4f8bf'
             'e824be6de82b82cf8177b24d154f1f5dc32f2855790b847c1690de415ac139f1'
             'c202e5e18da1eeddd2e1d81cb3436813f11e44585ca7357c4c5f1bddd4bec826'
             'd86e41d87363656ee62e12543e2f5181aadcff448e406ef3218e91865ae775cd'
@@ -56,11 +56,11 @@ sha256sums=('a6b09bac0390d4e48b752026ec1aaa934332dee31fb3ff3ca59f8209f4217a53'
             'a2474b32b9b2d7e0fb53a4c89715507ad1c194bef77713d798fa39d507def9e9'
             '68e3a5b47c6d175cc95b98b069a15205f027cab83af9e075818d38610feb6213'
             'e4ebdd14096d177d264a7993dbd5df46463605ff45f783732c26d30b9caa53a7'
-            '2e355a477f1df792cd7f9d1e3a56030543e0cf2d09051dd293ba495a7edb54fd'
-            '0778583e04d021d317aede459e47e9393bb164913eaa40aef56453377e2685ea'
-            '661ed67b994605862999a8f650e3b660fae32d39c77f0663ea2d6578578b4a21'
-            '02e92f84dd31ed079be3e67509cf23d0d351e06bb690fcc091c904d906d2d690'
-            '3e7d8d65b481c03eb1da37b2e211f018e6fc9de381433205398e5ddaaff1c44a'
+            '440c3e22d98ecf8c44dcedbe90bbb302da3a059e3fc3fba205d89f0eca329cbf'
+            '33bec5cc4da0a94d6c113775da981605adba1ce2199044e6550356baa686cc65'
+            '32811bce2458df2552f78f6aa27ee16a2bcce60b21426c5ea09dec6835598561'
+            'c3f50c89379351609cd9f8c3f1a1ef7f246da6ea463760932436384a2f428d1e'
+            '065a5771f6b09f0bbadb4d038ecdf12a8656066c280a5e38b8ce8968be95835c'
             'feede2fb86527c4a5d90bd5458fe582da920ab02dd25ec656236d87caf8888ba'
             'e8289ea4c1f8191e1e23661312ceee2128b8e790501b9a589d0d7bfc4384553f'
             '5fd329439480d861eb37edcca47fb3e05801f5a48b4d6c2afa17fb4c71c65fa1'
