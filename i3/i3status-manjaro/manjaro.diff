@@ -92,7 +92,7 @@
 -        format = "%1min"
 +tztime local {
 +#        format = "%Y-%m-%d %H:%M:%S"
-+format = " %d.%m. %H:%M "
++format = " %d.%m.%y %H:%M "
  }
  
 -disk "/" {
