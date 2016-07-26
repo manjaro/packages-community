@@ -1,0 +1,39 @@
+diff -ru a/src/VBox/Runtime/r0drv/linux/timer-r0drv-linux.c b/src/VBox/Runtime/r0drv/linux/timer-r0drv-linux.c
+--- a/src/VBox/Runtime/r0drv/linux/timer-r0drv-linux.c	2016-07-21 18:28:43.000000000 +0200
++++ b/src/VBox/Runtime/r0drv/linux/timer-r0drv-linux.c	2016-07-26 17:47:59.325792704 +0200
+@@ -51,7 +51,7 @@
+ #endif
+ 
+ #if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 31)
+-# define mod_timer_pinned               mod_timer
++# define mod_timer
+ # define HRTIMER_MODE_ABS_PINNED        HRTIMER_MODE_ABS
+ #endif
+ 
+@@ -361,7 +361,7 @@
+         pSubTimer->u.Std.fFirstAfterChg = true;
+ #ifdef CONFIG_SMP
+         if (fPinned)
+-            mod_timer_pinned(&pSubTimer->u.Std.LnxTimer, pSubTimer->u.Std.ulNextJiffies);
++            mod_timer(&pSubTimer->u.Std.LnxTimer, pSubTimer->u.Std.ulNextJiffies);
+         else
+ #endif
+             mod_timer(&pSubTimer->u.Std.LnxTimer, pSubTimer->u.Std.ulNextJiffies);
+@@ -796,7 +796,7 @@
+         {
+ #ifdef CONFIG_SMP
+             if (pTimer->fSpecificCpu || pTimer->fAllCpus)
+-                mod_timer_pinned(&pSubTimer->u.Std.LnxTimer, pSubTimer->u.Std.ulNextJiffies);
++                mod_timer(&pSubTimer->u.Std.LnxTimer, pSubTimer->u.Std.ulNextJiffies);
+             else
+ #endif
+                 mod_timer(&pSubTimer->u.Std.LnxTimer, pSubTimer->u.Std.ulNextJiffies);
+@@ -853,7 +853,7 @@
+ 
+ #ifdef CONFIG_SMP
+                     if (pTimer->fSpecificCpu || pTimer->fAllCpus)
+-                        mod_timer_pinned(&pSubTimer->u.Std.LnxTimer, pSubTimer->u.Std.ulNextJiffies);
++                        mod_timer(&pSubTimer->u.Std.LnxTimer, pSubTimer->u.Std.ulNextJiffies);
+                     else
+ #endif
+                         mod_timer(&pSubTimer->u.Std.LnxTimer, pSubTimer->u.Std.ulNextJiffies);
