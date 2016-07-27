@@ -88,7 +88,7 @@ md5sums=('aff1647170dd92914cddfbd0254b9773'
          'ecfd13297d7753ebe7b8763ca5b792d9'
          'd82a6f19be739341ed7f1cf4ee8070ca'
          '188ea65918309f737ce28216c2b07c3b'
-         '3b67c9549484d0a8aaa52734ec57363c')
+         '02aa3239b72c9414ae587cb0c7a9702f')
 
 prepare() {
     cd "VirtualBox-$pkgver"

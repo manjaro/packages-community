@@ -1,5 +1,6 @@
---- a/src/VBox/Runtime/r0drv/linux/timer-r0drv-linux.c 2016-07-21 18:28:43.000000000 +0200
-+++ b/src/VBox/Runtime/r0drv/linux/timer-r0drv-linux.c 2016-07-26 21:32:57.560098525 +0200
+diff -ru a/src/VBox/Runtime/r0drv/linux/timer-r0drv-linux.c b/src/VBox/Runtime/r0drv/linux/timer-r0drv-linux.c
+--- a/src/VBox/Runtime/r0drv/linux/timer-r0drv-linux.c	2016-07-21 18:28:43.000000000 +0200
++++ b/src/VBox/Runtime/r0drv/linux/timer-r0drv-linux.c	2016-07-27 17:27:12.024343500 +0200
 @@ -51,7 +51,7 @@
  #endif
  
@@ -9,7 +10,7 @@
  # define HRTIMER_MODE_ABS_PINNED        HRTIMER_MODE_ABS
  #endif
  
-@@ -359,12 +359,7 @@ static void rtTimerLnxStartSubTimer(PRTT
+@@ -359,12 +359,7 @@
          unsigned long cJiffies = !u64First ? 0 : rtTimerLnxNanoToJiffies(u64First);
          pSubTimer->u.Std.ulNextJiffies  = jiffies + cJiffies;
          pSubTimer->u.Std.fFirstAfterChg = true;
@@ -23,7 +24,7 @@
      }
  
      /* Be a bit careful here since we could be racing the callback. */
-@@ -794,12 +789,7 @@ static void rtTimerLinuxStdCallback(unsi
+@@ -794,12 +789,7 @@
          pTimer->pfnTimer(pTimer, pTimer->pvUser, iTick);
          if (RT_LIKELY(rtTimerLnxCmpXchgState(&pSubTimer->enmState, RTTIMERLNXSTATE_ACTIVE, RTTIMERLNXSTATE_CALLBACK)))
          {
@@ -37,7 +38,7 @@
              return;
          }
      }
-@@ -851,12 +841,7 @@ static void rtTimerLinuxStdCallback(unsi
+@@ -851,12 +841,7 @@
                                                      : jiffies;
                      spin_unlock_irqrestore(&pTimer->ChgIntLock, flFlags);
  
@@ -51,3 +52,12 @@
                      return;
                  }
                  break;
+@@ -1565,7 +1550,7 @@
+         else
+ #endif
+         {
+-            init_timer(&pTimer->aSubTimers[iCpu].u.Std.LnxTimer);
++            init_timer_pinned(&pTimer->aSubTimers[iCpu].u.Std.LnxTimer);
+             pTimer->aSubTimers[iCpu].u.Std.LnxTimer.data        = (unsigned long)&pTimer->aSubTimers[iCpu];
+             pTimer->aSubTimers[iCpu].u.Std.LnxTimer.function    = rtTimerLinuxStdCallback;
+             pTimer->aSubTimers[iCpu].u.Std.LnxTimer.expires     = jiffies;
