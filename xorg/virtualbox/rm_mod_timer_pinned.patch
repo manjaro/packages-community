@@ -1,0 +1,63 @@
+diff -ru a/src/VBox/Runtime/r0drv/linux/timer-r0drv-linux.c b/src/VBox/Runtime/r0drv/linux/timer-r0drv-linux.c
+--- a/src/VBox/Runtime/r0drv/linux/timer-r0drv-linux.c	2016-07-21 18:28:43.000000000 +0200
++++ b/src/VBox/Runtime/r0drv/linux/timer-r0drv-linux.c	2016-07-27 17:27:12.024343500 +0200
+@@ -51,7 +51,7 @@
+ #endif
+ 
+ #if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 31)
+-# define mod_timer_pinned               mod_timer
++# define mod_timer
+ # define HRTIMER_MODE_ABS_PINNED        HRTIMER_MODE_ABS
+ #endif
+ 
+@@ -359,12 +359,7 @@
+         unsigned long cJiffies = !u64First ? 0 : rtTimerLnxNanoToJiffies(u64First);
+         pSubTimer->u.Std.ulNextJiffies  = jiffies + cJiffies;
+         pSubTimer->u.Std.fFirstAfterChg = true;
+-#ifdef CONFIG_SMP
+-        if (fPinned)
+-            mod_timer_pinned(&pSubTimer->u.Std.LnxTimer, pSubTimer->u.Std.ulNextJiffies);
+-        else
+-#endif
+-            mod_timer(&pSubTimer->u.Std.LnxTimer, pSubTimer->u.Std.ulNextJiffies);
++        mod_timer(&pSubTimer->u.Std.LnxTimer, pSubTimer->u.Std.ulNextJiffies);
+     }
+ 
+     /* Be a bit careful here since we could be racing the callback. */
+@@ -794,12 +789,7 @@
+         pTimer->pfnTimer(pTimer, pTimer->pvUser, iTick);
+         if (RT_LIKELY(rtTimerLnxCmpXchgState(&pSubTimer->enmState, RTTIMERLNXSTATE_ACTIVE, RTTIMERLNXSTATE_CALLBACK)))
+         {
+-#ifdef CONFIG_SMP
+-            if (pTimer->fSpecificCpu || pTimer->fAllCpus)
+-                mod_timer_pinned(&pSubTimer->u.Std.LnxTimer, pSubTimer->u.Std.ulNextJiffies);
+-            else
+-#endif
+-                mod_timer(&pSubTimer->u.Std.LnxTimer, pSubTimer->u.Std.ulNextJiffies);
++            mod_timer(&pSubTimer->u.Std.LnxTimer, pSubTimer->u.Std.ulNextJiffies);
+             return;
+         }
+     }
+@@ -851,12 +841,7 @@
+                                                     : jiffies;
+                     spin_unlock_irqrestore(&pTimer->ChgIntLock, flFlags);
+ 
+-#ifdef CONFIG_SMP
+-                    if (pTimer->fSpecificCpu || pTimer->fAllCpus)
+-                        mod_timer_pinned(&pSubTimer->u.Std.LnxTimer, pSubTimer->u.Std.ulNextJiffies);
+-                    else
+-#endif
+-                        mod_timer(&pSubTimer->u.Std.LnxTimer, pSubTimer->u.Std.ulNextJiffies);
++                    mod_timer(&pSubTimer->u.Std.LnxTimer, pSubTimer->u.Std.ulNextJiffies);
+                     return;
+                 }
+                 break;
+@@ -1565,7 +1550,7 @@
+         else
+ #endif
+         {
+-            init_timer(&pTimer->aSubTimers[iCpu].u.Std.LnxTimer);
++            init_timer_pinned(&pTimer->aSubTimers[iCpu].u.Std.LnxTimer);
+             pTimer->aSubTimers[iCpu].u.Std.LnxTimer.data        = (unsigned long)&pTimer->aSubTimers[iCpu];
+             pTimer->aSubTimers[iCpu].u.Std.LnxTimer.function    = rtTimerLinuxStdCallback;
+             pTimer->aSubTimers[iCpu].u.Std.LnxTimer.expires     = jiffies;
