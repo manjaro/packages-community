@@ -5,7 +5,7 @@
 # Contributor: Alexandru Ianu <alexandru@manjaro.org>
 # Contributor: Manuel Hüsers <manuel.huesers@uni-ol.de>
 
-pkgname=steam-manjaro-next
+pkgname=steam-manjaro
 _package=steam
 pkgver=1.0.0.54
 pkgrel=1
@@ -15,7 +15,7 @@ arch=('i686' 'x86_64')
 license=('custom')
 depends=('lsb-release' 'desktop-file-utils' 'curl' 'dbus' 'freetype2' 'gdk-pixbuf2' 'ttf-font' 'zenity')
 depends_x86_64=('lib32-libgl' 'lib32-libgl' 'lib32-gcc-libs' 'lib32-libx11' 'lib32-libxss' 'lib32-alsa-plugins')
-optdepends=('steam-native-next: steam native runtime support')
+optdepends=('steam-native: steam native runtime support')
 provides=('steam-manjaro' 'steam')
 conflicts=('steam-manjaro' 'steam')
 install=steam-manjaro.install
@@ -38,8 +38,8 @@ md5sums=('d1398490635615c428165e984a1ec71b'
          '5c05f0f4ba955b7627bb1cde4fdde6ca'
          'e76badfbfe118c102bff2710b66577ec'
          'da4753796db331b2c02f24caa5fb20b0'
-         'a2bff16dea97932f448a40e4c0ac30e7'
-         '4a6d4f7a3473fd2ceec1be3339316141')
+         'a36a4a1fc668e99d894efb3f77a23be6'
+         'f5beb80a3007d6714060bb3dd2406c55')
 
 prepare()
 {

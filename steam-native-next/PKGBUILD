@@ -2,9 +2,9 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
-pkgname=steam-native-next
+pkgname=steam-native
 pkgver=1.0.0.54
-pkgrel=1
+pkgrel=3
 pkgdesc='Native replacement for the Steam runtime'
 arch=('i686' 'x86_64')
 url='https://wiki.archlinux.org/index.php/Steam/Troubleshooting#Native_runtime'
