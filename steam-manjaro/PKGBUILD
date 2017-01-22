@@ -1,89 +1,88 @@
-# Maintainer: Daniel Wallace <danielwallace at gtmanfred dot com>
+# Maintainer: Fabian Bornschein <plusfabi(At)gmail(Dot)com>
+# Contributor: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 # Contributor: K900 <k0009000@gmail.com>
-# Contributor: Fabian Bornschein <plusfabi@gmail.com>
-# Manjaro implementation: Alexandru Ianu <alexandru@manjaro.org>
-# Native config contribution: Manuel Hüsers <manuel.huesers@uni-ol.de>
+# Contributor: Alexandru Ianu <alexandru@manjaro.org>
+# Contributor: Manuel Hüsers <manuel.huesers@uni-ol.de>
+
 pkgname=steam-manjaro
-_pkgname=steam
+_package=steam
 pkgver=1.0.0.54
-pkgrel=2
-pkgdesc="Digital distribution client bootstrap package. Includes common game depends. See https://forum.manjaro.org/index.php?topic=16054 and https://bugs.manjaro.org/index.php?do=details&task_id=45"
-arch=("i686" "x86_64")
-url="http://steampowered.com/"
+pkgrel=1
+pkgdesc="Valve's digital software delivery system"
+url='http://steampowered.com/'
+arch=('i686' 'x86_64')
 license=('custom')
-
-depends=('bash' 'desktop-file-utils' 'hicolor-icon-theme' 'curl'
-         'dbus' 'freetype2'  'gdk-pixbuf2' 'ttf-font' 'zenity'
-         'libindicator-gtk2' 'libindicator-gtk3' 'dhcp-client'
-         'networkmanager' 'wpa_supplicant' 'mono' 'mono-addins')
-depends_x86_64=('lib32-libgl' 'lib32-gcc-libs' 'lib32-libx11')
-
-#Common game deps
-depends+=('wqy-microhei' 'sdl' 'sdl_image' 'sdl_mixer' 'sdl2' 'sdl2_image' 'tcp_wrappers' 
-         'speex' 'gperftools' 'libcurl-gnutls' 'rtmpdump' 'gnutls28' 'nettle4')
-depends_x86_64+=('lib32-sdl' 'lib32-sdl_image' 'lib32-sdl_mixer' 'lib32-sdl2' 'lib32-sdl2_image'
-         'lib32-tcp_wrappers' 'lib32-speex' 'lib32-gperftools' 'lib32-libcurl-gnutls' 
-         'lib32-rtmpdump' 'lib32-libgnutls28' 'lib32-nettle4')
-
-
-optdepends_x86_64=('lib32-mesa: for open source driver users'
-         'lib32-catalyst-utils: for AMD Catalyst users'
-         'lib32-nvidia-utils: for NVIDIA proprietary blob users'
-         'lib32-alsa-plugins: for pulseaudio on some games')
-
-provides=('steam')
-conflicts=('steam')
-install=steam.install
-source=("http://repo.steampowered.com/${_pkgname}/pool/${_pkgname}/s/${_pkgname}/${_pkgname}_${pkgver}.tar.gz"
-        '01-alsa_sdl_audiodriver.patch'
-        '02-lib32_path_and_steam_runtime.patch'
-        '03-lib_path_and_steam_runtime.patch' #removed steam-clean and steam-clean.desktop
-        '04-mesa_gfx_ldpreload.patch'
-        'steam.desktop'
-        '51-steam.rules'
-        '80-steam-controller-permission.rules')
+depends=('lsb-release' 'desktop-file-utils' 'curl' 'dbus' 'freetype2' 'gdk-pixbuf2' 'ttf-font' 'zenity')
+depends_x86_64=('lib32-libgl' 'lib32-libgl' 'lib32-gcc-libs' 'lib32-libx11' 'lib32-libxss' 'lib32-alsa-plugins')
+optdepends=('steam-native: steam native runtime support')
+provides=('steam-manjaro' 'steam')
+conflicts=('steam-manjaro' 'steam')
+install=steam-manjaro.install
+source=(http://repo.steampowered.com/${_package}/pool/${_package}/s/${_package}/${_package}_${pkgver}.tar.gz
+        'steam-manjaro.install'
+        'steam-uinput.conf'
+        '0001-steam_controller_uaccess.patch'
+        '0002-steam_htc_vive_mode0660.patch'
+        '0003-alsa-sdl-audiodriver.patch'
+        '0004-dbus_fatal_warning.patch'
+        '0005-manjaro-steam-native.patch'
+        '0006-lib_path_and_steam_runtime.patch'
+        '0006-lib32_path_and_steam_runtime.patch'
+        )
 md5sums=('d1398490635615c428165e984a1ec71b'
-         'ac0e03d70f1101331598b2b32ed9bac3'
-         'f30d98f9c24f6543706b5a99a12c8f6b'
-         '73b0c71c91d5ed7cb7ae9e5ec05e1ca8'
-         'de3fcd83138666f3eb6dd898394dd06a'
-         '5b5e074abf2b18034e644d5d37ceb06d'
-         '752d7b9f8441943fab87f8c479bd8000'
-         '8e602126fc303e7178b1053434d779fd')
+         '76a80fcfbea2263b8848cc6acf8c58f7'
+         '895c8735878bc1611cf6e1ee71f60ee6'
+         'a43df36943b5a6da88bc320c1abd0ca1'
+         '12e3ca2521b33dac0c668e423a8a7c31'
+         '5c05f0f4ba955b7627bb1cde4fdde6ca'
+         'e76badfbfe118c102bff2710b66577ec'
+         'da4753796db331b2c02f24caa5fb20b0'
+         'a36a4a1fc668e99d894efb3f77a23be6'
+         'f5beb80a3007d6714060bb3dd2406c55')
 
 prepare()
 {
-    patch -d "${_pkgname}" -Np1 -i "${srcdir}/01-alsa_sdl_audiodriver.patch"
+    cd ${_package}
+    patch -Np1 < "${srcdir}/0001-steam_controller_uaccess.patch"
+    patch -Np1 < "${srcdir}/0002-steam_htc_vive_mode0660.patch"
+    patch -Np1 < "${srcdir}/0003-alsa-sdl-audiodriver.patch"
+    patch -Np1 < "${srcdir}/0004-dbus_fatal_warning.patch"
+    patch -Np1 < "${srcdir}/0005-manjaro-steam-native.patch"
     if [[ "$CARCH" == "x86_64" ]]
         then
-            patch -d "${_pkgname}" -Np1 -i "${srcdir}/02-lib32_path_and_steam_runtime.patch"
+            patch -Np1 < "${srcdir}/0006-lib32_path_and_steam_runtime.patch"
         else
-            patch -d "${_pkgname}" -Np1 -i "${srcdir}/03-lib_path_and_steam_runtime.patch"
+            patch -Np1 < "${srcdir}/0006-lib_path_and_steam_runtime.patch"
     fi
-    patch -d "${_pkgname}" -Np1 -i "${srcdir}/04-mesa_gfx_ldpreload.patch"
 }
 
-package() {
-    make -C "${_pkgname}" DESTDIR="${pkgdir}" install
+package()
+{
+    make -C "${_package}" DESTDIR="${pkgdir}" install
 
-    # Install license
-    install -Dm644 "${pkgdir}/usr/share/doc/steam/steam_install_agreement.txt" "${pkgdir}/usr/share/licenses/steam-manjaro/LICENSE"
+    # install license
+    install -Dm 644 "${pkgdir}/usr/share/doc/steam/steam_install_agreement.txt" \
+    "${pkgdir}/usr/share/licenses/steam/LICENSE"
+
+    #install changelog
+    install -Dm 644 "${_package}/debian/changelog" -t "${pkgdir}/usr/share/doc/${_package}"
 
     # blank steamdeps because apt-get
-    ln -sf /bin/true "${pkgdir}/usr/bin/steamdeps"
+    ln -sf /usr/bin/true "${pkgdir}/usr/bin/steamdeps"
 
-    install -Dm644 ${srcdir}/80-steam-controller-permission.rules $pkgdir/usr/lib/udev/rules.d/80-steam-controller-permission.rules
+    # install udev rules
+    install -Dm 644 "${_package}/lib/udev/rules.d/99-steam-controller-perms.rules" \
+    "${pkgdir}/usr/lib/udev/rules.d/70-steam-controller.rules"
+    install -Dm 644 "${_package}/lib/udev/rules.d/60-HTC-Vive-perms.rules" \
+    "${pkgdir}/usr/lib/udev/rules.d/70-htc-vive.rules"
 
-    # Replace orig launcher
-    rm "${pkgdir}/usr/share/applications/steam.desktop"
-    install -Dm644 'steam.desktop' "${pkgdir}/usr/share/applications/steam.desktop"
-    #install -Dm644 'steam-clean.desktop' "${pkgdir}/usr/share/applications/steam-clean.desktop"
+    # start uinput at boot
+    install -Dm 644 "${srcdir}/steam-uinput.conf" \
+    "${pkgdir}/etc/modules-load.d/steam-uinput.conf"
 
-    # Library cleaner script (to be used if needed)
-    #install -Dm755 'steam-clean' "${pkgdir}/usr/bin/steam-clean"
-
-    # Polkit rules for LibNM
-    mkdir -p "${pkgdir}/etc/polkit-1/rules.d"
-    chmod 750 "${pkgdir}/etc/polkit-1/rules.d"
-    install -Dm644 "${srcdir}/51-steam.rules" "${pkgdir}/etc/polkit-1/rules.d/51-steam.rules"
+    # License
+    install -dm 755 "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+    ln -s "/usr/share/doc/steam/steam_install_agreement.txt" \
+    "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }

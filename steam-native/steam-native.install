@@ -1,15 +1,8 @@
 post_install() {
-  echo "Check https://forum.manjaro.org/index.php?topic=16054 for info"
+    echo "--> Steam will now use the native runtime"
 }
 
-post_upgrade() {
-  post_install
-}
-
-post_remove() {
-  # Lib replacement
-	  msg "Replacing Steam runtime libraries with originals"
-	  rm /var/lib/pacman/db.lck &> /dev/null
-	  pacman --noconfirm -Rdd lib32-libgudev-steamruntime lib32-libusb-steamruntime
-	  pacman --noconfirm -S --force lib32-libgudev lib32-libusb
+post_upgrade()
+{
+    post_install
 }
