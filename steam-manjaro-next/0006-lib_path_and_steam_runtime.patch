@@ -9,4 +9,4 @@
 +
  # Steam runtime settings
  # if STEAM_RUNTIME=1, ignore this entirely
- if [ "${STEAM_RUNTIME}" != "0" ]
+ if ! [ "${STEAM_RUNTIME}" == "1" ]
