@@ -8,7 +8,7 @@
 pkgname=steam-manjaro
 _package=steam
 pkgver=1.0.0.54
-pkgrel=4
+pkgrel=5
 pkgdesc="Valve's digital software delivery system"
 url='http://steampowered.com/'
 arch=('i686' 'x86_64')
@@ -85,4 +85,8 @@ package()
     install -dm 755 "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
     ln -s "/usr/share/doc/steam/steam_install_agreement.txt" \
     "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+
+    # Workaround for KDE Plasma task managers
+    ## https://bugs.kde.org/show_bug.cgi?id=375598
+    mv "${pkgdir}/usr/share/applications/steam.desktop" "${pkgdir}/usr/share/applications/steam-valve.desktop"
 }
