@@ -8,7 +8,7 @@
 pkgname=steam-manjaro
 _package=steam
 pkgver=1.0.0.54
-pkgrel=5
+pkgrel=6
 pkgdesc="Valve's digital software delivery system"
 url='http://steampowered.com/'
 arch=('i686' 'x86_64')
@@ -31,7 +31,7 @@ source=(http://repo.steampowered.com/${_package}/pool/${_package}/s/${_package}/
         '0006-lib32_path_and_steam_runtime.patch'
         )
 md5sums=('d1398490635615c428165e984a1ec71b'
-         '30afc12115ce6a243c6ffab554e187eb'
+         '83d2eb7de772500a45f7e71b344519f2'
          '895c8735878bc1611cf6e1ee71f60ee6'
          'a43df36943b5a6da88bc320c1abd0ca1'
          '12e3ca2521b33dac0c668e423a8a7c31'

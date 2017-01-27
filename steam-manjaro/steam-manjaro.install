@@ -2,7 +2,7 @@ post_install()
 {
     ## Load uinput if it is not loaded already
     grep -q 'uinput' /proc/modules
-    if [ ! $? -eq 0 ]
+    if [ ! $? -eq 0 ] && [ -d "/lib/modules/$(uname -r)" ]
         then
             modprobe uinput
     fi
