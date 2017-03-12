@@ -9,7 +9,7 @@
 _commit=0851da6818e265d354d61947021c512f2e51ffce # lastest commit from 20170227
 pkgname=bumblebee
 pkgver=3.2.1
-pkgrel=17
+pkgrel=18
 pkgdesc="NVIDIA Optimus support for Linux through Primus/VirtualGL"
 arch=('i686' 'x86_64')
 depends=('kmod' 'primus' 'glib2' 'mesa-libgl')
@@ -28,22 +28,21 @@ backup=('etc/bumblebee/bumblebee.conf'
         'etc/bumblebee/xorg.conf.nouveau' 
         'etc/bumblebee/xorg.conf.nvidia')
 install='bumblebee.install'
-source=("${pkgname}.zip::https://github.com/FadeMind/Bumblebee/archive/${_commit}.zip")
+source=("${pkgname}-$(date +%Y%m%d).zip::https://github.com/FadeMind/Bumblebee/archive/${_commit}.zip")
 sha256sums=('e50a3948c3320f65cd449a6dbe1c744cfc671a42ccb529a7dc797d1191a3df1c')
 
-build() {    
+build() {
     cd "${srcdir}/Bumblebee-${_commit}"
     autoreconf -fi
     ./configure \
         CONF_DRIVER_MODULE_NVIDIA=nvidia \
-        CONF_LDPATH_NVIDIA=/usr/lib/nvidia:/usr/lib32/nvidia \
-        CONF_MODPATH_NVIDIA=/usr/lib/nvidia/xorg/,/usr/lib/xorg/modules \
+        CONF_LDPATH_NVIDIA=/usr/lib/nvidia:/usr/lib32/nvidia:/usr/lib:/usr/lib32 \
+        CONF_MODPATH_NVIDIA=/usr/lib/nvidia/xorg,/usr/lib/xorg/modules \
         --prefix=/usr \
         --sbindir=/usr/bin \
-        --with-udev-rules=/usr/lib/udev/rules.d/ \
+        --with-udev-rules=/usr/lib/udev/rules.d \
         --sysconfdir=/etc \
         --without-pidfile
-
     make
 }
 
