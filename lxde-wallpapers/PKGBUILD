@@ -1,0 +1,22 @@
+pkgname=lxde-wallpapers
+pkgver=20170417
+pkgrel=1
+pkgdesc="Wallpapers for Manjaro LXDE"
+url=" "
+arch=('any')
+source=(lxde-blue.jpg
+		    lxde-breath.png
+		    lxde-stripes.jpg
+		    manjaro-lxde-dark.png
+	    	manjaro-lxde-light.png)
+sha256sums=('4d8fde2c0e6c212acbc84821c77ad375fe49d6cf35a7e283bdeecce9ae364f57'
+			      'eb85da424bdf3eea9e4fca186a635b1ecb07ae5437e9e070ab99454e5e61da6b'
+		      	'4ac93f6c46cea74c72c83ca3bc8adeff624be5f35cebdf035aff350bf1b0b01b'
+	      		'53dc31af93a01d12d68b7ce2868ada2ffee398024fca46aa560b8bb1aa227a19'
+	      		'cb513a1de89ae5ef5e085cf3423196364e968df3265974f4edc3b6cd7b34ce73')
+         
+package() {
+	cd $srcdir
+	install -dm755 $pkgdir/usr/share/backgrounds
+	cp * $pkgdir/usr/share/backgrounds/
+}
