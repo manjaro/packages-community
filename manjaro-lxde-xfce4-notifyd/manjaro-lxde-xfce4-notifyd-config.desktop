@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+Name=Lxde Notifications
+Comment=Customize how notifications appear on your screen
+Exec=xfce4-notifyd-config
+Icon=xfce4-notifyd
+Terminal=false
+StartupNotify=true
+Type=Application
+OnlyShowIn=LXDE;
+Categories=Settings
+X-XfcePluggable=true
+X-XfceHelpComponent=notifyd
+X-XfceHelpPage=start
+Name[en_US]=Lxde Notifications
