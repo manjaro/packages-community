@@ -99,7 +99,7 @@ package_manjaro-lxde-settings() {
 	     'qt5ct'
 	     'qt5-styleplugins'
 	     'manjaro-lxde-logout-banner'
-	     'xfce4-notifyd'
+	     'manjaro-lxde-xfce4-notifyd'
 	     'i3-scrot')
     conflicts=('manjaro-desktop-settings')
     provides=('manjaro-desktop-settings')
