@@ -8,7 +8,7 @@
 pkgname=steam-manjaro
 _package=steam
 pkgver=1.0.0.54
-pkgrel=6
+pkgrel=7
 pkgdesc="Valve's digital software delivery system"
 url='http://steampowered.com/'
 arch=('i686' 'x86_64')
@@ -27,19 +27,18 @@ source=(http://repo.steampowered.com/${_package}/pool/${_package}/s/${_package}/
         '0003-alsa-sdl-audiodriver.patch'
         '0004-dbus_fatal_warning.patch'
         '0005-manjaro-steam-native.patch'
-        '0006-lib_path_and_steam_runtime.patch'
-        '0006-lib32_path_and_steam_runtime.patch'
+# 20170503 (date +%Y%m%d) disable ld_library_path_fallback for now.
+#        '0006-ld_library_path_fallback_x86.patch'
+#        '0006-ld_library_path_fallback_x86_64.patch'
         )
-md5sums=('d1398490635615c428165e984a1ec71b'
-         '83d2eb7de772500a45f7e71b344519f2'
-         '895c8735878bc1611cf6e1ee71f60ee6'
-         'a43df36943b5a6da88bc320c1abd0ca1'
-         '12e3ca2521b33dac0c668e423a8a7c31'
-         '5c05f0f4ba955b7627bb1cde4fdde6ca'
-         'e76badfbfe118c102bff2710b66577ec'
-         'da4753796db331b2c02f24caa5fb20b0'
-         'a36a4a1fc668e99d894efb3f77a23be6'
-         'f5beb80a3007d6714060bb3dd2406c55')
+sha512sums=('1820f596359d829a4e119f1f916a741ecb7973d36684916cdbbfa435fcdc9c288852491fd6d0b064e8154a43c60d8dcce3c7ed9275aed8f5f116c2782489bf32'
+            '8f3a781077bba4a1d5d06943060e01a21800d5cfba91262502c47810499c5b9367c10d1c319bb9ba006b143ddc5159f2826c8f3229322bc9fe28c1fcf66ea103'
+            'a9b069ed121ffeee887e0583d8cb46035ecf1fa90a26a4ecb3aa11ff03178b2b08621f6676db6b2350f290694c04aabcf36f2ce3e0813a76dde9a33555edb112'
+            '41b76c6e35a1e846f4246cba8521c505e1c55cbf2f692d4e7d89198d3093c54fb721207f82e39d2c1e349935c47e5c2f321c28c92cfe1dcd2be745325f94a8c1'
+            '4f9e92268f6624e36ae9a987118af0e38bf51b73a4493863a80a558e0807171fc0343131dc197f8fc5bc48452978428092d69a306a2cf2710520baba564a5aaa'
+            'ec57f189fbc25633799c553b0eb30bd074f02befd9c7e7ca1c052be0a66ca3745b511b0fccb21ddb57885d60a23c8d40eaa8d63f8da2fc2fff3b8e7f5d23b091'
+            '12d8b5786e2a375ec03131ff5c246c64793acc24cf42e74b40cd77a031c17543da05f7dd33b1f17f63524710f5d96636f35908e1953292f44e949f84fb753c27'
+            'fec7a63231c502debaa8ccdac73270e47ad42dd85e420eee44100ed0e4e4678e9ad70e36a3df02cc9ebe9936b710737d0867532a9b319bc1bee141c420db5900')
 
 prepare()
 {
@@ -49,12 +48,12 @@ prepare()
     patch -Np1 < "${srcdir}/0003-alsa-sdl-audiodriver.patch"
     patch -Np1 < "${srcdir}/0004-dbus_fatal_warning.patch"
     patch -Np1 < "${srcdir}/0005-manjaro-steam-native.patch"
-    if [[ "$CARCH" == "x86_64" ]]
-        then
-            patch -Np1 < "${srcdir}/0006-lib32_path_and_steam_runtime.patch"
-        else
-            patch -Np1 < "${srcdir}/0006-lib_path_and_steam_runtime.patch"
-    fi
+#    if [[ "$CARCH" == "x86_64" ]]
+#        then
+#            patch -Np1 < "${srcdir}/0006-ld_library_path_fallback_x86_64.patch"
+#        else
+#            patch -Np1 < "${srcdir}/0006-ld_library_path_fallback_x86.patch"
+#    fi
 }
 
 package()
@@ -79,14 +78,10 @@ package()
 
     # start uinput at boot
     install -Dm 644 "${srcdir}/steam-uinput.conf" \
-    "${pkgdir}/etc/modules-load.d/steam-uinput.conf"
+    "${pkgdir}/usr/lib/modules-load.d/steam-uinput.conf"
 
     # License
     install -dm 755 "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
     ln -s "/usr/share/doc/steam/steam_install_agreement.txt" \
     "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-
-    # Workaround for KDE Plasma task managers
-    ## https://bugs.kde.org/show_bug.cgi?id=375598
-    mv "${pkgdir}/usr/share/applications/steam.desktop" "${pkgdir}/usr/share/applications/steam-valve.desktop"
 }
