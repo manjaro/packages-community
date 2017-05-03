@@ -1,5 +1,15 @@
---- org.gnome.shell.extensions.gnomenu.gschema.xml	2016-11-22 13:48:48.000000000 +0100
-+++ org.gnome.shell.extensions.gnomenu.gschema.new.xml	2016-12-23 20:44:37.457295000 +0100
+diff -rupN schemas/org.gnome.shell.extensions.gnomenu.gschema.xml schemas-new/org.gnome.shell.extensions.gnomenu.gschema.xml
+--- schemas/org.gnome.shell.extensions.gnomenu.gschema.xml	2017-04-16 16:55:09.000000000 +0200
++++ schemas-new/org.gnome.shell.extensions.gnomenu.gschema.xml	2017-05-01 18:56:07.700682038 +0200
+@@ -34,7 +34,7 @@
+       <description>Disable the view button hot corner</description>
+     </key>
+     <key type="b" name="hide-panel-view">
+-      <default>false</default>
++      <default>true</default>
+       <summary>Remove the view button from the panel</summary>
+       <description>Remove the view button from the panel</description>
+     </key>
 @@ -54,7 +54,7 @@
        <description>Set the custom view button icon name</description>
      </key>
@@ -8,6 +18,21 @@
 +      <default>true</default>
        <summary>Remove the apps button from the panel</summary>
        <description>Remove the apps button from the panel</description>
+     </key>
+@@ -89,12 +89,12 @@
+       <description>Use custom menu button icon</description>
+     </key>
+     <key type="as" name="panel-menu-icon-name">
+-        <default><![CDATA[['start-here-symbolic']]]></default>
++        <default><![CDATA[['maia']]]></default>
+       <summary>Set the custom menu button icon name</summary>
+       <description>Set the custom menu button icon name</description>
+     </key>
+     <key type="b" name="disable-panel-menu-hotspot">
+-      <default>false</default>
++      <default>true</default>
+       <summary>Disable the menu button hot spot</summary>
+       <description>Disable the menu button hot spot</description>
      </key>
 @@ -109,7 +109,7 @@
        <description>Disable the menu button keyboard shortcut</description>

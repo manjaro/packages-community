@@ -2,8 +2,8 @@
 # Maintainer: Scott Furry <scott.wl.furry@gmail.com>
 
 pkgname=guayadeque
-pkgver=0.4.3
-pkgrel=2
+pkgver=0.4.5
+pkgrel=1
 pkgdesc='Lightweight music player'
 arch=('i686' 'x86_64')
 url='http://guayadeque.org/'
@@ -21,15 +21,8 @@ depends=('curl'
         'wxsqlite3')
 makedepends=('cmake')
 optdepends=('gvfs: Support for external devices')
-source=("https://github.com/anonbeat/${pkgname}/archive/v${pkgver}.tar.gz"
-        '0001-use-cmake-lib-search-procedure-for-wxsqlite3-from-mu.patch')
-md5sums=('131c33d5844c66c3c07c3a1b64fac586'
-         'a50e0ed6c1661f58831f220866c70151')
-
-prepare() {
-  cd ${pkgname}-${pkgver}
-  patch -Np1 -i ../0001-use-cmake-lib-search-procedure-for-wxsqlite3-from-mu.patch
-}
+source=("https://github.com/anonbeat/${pkgname}/archive/v${pkgver}.tar.gz")
+sha256sums=('a0c4eb9f0eb42e701880a1d196e847d68a3b443716a6240389fbfafef3f5d19c')
 
 build() {
   cd ${pkgname}-${pkgver}
@@ -37,10 +30,8 @@ build() {
   cmake . \
     -DCMAKE_CXX_STANDARD='11' \
     -DCMAKE_BUILD_TYPE='Release' \
-    -DCMAKE_INSTALL_PREFIX=${pkgdir} \
-    -DwxWidgets_wxrc_EXECUTABLE='/usr/bin/wxrc' \
-    -DwxWidgets_CONFIG_EXECUTABLE='/usr/bin/wx-config' \
-    -DwxWidgets_INCLUDE_DIRS='/usr/include/wx/'
+    -DCMAKE_INSTALL_PREFIX='/usr' \
+    -D_GUREVISION_:STRING="${pkgrel}"
   make
 }
 

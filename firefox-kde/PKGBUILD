@@ -5,7 +5,7 @@
 pkgname=firefox-kde
 _pkgname=firefox
 pkgver=53.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Standalone web browser from mozilla.org with OpenSUSE patch, integrate better with KDE"
 arch=(i686 x86_64)
 license=(MPL GPL LGPL)
@@ -20,11 +20,12 @@ optdepends=('networkmanager: Location detection via available WiFi networks'
 provides=("firefox=${pkgver}")
 conflicts=('firefox' 'firefox-kde-opensuse')
 options=(!emptydirs !makeflags !strip)
-_patchrev=4665fe34fbce
+_patchrev=188c3f40f0da
 _patchurl=http://www.rosenauer.org/hg/mozilla/raw-file/$_patchrev
 source=(https://ftp.mozilla.org/pub/mozilla.org/firefox/releases/$pkgver/source/firefox-$pkgver.source.tar.xz
         firefox.desktop firefox-symbolic.svg
         firefox-install-dir.patch fix-wifi-scanner.diff
+        rb111682.patch
         kde.js
         # Firefox patchset
         $_patchurl/firefox-branded-icons.patch
@@ -40,11 +41,12 @@ sha256sums=('4ed1b23ea7c08f81a08817ddf3b4f06849e01420ee074008b6f390366e95b7d0'
             'a2474b32b9b2d7e0fb53a4c89715507ad1c194bef77713d798fa39d507def9e9'
             'd86e41d87363656ee62e12543e2f5181aadcff448e406ef3218e91865ae775cd'
             '9765bca5d63fb5525bbd0520b7ab1d27cabaed697e2fc7791400abc3fa4f13b8'
+            'b6d985f36e34d272ee255ddfe85f2a6e1310de2cd5a5187ed6da266f08c53437'
             '1ca0debb89d1d2f0becf21bac2d5e87857d58b37b16d9b6cf559607e5a993238'
             'c85a37e71f2bd511fac88d41ca0618ee375c49fc86bc2beddf6dc17c3f17508d'
             '02299760bae1d8bfc3d1d11b8867d8d5b9f44ee0101dc2a1d3277ba6ab4132bd'
             'b941790009bb9eda46c2d96fb0d1c83b0fe2d1acf74754ab08e6b18c1e0c6b16'
-            'db8a35b5fcbd3191b137ab9dec1294d9e4eb6fcab4915acf68377018c5c51780'
+            'ee2e0032ae522911691bc13fe790772dfa7b5004ae1e8a79075ba43fa298a725'
             '2720e418edaab7b305087b325604fe134dab1b743dae6e924aba7b4bd73ea389'
             'e8289ea4c1f8191e1e23661312ceee2128b8e790501b9a589d0d7bfc4384553f'
             '55c4d93761ad46326c511246cef05abc09407d8f8f7131c9dad865b35cbcfad2')
@@ -72,6 +74,9 @@ prepare() {
 
   # https://bugzilla.mozilla.org/show_bug.cgi?id=1314968
   patch -Np1 -i ../fix-wifi-scanner.diff
+
+  # https://bugzilla.mozilla.org/show_bug.cgi?id=1338655
+  patch -Np1 -i ../rb111682.patch
 
   echo -n "$_google_api_key" >google-api-key
   echo -n "$_mozilla_api_key" >mozilla-api-key

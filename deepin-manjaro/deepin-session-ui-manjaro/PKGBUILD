@@ -1,41 +1,9 @@
 # Maintainer: Bernhard Landauer <oberon@manjaro.org>
-# Maintainer: Felix Yan <felixonmars@archlinux.org>
-# Contributor: Josip Ponjavic <josipponjavic at gmail dot com>
-# Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-session-ui-manjaro
-pkgver=4.0.4
-pkgrel=1
+pkgver=4.0.6
+pkgrel=2
 pkgdesc='Deepin desktop-environment - Session UI module'
-arch=('i686' 'x86_64')
-url="https://github.com/oberon2007/$pkgname"
-license=('GPL3')
-depends=('deepin-control-center'
-         'deepin-daemon'
-         'deepin-qt-dbus-factory'
-         'deepin-tool-kit'
-         'gsettings-qt'
-         'gtk2'
-         'liblightdm-qt5'
-         'qt5-svg'
-         'startdde'
-         'xorg-xrandr')
-makedepends=('git' 'qt5-tools')
-groups=('deepin-manjaro')
-conflicts=('deepin-manjaro-workspace' 'lightdm-deepin-greeter' 'lightdm-deepin-greeter-manjaro')
-provides=('lightdm-deepin-greeter' 'deepin-session-ui')
-conflicts=('dde-workspace' 'dde-session-ui' 'deepin-session-ui')
-replaces=('dde-workspace' 'dde-session-ui')
-source=("git+$url#tag=$pkgver")
-sha256sums=('SKIP')
-
-build() {
-  cd $pkgname
-  qmake-qt5 PREFIX=/usr
-  make
-}
-
-package() {
-  cd $pkgname
-  make INSTALL_ROOT="${pkgdir}" install
-}
+arch=('any')
+url='https://github.com/linuxdeepin/dde-session-ui'
+depends=('deepin-session-ui')

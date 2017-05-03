@@ -3,7 +3,7 @@
 # Maintainer: Rafael Fontenelle <rafaelff@gnome.org>
 
 pkgname=chrome-gnome-shell
-pkgver=20170406
+pkgver=20170421
 pkgrel=1
 pkgdesc="Native connector for integration with extensions.gnome.org"
 arch=('any')

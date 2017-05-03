@@ -5,8 +5,8 @@
 pkgbase=arc-firefox-theme
 pkgname=('arc-firefox-theme'
 	 'arc-firefox-theme-maia')
-pkgver=20170311
-_pkgver="52.$pkgver"
+pkgver=20170420
+_pkgver="53.$pkgver"
 pkgrel=1
 url="https://github.com/horst3180/$pkgname"
 arch=('i686' 'x86_64')
@@ -15,7 +15,7 @@ depends=('firefox')
 makedepends=('autoconf' 'automake' 'unzip' 'zip')
 source=("$pkgbase-$_pkgver::$url/archive/$_pkgver.tar.gz")
 conflicts=('$pkgbase-git')
-md5sums=('ad0d6f7ff9958c39541019aa19dc7680')
+md5sums=('728cbf6e3ea742d5b8da7f54311f0f92')
 #Both arc color
 _blue=5294e2 
 _BLUE=5294E2

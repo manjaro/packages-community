@@ -1,7 +1,7 @@
 # Maintainer: Bernhard Landauer <oberon@manjaro.org>
 
 pkgname=artwork-i3
-pkgver=20170131
+pkgver=20170428
 pkgrel=1
 pkgdesc="Wallpapers for manjaro-i3"
 arch=(any)

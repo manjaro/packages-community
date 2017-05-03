@@ -1,7 +1,7 @@
 # Maintainer: Bernhard Landauer <oberon@manjaro.org>
 
 pkgname=manjaro-deepin-settings
-pkgver=20170329
+pkgver=20170425
 pkgrel=1
 pkgdesc='Manjaro Linux deepin settings'
 arch=('any')
@@ -12,7 +12,8 @@ depends=('deepin-desktop'
 	'deepin-desktop-schemas-manjaro'
 	'deepin-dock'
 	'deepin-launcher'
-	'deepin-session-ui-manjaro'
+	'deepin-session-ui'
+	'file-roller'
 	'manjaro-base-skel')
 makedepends=('git')
 optdepends=('plymouth-theme-manjaro-deepin-circle'

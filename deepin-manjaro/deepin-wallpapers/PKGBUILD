@@ -1,16 +1,16 @@
 # Maintainer: Bernhard Landauer <oberon@manjaro.org>
 
 pkgname="deepin-wallpapers"
-pkgver=20170329
+pkgver=20170428
 pkgrel=1
-_snapshot=140124ab416ba3625e5dd54640b4886f2c261f90
+_snapshot=04348b0dab4b876b911ed0ba5b303ad55525403a
 pkgdesc="Wallpapers for manjaro-deepin"
 arch=('any')
 license=('GPL3')
 url=https://github.com/oberon2007/$pkgname
 groups=('deepin-manjaro')
 source=("$pkgname-$pkgver-$pkgrel.tar.gz::$url/archive/$_snapshot.tar.gz")
-md5sums=('4cd0c3602360115294a5216fedd76803')
+md5sums=('9bdfb2e9f129b8ffd530dc10349d3311')
 
 pkgver() {
     date +%Y%m%d
@@ -25,6 +25,6 @@ package() {
     install -dm755 $pkgdir/var/cache
     cp -r backgrounds $pkgdir/usr/share
     cp -r image-blur $pkgdir/var/cache
-    ln -s ../ant_man_deepin03.jpg $bgd/desktop.jpg   # upstream installs this via deepin-desktop-base
-    ln -s ../deep_sea.jpg $bg/default_background.jpg # greeter default
+    ln -s ../deep_sea.jpg $bgd/desktop.jpg   # upstream installs this via deepin-desktop-base
+    ln -s ant_man_deepin03.jpg $bg/default_background.jpg # greeter default
 }

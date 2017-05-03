@@ -1,7 +1,7 @@
 # Maintainer: Chrysostomus @forum.manjaro.org
 
 pkgname=update-notifier
-pkgver=0.5
+pkgver=0.6.2
 pkgrel=1
 pkgdesc="A simple pacman update notifier"
 arch=(any)
@@ -18,4 +18,6 @@ package () {
 	cd "$srcdir"
         install -Dm755 "$srcdir/$pkgname/update-notifier" "$pkgdir/usr/bin/update-notifier"
         install -Dm755 "$srcdir/$pkgname/update-checker" "$pkgdir/usr/bin/update-checker"
+        install -Dm755 "$srcdir/$pkgname/update-check" "$pkgdir/usr/bin/update-check"
+        install -Dm755 "$srcdir/$pkgname/update-command" "$pkgdir/usr/bin/update-command"
 }

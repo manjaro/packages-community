@@ -2,15 +2,16 @@
 # Maintainer: Stefano Capitani  <stefanoatmanjarodotorg>
 
 pkgbase=manjaro-gnome-settings
-pkgname=('manjaro-gnome-settings')
+_branch=devel
+pkgname=$pkgbase-dev
 #          'manjaro-gnome-minimal-settings')
-pkgver=20170425
-pkgrel=2
-pkgdesc="Manjaro Linux Gnome settings"
+pkgver=20170501
+pkgrel=4
+pkgdesc="Manjaro Linux Gnome settings (Development branch)"
 arch=('any')
 url="https://github.com/manjaro/manjaro-gnome-settings"
 license=('GPL')
-source=("git+$url.git")
+source=("git+$url.git#branch=$_branch")
 makedepends=('git')
 sha256sums=('SKIP')
 
@@ -26,25 +27,26 @@ _inst_dir(){
 	cp $srcdir/$pkgbase/schemas/* $pkgdir/usr/share/glib-2.0/schemas
 }
 
-package_manjaro-gnome-settings() {
-	pkgdesc='Manjaro Linux gnome settings'
+package_manjaro-gnome-settings-dev() {
+	pkgdesc='Manjaro Linux Gnome settings (Development branch)'
 	depends=('gnome-shell'
-        'gnome-shell-extension-taskbar'
         'gnome-shell-extensions'
-        'gnome-shell-extension-openweather'
         'gnome-shell-extension-gnomenu'
         'gnome-shell-extension-dash-to-dock'
+		'gnome-shell-extension-manjaro-update'
+		'gnome-shell-extension-topicons-plus'
         'gnome-wallpapers'
         'arc-themes-maia'
-	'arc-maia-icon-theme'
+		'arc-maia-icon-theme'
         'xcursor-breeze'
         'manjaro-base-skel'
         'qt5-styleplugins'
         'qt5ct')
-    optdepends=('plymouth-theme-manjaro-gnome-17.0: Plymouth theme' 			'firefox-arc-maia-settings: Firefox theme'
+    optdepends=('plymouth-theme-manjaro-gnome-17.0: Plymouth theme' 
+		'firefox-arc-maia-settings: Firefox theme'
 	 	'moka-icon-theme: Fallback icon theme for Arc Maia Icon theme'
 		'chrome-gnome-shell: Native connector for integration with extensions.gnome.org')
-	conflicts=('manjaro-desktop-settings')
+	conflicts=('manjaro-desktop-settings' '$pkgbase-dev')
 	provides=('manjaro-desktop-settings')
 
 	_inst_dir
