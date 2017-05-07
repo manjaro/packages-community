@@ -2,8 +2,8 @@
 # AUR-Maintainer: Nate Simon <aurpkg (at natesimon.net)>
 
 pkgname=xreader
-pkgver=1.2.2
-pkgrel=2
+pkgver=1.4.1
+pkgrel=1
 pkgdesc="Document viewer for files like PDF and Postscript. X-Apps Project"
 arch=('i686' 'x86_64')
 license=('GPL')
@@ -17,12 +17,15 @@ depends=('desktop-file-utils'
          'gtk3'
          'gtk3-print-backends'
          'libsecret'
-         'poppler-glib')
+         'libspectre'
+         'poppler-glib'
+         'webkit2gtk')
 makedepends=('mate-common' 'yelp-tools')
 optdepends=('nemo: nemo extension (must be enabled at compile time)'
-    'caja-extensions-common: caja extension (must be enabled at compile time)')
+    'caja-extensions-common: caja extension (must be enabled at compile time)'
+    'texlive-bin: support for dvi files')
 source=("${url}/archive/${pkgver}.tar.gz")
-md5sums=('ae878ed2658747c42bce2fd6ebb18a0a')
+md5sums=('d550a2d6d919b83e11c4c90d85ca6945')
 
 build() {
     cd ${srcdir}/${pkgname}-${pkgver}

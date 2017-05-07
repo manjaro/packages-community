@@ -2,26 +2,38 @@
 # AUR-Maintainer: Nate Simon <aurpkg (at natesimon.net)>
 
 pkgname=pix
-pkgver=1.2.1
-pkgrel=2
+pkgver=1.4.1
+pkgrel=1
 pkgdesc="Image viewer and browser based on gthumb. X-Apps Project"
 arch=('i686' 'x86_64')
 license=('GPL')
 url="https://github.com/linuxmint/$pkgname"
 groups=('x-apps')
-depends=('desktop-file-utils' 'gconf' 'librsvg'
-        'gst-plugins-base-libs' 'gsettings-desktop-schemas' 'libwebp' 'webkit2gtk')
-makedepends=('gnome-common' 'intltool' 'itstool' 'librsvg'
-        'liboauth')
-optdepends=('gstreamer: Video support'
+depends=('clutter-gtk'
+    'desktop-file-utils'
+    'gconf'
+    'gsettings-desktop-schemas'
+    'gst-plugins-base-libs'
+    'librsvg'
+    'libwebp'
+    'webkit2gtk')
+makedepends=('exiv2'
+    'gnome-common'
+    'intltool'
+    'itstool'
+    'libchamplain'
+    'liboauth'
+    'libopenraw')
+optdepends=('brasero: Burn discs'
     'exiv2: Embedded metadata support'
+    'gstreamer: Video support'
+    'libchamplain: Map Viewer'
     'libjpeg-turbo: Jpeg writing support'
-    'libtiff: Tiff writing support'
+    'liboauth: Web albums'
     'libopenraw: Support for RAW photos'
-    'brasero: Burn discs'
-    'liboauth: Web albums')
+    'libtiff: Tiff writing support'    )
 source=("${url}/archive/${pkgver}.tar.gz")
-md5sums=('a109c357b498548cb431e5a46421e408')
+md5sums=('16d378c609e3a284d4333860b68c1d31')
 
 build() {
     cd ${srcdir}/${pkgname}-${pkgver}

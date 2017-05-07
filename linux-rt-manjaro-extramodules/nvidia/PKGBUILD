@@ -8,8 +8,8 @@ _linuxprefix=linux-rt-manjaro
 _extramodules=extramodules-4.9-rt-MANJARO
 pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
-pkgver=375.39
-pkgrel=6
+pkgver=375.66
+pkgrel=1
 epoch=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
@@ -24,7 +24,7 @@ install=nvidia.install
 options=(!strip)
 durl="http://us.download.nvidia.com/XFree86/Linux-x86"
 source=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-sha256sums=('95a3221292f357fbd77697b9bb78d1694def5761202f695ef2065c61efb2ddd8')
+sha256sums=('26f3133dd053835c35fb27b04fccd3a3bb4f18bbbacb5e4bf89c40d142cab397')
 
 _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
 

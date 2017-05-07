@@ -7,7 +7,7 @@ _gtk3_min='3.18'
 _gtk3_max='4.0'
 _theme_name=Adapta
 _gtk2_min='2.24.30'
-pkgver="3.90.0.69"
+pkgver="3.90.0.161"
 pkgrel=1
 pkgdesc="An adaptive Gtk+ theme based on Material Design Guidelines.Build with Manjaro maia color"
 arch=(any)
@@ -41,7 +41,7 @@ makedepends=('libxml2'
 	     'libcanberra'
 	     'parallel')
 source=("${_pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('c8a03b3d650ee8a6b53c6ce2ff9f86c34cad6eed770dae5046d3a57718f931e8')
+sha256sums=('bffa4bcd77b686100a79fbb7049167236910317bcf92484b0aceacd3f540b60a')
 
 build() {
     cd "${_pkgname}-${pkgver}"

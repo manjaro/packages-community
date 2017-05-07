@@ -4,8 +4,8 @@
 
 pkgname=firefox-kde
 _pkgname=firefox
-pkgver=53.0
-pkgrel=2
+pkgver=53.0.2
+pkgrel=1
 pkgdesc="Standalone web browser from mozilla.org with OpenSUSE patch, integrate better with KDE"
 arch=(i686 x86_64)
 license=(MPL GPL LGPL)
@@ -25,7 +25,7 @@ _patchurl=http://www.rosenauer.org/hg/mozilla/raw-file/$_patchrev
 source=(https://ftp.mozilla.org/pub/mozilla.org/firefox/releases/$pkgver/source/firefox-$pkgver.source.tar.xz
         firefox.desktop firefox-symbolic.svg
         firefox-install-dir.patch fix-wifi-scanner.diff
-        rb111682.patch
+        0001-Bug-1338655-Don-t-try-to-build-mp4parse-bindings.-r-.patch
         kde.js
         # Firefox patchset
         $_patchurl/firefox-branded-icons.patch
@@ -36,12 +36,12 @@ source=(https://ftp.mozilla.org/pub/mozilla.org/firefox/releases/$pkgver/source/
         $_patchurl/mozilla-language.patch
         $_patchurl/mozilla-nongnome-proxies.patch
         pgo_fix_missing_kdejs.patch)
-sha256sums=('4ed1b23ea7c08f81a08817ddf3b4f06849e01420ee074008b6f390366e95b7d0'
+sha256sums=('c536df9794fafe61e4e74562e2a37cd4a6fb1c13d99d5330d61be03b2d57ae54'
             'ada313750e6fb14558b37c764409a17c1672a351a46c73b350aa1fe4ea9220ef'
             'a2474b32b9b2d7e0fb53a4c89715507ad1c194bef77713d798fa39d507def9e9'
             'd86e41d87363656ee62e12543e2f5181aadcff448e406ef3218e91865ae775cd'
             '9765bca5d63fb5525bbd0520b7ab1d27cabaed697e2fc7791400abc3fa4f13b8'
-            'b6d985f36e34d272ee255ddfe85f2a6e1310de2cd5a5187ed6da266f08c53437'
+            '413cd6d366d78f325d80ebebccfd0afa0d266b40b2e54b66ba2fa03c15f3ea67'
             '1ca0debb89d1d2f0becf21bac2d5e87857d58b37b16d9b6cf559607e5a993238'
             'c85a37e71f2bd511fac88d41ca0618ee375c49fc86bc2beddf6dc17c3f17508d'
             '02299760bae1d8bfc3d1d11b8867d8d5b9f44ee0101dc2a1d3277ba6ab4132bd'
@@ -76,7 +76,7 @@ prepare() {
   patch -Np1 -i ../fix-wifi-scanner.diff
 
   # https://bugzilla.mozilla.org/show_bug.cgi?id=1338655
-  patch -Np1 -i ../rb111682.patch
+  patch -Np1 -i ../0001-Bug-1338655-Don-t-try-to-build-mp4parse-bindings.-r-.patch
 
   echo -n "$_google_api_key" >google-api-key
   echo -n "$_mozilla_api_key" >mozilla-api-key
