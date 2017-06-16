@@ -1,0 +1,37 @@
+language: bash
+dist: trusty
+sudo: required
+
+env:
+  global:
+    - VERBOSE_BUILD=1
+    - FAIL_STRICT=1
+
+before_install:
+  - echo $TRAVIS_COMMIT_RANGE
+install:
+  - sudo locale-gen en_US.UTF-8
+
+before_script:
+  - ".travis/scripts/changed_packages.sh $TRAVIS_COMMIT_RANGE || travis_terminate 0"
+  - .travis/scripts/setup_build_environment.sh
+script:
+  - ".travis/scripts/build_packages_in_chroot.sh $TRAVIS_COMMIT_RANGE"
+after_script:
+  - ls -1 "$HOME/manjaro-chroot/var/cache/manjaro-tools/pkg/unstable/x86_64"
+  - .travis/scripts/report_build_status.sh
+
+after_success:
+  - chmod 700 $HOME/.ssh
+  - openssl aes-256-cbc -K $encrypted_df72e93b3d68_key -iv $encrypted_df72e93b3d68_iv
+    -in .travis/files/id_rsa_sf.enc -out $HOME/.ssh/id_rsa -d
+  - chmod 600 $HOME/.ssh/id_rsa
+  - eval "$(ssh-agent -s)"
+  - ssh-add $HOME/.ssh/id_rsa
+  - echo "StrictHostKeyChecking no" > ~/.ssh/config
+  - ".travis/scripts/deploy_built_packages.sh"
+
+notifications:
+  email: false
+
+# vim:set sw=2 et:
