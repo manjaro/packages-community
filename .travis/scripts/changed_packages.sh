@@ -7,7 +7,8 @@ COMMIT_RANGE=$1
 
 /bin/echo -e '\x1b[32mChanged packages:\x1b[0m'
 #git diff --name-only FETCH_HEAD...HEAD | grep "PKGBUILD$" | cut -d/ -f 1 | tee /tmp/packages_changed.txt
-git show --name-only $COMMIT_RANGE | grep "PKGBUILD$" | cut -d/ -f 1 | tee /tmp/packages_changed_dup.txt
+# need to get directory names of folders in which pkgbuilds changed
+git show --name-only $COMMIT_RANGE | grep "PKGBUILD$" | rev | cut -d/ -f 2- | rev | tee /tmp/packages_changed_dup.txt
 
 # a package may have changed multiple times leading to multiple entries in the changed file
 sort /tmp/packages_changed_dup.txt | uniq > /tmp/packages_changed.txt
