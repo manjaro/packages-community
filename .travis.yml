@@ -23,8 +23,10 @@ after_script:
 
 after_success:
   - chmod 700 $HOME/.ssh
-  - openssl aes-256-cbc -K $encrypted_df72e93b3d68_key -iv $encrypted_df72e93b3d68_iv
-    -in .travis/files/id_rsa_sf.enc -out $HOME/.ssh/id_rsa -d
+#  for step below key ssh key for destination server needed which can be encrypted
+#  as described in https://docs.travis-ci.com/user/encrypting-files/
+#  - openssl aes-256-cbc -K $encrypted_df72e93b3d68_key -iv $encrypted_df72e93b3d68_iv
+#    -in .travis/files/id_rsa_sf.enc -out $HOME/.ssh/id_rsa -d
   - chmod 600 $HOME/.ssh/id_rsa
   - eval "$(ssh-agent -s)"
   - ssh-add $HOME/.ssh/id_rsa
