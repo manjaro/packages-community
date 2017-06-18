@@ -9,7 +9,7 @@ COMMIT_RANGE=$1
 /bin/bash .travis/scripts/changed_packages.sh $COMMIT_RANGE > /dev/null
 
 # get the changed packages
-PKGS=$(cat /tmp/packages_changed.txt)
+PKG_PATHS=$(cat /tmp/packages_changed.txt)
 
 # there are special flags for init system
 BUILDPKG_FLAGS=
@@ -22,36 +22,37 @@ BUILDPKG_FLAGS=
 STATUS=0
 
 # build the changed packages
-for pkg in ${PKGS}; do
-	[ ! -e "$pkg" ] && continue  # package probably deleted
-	#cd "${pkg}"
+for pkgpath in ${PKG_PATHS}; do
+	[ ! -e "$pkgpath" ] && continue  # package probably deleted
+	#cd "${pkgpath}"
+	pkgname=$(echo $pkgpath | rev | cut -d / -f 1 | rev)
 
-	travis_fold start "build_${pkg}"
-	echo "building $pkg"
-	echo "$pkg" >> /tmp/packages_attempted.txt
+	travis_fold start "build_${pkgname}"
+	echo "building $pkgname"
+	echo "$pkgpath" >> /tmp/packages_attempted.txt
 	if [ "$VERBOSE_BUILD" -eq 1 ]; then
 		# redirect to log
-		travis_ping start "$pkg"
-		buildpkg -c $BUILDPKG_FLAGS -b unstable -p "$pkg" >> /tmp/build_${pkg}.log
+		travis_ping start "$pkgname"
+		buildpkg -c $BUILDPKG_FLAGS -b unstable -p "$pkgname" >> /tmp/build_${pkgname}.log
 	else
 		# show package building output
-		buildpkg -c $BUILDPKG_FLAGS -b unstable -p "$pkg"
+		buildpkg -c $BUILDPKG_FLAGS -b unstable -p "$pkgname"
 	fi
 	if [ ! "$?" -eq 0 ]; then
 		STATUS=1  # build failed
-		echo "$pkg" >> /tmp/packages_failed.txt
+		echo "$pkgpath" >> /tmp/packages_failed.txt
 	fi
 	if [ "$VERBOSE_BUILD" -eq 1 ]; then
 		travis_ping stop
 		echo "first 150 lines of log"
-		head -n 150 /tmp/build_${pkg}.log
+		head -n 150 /tmp/build_${pkgname}.log
 		echo "..."
 		echo "last 150 lines of log"
-		tail -n 150 /tmp/build_${pkg}.log
+		tail -n 150 /tmp/build_${pkgname}.log
 	fi
-	travis_fold end "build_${pkg}"
+	travis_fold end "build_${pkgname}"
 
-	#cd ..
+	#cd -
 done
 
 exit $STATUS
