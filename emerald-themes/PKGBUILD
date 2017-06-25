@@ -3,20 +3,19 @@
 # Contributor: nesl247 <nesl247@gmail.com>
 
 pkgname=emerald-themes
-pkgver=0.6.0
-pkgrel=5
+pkgver=0.8.14
+pkgrel=1
 pkgdesc="Themes for Emerald"
 arch=('any')
-url="http://opencompositing.org"
+url="https://github.com/compiz-reloaded/${pkgname}"
 license=('GPL')
 depends=('emerald')
 makedepends=('intltool' 'pkgconfig')
-source=("http://cgit.compiz.org/fusion/decorators/emerald-themes/snapshot/${pkgname}-${pkgver}.tar.bz2")
-sha1sums=('0b19d379df3e1626820e76d3a8e44a517e56be8f')
+source=("${url}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('c8a010ac71c99f59d418b31ecaa767d8e65d902fc18461161afe72c75fe17700')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-  ./autogen.sh 
   ./configure --prefix=/usr 
   make
 }
