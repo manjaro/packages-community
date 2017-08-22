@@ -16,7 +16,7 @@ groups=('deepin')
 depends=('deepin-control-center'
     'deepin-daemon'
     'deepin-qt-dbus-factory'
-    'deepin-tool-kit'
+    'dtkwidget'
     'gsettings-qt'
     'gtk2'
     'liblightdm-qt5'
