@@ -1,6 +1,10 @@
 #!/bin/bash
 # /usr/bin/blurlock
 
+revert_dpms() {
+  xset dpms 0 0 0
+}
+
 # take screenshot
 import -window root /tmp/screenshot.png
 
@@ -8,7 +12,14 @@ import -window root /tmp/screenshot.png
 convert /tmp/screenshot.png -blur 0x5 /tmp/screenshotblur.png
 rm /tmp/screenshot.png
 
+# set the screen to turn off after 15s
+trap revert_dpms HUP INT TERM
+xset +dpms dpms 15 15 15
+
 # lock the screen
-i3lock -i /tmp/screenshotblur.png
+i3lock -n -i /tmp/screenshotblur.png
+
+# revert changes after screen is unlocked
+revert_dpms
 
 exit 0
