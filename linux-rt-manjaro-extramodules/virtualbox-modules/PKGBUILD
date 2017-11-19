@@ -9,9 +9,9 @@ _linuxprefix=linux-rt-manjaro
 _extramodules=extramodules-4.11-rt-MANJARO
 pkgbase=$_linuxprefix-virtualbox-modules
 pkgname=("$_linuxprefix-virtualbox-host-modules" "$_linuxprefix-virtualbox-guest-modules")
-pkgver=5.1.26
+pkgver=5.2.0
 _pkgver="${pkgver}_OSE"
-pkgrel=6
+pkgrel=1
 arch=('x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -87,4 +87,5 @@ package_linux-rt-manjaro-virtualbox-guest-modules(){
   echo "vboxsf" >> "$pkgdir/etc/modules-load.d/$_linuxprefix-virtualbox-guest-modules.conf"
   echo "vboxvideo" >> "$pkgdir/etc/modules-load.d/$_linuxprefix-virtualbox-guest-modules.conf"
 }
+
 

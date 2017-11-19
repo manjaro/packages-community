@@ -8,6 +8,7 @@ arch=('any')
 url="https://github.com/udeved/lxqt-theme-maia"
 license=('GPL')
 depends=('lxqt-panel')
+makedepends=('git')
 source=("git+$url.git")
 sha256sums=('SKIP')
 

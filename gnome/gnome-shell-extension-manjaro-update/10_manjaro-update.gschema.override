@@ -1,0 +1,6 @@
+[org.gnome.shell.extensions.arch-update]
+check-cmd= '/usr/bin/update-check'
+check-interval=120
+package-manager='pamac-manager'
+update-cmd='update-command'
+

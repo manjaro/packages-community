@@ -1,0 +1,13 @@
+--- ./steam	2016-12-21 23:39:05.000000000 +0100
++++ ./steam_b	2016-12-21 23:40:29.645090377 +0100
+@@ -3,6 +3,10 @@
+ # This is the Steam script that typically resides in /usr/bin
+ # It will create the Steam bootstrap if necessary and then launch steam.
+
++# default to minimize on close, so we never have a running steam process
++# in the background because of a broken Tray Icon on some desktops/WM
++export STEAM_FRAME_FORCE_CLOSE=0
++
+ # Steam runtime settings
+ # if STEAM_RUNTIME=1, ignore this entirely
+ if ! [ "${STEAM_RUNTIME}" == "1" ]

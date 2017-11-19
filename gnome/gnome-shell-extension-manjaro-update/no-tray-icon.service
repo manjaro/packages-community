@@ -1,9 +1,0 @@
-[Unit]
-Description=Disable pamac tray and msm_notifier autostart
-
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/no-tray-icon
-
-[Install]
-WantedBy=multi-user.target 

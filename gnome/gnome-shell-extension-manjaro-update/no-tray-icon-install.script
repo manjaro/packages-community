@@ -1,0 +1,10 @@
+#!/bin/bash
+
+pamac_tray=/etc/xdg/autostart/pamac-tray.desktop
+
+    if [ -f $pamac_tray ]; then
+		sed -i -e 's,.*NotShowIn=KDE;.*,NotShowIn=KDE;GNOME;,' $pamac_tray
+	else echo "Pamac Tray not exist"
+	fi
+	
+exit 0

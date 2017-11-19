@@ -1,10 +1,10 @@
 # Maintainer: Bernhard Landauer <oberon@manjaro.org>
 
 pkgname=deepin-iconthemes-manjaro
-pkgver=20170630
+pkgver=20170918
 pkgrel=1
 _repo=deepin-iconthemes
-_snapshot=26e6ef3fc8985ae93f806014fe3c1e2f53718d8c
+_snapshot=2d96d32988fc0bfec4a6aa708c052939442d6366
 pkgdesc="Icon themes for Deepin-Manjaro"
 arch=('any')
 url="https://github.com/oberon2007/$_repo"
@@ -14,7 +14,7 @@ conflicts=('deepin-icontheme-pack')
 provides=('deepin-icontheme-pack')
 groups=('deepin-manjaro')
 source=("$url/archive/$_snapshot.tar.gz")
-md5sums=('50af61e7ecaa9b5cd5ec9c579b676c78')
+md5sums=('ad248e6a842090d44ae62e5732e83649')
 
 pkgver() {
 date +%Y%m%d

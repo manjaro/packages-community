@@ -1,0 +1,66 @@
+#!/usr/bin/env python3
+# coding: utf-8
+try:
+    from j.AK import Api, AppWindow
+
+except Exception as err:
+    print("Ops something went wrong: " + str(err))
+
+from gi.repository import Gtk, WebKit2
+
+URL = "_URL_"
+
+class applicationWindow(AppWindow):
+    """
+    extends AK.AppWindow functionality
+    """
+
+    def __init__(self):
+
+        super(applicationWindow, self).__init__()
+
+        def on_decide_policy(webview, decision, decision_type):
+
+            """
+            :param webview:
+            :param decision:
+            :param decision_type:
+            :return: if is not a predicted action do nothing.
+            """
+
+            def checkLink(url):
+                print("checking URL - " + url)
+                allowedDomains = ("https://www.onenote.com", "https://outlook.live.com", "https://office.live.com/", URL)
+                
+                for domain in allowedDomains:
+                  if url.startswith(domain):
+                      print("Domain Allowed - loading")
+                      self.webview.load_uri(url)
+                      
+                  else:
+                    print("Domain Not Allowed - " + url)
+
+            if decision_type == WebKit2.PolicyDecisionType.NEW_WINDOW_ACTION:
+                print("New Browser Tab Request")
+                url = decision.get_navigation_action().get_request().get_uri()
+                checkLink(url)
+
+            
+            return False
+
+        def on_title_changed(webview, title):
+
+            """
+            :param webview:
+            :param title:
+            """
+            title = self.webview.get_title()
+            Gtk.Window.set_title(self, title)
+                    
+        self.webview.load_uri(URL)
+        self.webview.connect("notify::title", on_title_changed)
+        self.webview.connect("decide-policy", on_decide_policy)
+
+
+applicationWindow()
+Gtk.main()

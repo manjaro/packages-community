@@ -4,9 +4,9 @@
  
  class PasswordDialog(Gtk.Dialog):
  
--    def __init__ (self, user, password_mask, group_mask):
-+    def __init__ (self, user, password_mask):
-         super(PasswordDialog, self).__init__()
+-    def __init__ (self, user, password_mask, group_mask, parent = None):
++    def __init__ (self, user, password_mask, parent = None):
+         super(PasswordDialog, self).__init__(None, parent)
  
          self.user = user
          self.password_mask = password_mask
@@ -34,8 +34,8 @@
          model, treeiter = self.users_treeview.get_selection().get_selected()
          if treeiter != None:
              user = model[treeiter][INDEX_USER_OBJECT]
--            dialog = PasswordDialog(user, self.password_mask, self.groups_label)
-+            dialog = PasswordDialog(user, self.password_mask)
+-            dialog = PasswordDialog(user, self.password_mask, self.groups_label, self.window)
++            dialog = PasswordDialog(user, self.password_mask, self.window)
              response = dialog.run()
  
      def _on_groups_button_clicked(self, widget):
@@ -53,4 +53,3 @@
 +                subprocess.call(["usermod", username, "-G", "%s" % username])
              self.load_groups()
          dialog.destroy()
- 

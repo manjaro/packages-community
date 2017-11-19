@@ -1,14 +1,5 @@
 --- kernel/nv-drm.c	2017-03-31 03:42:21.000000000 +0200
 +++ kernel/nv-drm.c	2017-04-06 23:53:14.273356795 +0200
-@@ -48,7 +48,7 @@
-     return -ENODEV;
- }
-
--static int nv_drm_unload(
-+static void nv_drm_unload(
-     struct drm_device *dev
- )
- {
 @@ -57,7 +57,7 @@ static void nv_drm_unload(
      {
          if (nvl->dev == dev->pdev)

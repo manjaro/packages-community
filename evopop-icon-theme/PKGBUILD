@@ -1,7 +1,7 @@
 #Maintainer: Ste74 <capitani74atgmaildotcom>
 
 pkgname=evopop-icon-theme
-pkgver=0.8.r9.g290909f
+pkgver=0.11.r0.gbf7b5373
 pkgrel=1
 pkgdesc="A simple icon theme with some google material design inspiration for Solus OS and Budgie Desktop"
 arch=('any')

@@ -1,31 +1,42 @@
 # Maintainer: Bernhard Landauer <oberon@manjaro.org>
 
 pkgname="deepin-wallpapers"
-pkgver=20170726
+pkgver=20171107
 pkgrel=1
 epoch=1
-_snapshot=9f4c4e27c0cb10ac7d35a4e5b9c188882bb9361e
 pkgdesc="Wallpapers for manjaro-deepin"
 arch=('any')
 license=('GPL3')
 url=https://github.com/oberon2007/$pkgname
 groups=('deepin-manjaro')
-source=("$pkgname-$pkgver-$pkgrel.tar.gz::$url/archive/$_snapshot.tar.gz")
-md5sums=('a52df0b91c567b79b2f8518b3ef66c07')
+makedepends=('deepin-api' 'git')
+source=("git+$url.git")
+md5sums=('SKIP')
 
 pkgver() {
     date +%Y%m%d
 }
 
-package() {
-    bg=$pkgdir/usr/share/backgrounds
-    bgd=$bg/deepin
+build() {
+  cd $pkgname
 
-    cd $srcdir/$pkgname-$_snapshot
-    install -dm755 $bgd
-    install -dm755 $pkgdir/var/cache
-    cp -r backgrounds $pkgdir/usr/share
-    cp -r image-blur $pkgdir/var/cache
-    ln -s ../deep_sea.jpg $bgd/desktop.jpg   # upstream installs this via deepin-desktop-base
-    ln -s ant_man_deepin03.jpg $bg/default_background.jpg # greeter default
+  msg2 "creating blurred versions:"
+  ./blur_image.sh
+}
+
+package() {
+  cd $pkgname
+  install -dm755 $pkgdir/usr/share/backgrounds/deepin
+  cp -r backgrounds $pkgdir/usr/share
+
+  install -dm755 $pkgdir/var/cache
+  cp -r image-blur $pkgdir/var/cache
+
+# link desktop-base and wm-switcher defaults
+  ln -s ../deep_sea.jpg $pkgdir/usr/share/backgrounds/deepin/desktop.jpg
+  ln -s ../deep_sea.jpg $pkgdir/usr/share/backgrounds/default_background.jpg
+  ln -s 3dfc86ec0502839255bd522063e53a24.jpg \
+    $pkgdir/var/cache/image-blur/eff98ab2b2d91574a79fabd2b79eb7a9.jpg
+  ln -s 3dfc86ec0502839255bd522063e53a24.jpg \
+    $pkgdir/var/cache/image-blur/13ada65a5cf7674cb0a68dd1db9cb37c.jpg
 }

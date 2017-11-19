@@ -1,2 +1,0 @@
-#!/bin/env bash
-/usr/bin/dbus-launch /opt/dropbox/dropbox start

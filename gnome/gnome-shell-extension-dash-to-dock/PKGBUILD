@@ -8,7 +8,7 @@ _extname="dash-to-dock"
 _author="micheleg"
 
 pkgname="gnome-shell-extension-${_extname}"
-pkgver=60
+pkgver=61
 pkgrel=1
 pkgdesc="This extension moves the dash out of the overview transforming it in a dock for an easier launching of applications and a faster switching between windows and desktops."
 arch=("any")
@@ -19,7 +19,7 @@ makedepends=("gnome-common" "intltool")
 conflicts=("gnome-shell-extensions-dash-to-dock-git")
 source=("https://github.com/${_author}/${_extname}/archive/extensions.gnome.org-v${pkgver}.tar.gz")
 noextract=()
-sha256sums=('9a7f526edbaacf2cc032ead805fb11184694927e1b50bd74c573938fdf21212e')
+sha256sums=('8cea499749cca5cc0ae248a9ae5b1cda7e364526d5d1d90fd71f6aa886837c51')
 
 build() {
     cd "${srcdir}/${_extname}-extensions.gnome.org-v${pkgver}"

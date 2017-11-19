@@ -2,7 +2,7 @@
 
 pkgname=isousb
 pkgver=1.5
-pkgrel=1
+pkgrel=2
 pkgdesc="A graphical tool to copy a hybrid ISO onto a USB key."
 url="http://forum.manjaro.org/index.php?topic=3682"
 arch=('any')
@@ -11,6 +11,12 @@ depends=('zenity' 'gksu')
 optdepends=()
 source=(http://esclapion.free.fr/AUR/${pkgname}-${pkgver}.tar.gz)
 sha1sums=('8ed1b0b8feccc626bd9e065435a9cf18c0eef6fe')
+
+prepare() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  sed -i 's|System|System;Utility|' $pkgname.desktop
+}
+
 package() {
   cd "${srcdir}/${pkgname}-${pkgver}"
   install -Dm755 "${pkgname}" "${pkgdir}/usr/bin/${pkgname}"

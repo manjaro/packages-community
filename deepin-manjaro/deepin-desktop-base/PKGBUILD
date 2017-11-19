@@ -1,32 +1,47 @@
-# Maintainer: Felix Yan <felixonmars@archlinux.org>
 # Maintainer: Bernhard Landauer <oberon@manjaro.org>
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
 # Contributor: Josip Ponjavic <josipponjavic at gmail dot com>
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-desktop-base
-pkgver=20170903
+_pkgver=2016.13.1
+pkgver=20171027
 pkgrel=1
 epoch=1
 pkgdesc='Base component for Deepin'
 arch=('any')
-url="https://github.com/oberon2007/deepin-desktop-base"
+url="https://github.com/linuxdeepin/$pkgname"
 license=('GPL3')
 depends=('deepin-wallpapers')
-makedepends=('git')
 groups=('deepin')
-source=("git+$url.git")
-sha256sums=('SKIP')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$_pkgver.tar.gz")
+sha512sums=('89820796cbe89a07372b315a7938dc88eb05093ca53cb676ecf81cdf172bf8ab6aab976d035a476fb2d966e07903b16c697674b3d30d86f085415918a8a35be6')
 
 pkgver() {
     date +%Y%m%d
 }
 
 build() {
-  cd $pkgname
+  cd $pkgname-$_pkgver
   make
 }
 
 package() {
-  cd $pkgname
+  cd $pkgname-$_pkgver
   make DESTDIR="$pkgdir" install
+
+  # Remove Deepin distro's lsb-release
+  rm "$pkgdir"/etc/lsb-release
+
+  # Don't override systemd timeouts
+  rm -r "$pkgdir"/etc/systemd
+
+  # Make a symlink for deepin-version
+  ln -s ../usr/lib/deepin/desktop-version "$pkgdir"/etc/deepin-version
+
+  # Remove apt-specific templates
+  rm -r "$pkgdir"/usr/share/python-apt
+
+  # use Manjaro default wallpaper, installed by custom deepin-wallpapers pkg
+  rm  $pkgdir/usr/share/backgrounds/deepin/desktop.jpg $pkgdir/var/cache/image-blur/13ada65a5cf7674cb0a68dd1db9cb37c.jpg
 }

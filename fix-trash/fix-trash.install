@@ -1,3 +1,0 @@
-post_install() {
-  mv /etc/.Trash-1000 /.Trash-1000
-}

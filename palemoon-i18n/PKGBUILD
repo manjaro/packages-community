@@ -1,7 +1,7 @@
 # Maintainer: Stefano Capitani <stefano@manjaro.org>
 
 pkgbase=palemoon-i18n
-pkgver=27.4.1
+pkgver=27.6.0
 pkgrel=1
 pkgdesc="Language pack for Palemoon"
 arch=('any')
@@ -9,42 +9,24 @@ url="http://www.palemoon.org/langpacks.shtml"
 license=('MPL' 'GPL')
 depends=("palemoon>=27")
 
-_languages=(
-#'ar    "Arabic"'
-'cs    "Czech"'
-#'da    "Danish"'
-'de    "German"'
-#'el    "Greek (Modern)"'
-'en-GB "English (U.K.)"'
-#'eo    "Esperanto"'
-'es-AR "Spanish (Argentina)"'
-'es-ES "Spanish (Spain)"'
-'es-MX "Spanish (Mexico)"'
-#'fi    "Finnish"'
-'fr    "French"'
-#'gl-ES "Galician (Spain)"'
-#'hr    "Croatian"'
-'hu    "Hungarian"'
-#'is    "Icelandic"'
-'it    "Italian"'
-'ja    "Japanese"'
-#'kn    "Kannada (India)"'
-'ko    "Korean"'
-'nl    "Dutch"'
-'pl    "Polish"'
-'pt-BR "Portuguese (Brazil)"'
-'pt-PT "Portuguese (Portugal)"'
-#'ro    "Romanian/Moldavian"'
-'ru    "Russian"'
-#'sk    "Slovak"'
-#'sl    "Slovenian"'
-#'sr    "Serbian"'
-'sv-SE "Swedish"'
-'tr    "Turkish"'
-#'vi    "Vietnamese"'
-'zh-CN "Chinese (Simplified)"'
-#'zh-TW "Chinese (Traditional)"'
-)
+_languages=('cs    "Czech"'
+  'de    "German"'
+  'en-GB "English (U.K.)"'
+  'es-AR "Spanish (Argentina)"'
+  'es-ES "Spanish (Spain)"'
+  'es-MX "Spanish (Mexico)"'
+  'fr    "French"'
+  'hu    "Hungarian"'
+  'it    "Italian"'
+  'ko    "Korean"'
+  'nl    "Dutch"'
+  'pl    "Polish"'
+  'pt-BR "Portuguese (Brazil)"'
+  'pt-PT "Portuguese (Portugal)"'
+  'ru    "Russian"'
+  'sv-SE "Swedish"'
+  'tr    "Turkish"'
+  'zh-CN "Chinese (Simplified)"')
 
 pkgname=()
 source=()
@@ -70,22 +52,21 @@ _package() {
     "$pkgdir/usr/lib/palemoon/browser/extensions/langpack-$1@palemoon.org.xpi"
 }
 
-md5sums=('4c59abdbc26ec7747bfa44e5b215dbca'
-         '3e51c6ff1927f2361db37c32d30eaab0'
-         '2aab79afc916e91c0ff2a03a76b9d628'
-         '87072fed7050e7dafb7b0fd8fe23e736'
-         '941351650854a2e463d7177ce26c763e'
-         '94d327f39977ddd889da0e0f6ccabe57'
-         'e92cb92a76907b0a69be5d2e3d33a246'
-         '1ba1c9ff5677afd09f49c29793c898e9'
-         'e76f5c998871f1ddb9920ae4548cbdc2'
-         '38aa0ddbabaac5e267ad8bc962fae4b0'
-         'b064766c658ebd536ed8ca809a84b0cb'
-         '8d9f334f4247a93e753b508aec26dac5'
-         '9d8efa7f9aa4e3e0bd120b8780643762'
-         'e1be1e7421d0567ae7f6a5cb1557cb4f'
-         '64463a6f99c5cee1b2dda0a416b10a94'
-         '7f8a18988e6127b9e1d89e9dc18d1b9b'
-         '30e60beab2ba868e6c92b3a76cc55d62'
-         '3601ac14b8ebfe0b4394195a0381ad8b'
-         'b032c102c791124d2b726672b69597b0')
+md5sums=('dbc2666c87b2662704b98c5b3dc476d4'
+         '37bcf8b9eb19b5cbc82703c8be3215c9'
+         '2b161156619817a0a472f9677877a6c5'
+         '1ab80b8f717c1a3535632213ef5d62e4'
+         '58ab0c4eec8ac31e6d834c6ab4786da1'
+         '6305da70600abf89411fa429fd06cdb1'
+         '411f32d3e31851ba193a412b0c5e68ba'
+         '0b84e7e95079ec546b6be74a6ae0c41a'
+         '51817e453e150b94eec5215b6a0afa4e'
+         'a4c2e26746e2e6c91091b8bfa57e890b'
+         'b69b0a45ac4f005a151c4e7831e83eac'
+         '112dd14955a50d66b86892dcd37236c6'
+         '1a03b914df31baf6812f5c9d234c3406'
+         'b741038c06026575d0cdf3d7b8fcd73e'
+         'd77720e32db93fa1711b9448b92624c5'
+         '345b8ab563c5ef26b06213b5275a5ee1'
+         '7802238b911e7828e8015c303a66b726'
+         '67f12f8f9a32ee4bbc86c9c76e4dc021')

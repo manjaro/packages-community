@@ -1,0 +1,11 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = gnome-shell-extension-manjaro-update
+Target = pamac
+
+[Action]
+Description = Install Gnome native extension for update
+When = PostTransaction
+Exec = /usr/share/libalpm/scripts/no-tray-icon-install

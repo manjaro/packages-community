@@ -1,0 +1,35 @@
+From 543ba2f3f2d7cfbcf45df9eaba0eb0f8019541b1 Mon Sep 17 00:00:00 2001
+From: Zygmunt Krynicki <me@zygoon.pl>
+Date: Wed, 23 Aug 2017 11:49:04 +0200
+Subject: [PATCH 4/4] snap/squashfs: use LANG=C.UTF-8
+
+This fixes the test suite if invoked on a locale that happens to have
+translations for some of the strings we are checking.
+
+Signed-off-by: Zygmunt Krynicki <me@zygoon.pl>
+---
+ snap/squashfs/squashfs.go | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/snap/squashfs/squashfs.go b/snap/squashfs/squashfs.go
+index fc5e3ec78..f3db45723 100644
+--- a/snap/squashfs/squashfs.go
++++ b/snap/squashfs/squashfs.go
+@@ -90,6 +90,14 @@ func (s *Snap) Install(targetPath, mountDir string) error {
+ 
+ var runCommandWithOutput = func(args ...string) ([]byte, error) {
+ 	cmd := exec.Command(args[0], args[1:]...)
++	env := os.Environ()
++	for i, e := range env {
++		pair := strings.SplitN(e, "=", 2)
++		if len(pair) == 2 && pair[0] == "LANG" {
++			env[i] = fmt.Sprintf("LANG=C.UTF-8")
++		}
++	}
++	cmd.Env = env
+ 	output, err := cmd.CombinedOutput()
+ 	if err != nil {
+ 		return nil, fmt.Errorf("cmd: %q failed: %v (%q)", strings.Join(args, " "), err, output)
+-- 
+2.14.1
+

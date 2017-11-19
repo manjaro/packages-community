@@ -1,0 +1,10 @@
+[Trigger]
+Operation = Remove
+Type = Package
+Target = gnome-shell-extension-manjaro-update
+
+[Action]
+Description = Remove Gnome native extension for update
+When = PreTransaction
+Exec = /usr/share/libalpm/scripts/no-tray-icon-remove
+

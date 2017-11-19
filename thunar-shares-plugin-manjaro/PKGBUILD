@@ -7,22 +7,19 @@
 _name=thunar-shares-plugin
 pkgname=thunar-shares-plugin-manjaro
 pkgver=0.2.0.git
-_gitcommit=e24efa98e596fb16622f3e42ebfcc75f06eae420
-pkgrel=3
+_gitcommit=9360911075e9278f7d3ba39d7ea8fe8a3a66b645
+pkgrel=4
 pkgdesc="Thunar plugin to quickly share a folder using Samba without requiring root access (with auto-setup)"
 arch=('i686' 'x86_64')
 url="http://goodies.xfce.org/projects/thunar-plugins/${_name}"
 license=('GPL2' 'LGPL')
-depends=('thunar' 'samba')
+depends=('thunar' 'samba' 'manjaro-settings-samba')
 makedepends=('xfce4-dev-tools')
-backup=('etc/samba/smb.conf')
 provides=("${_name}=${pkgver}")
 conflicts=("${_name}")
 install="${pkgname}.install"
-source=("http://git.xfce.org/thunar-plugins/${_name}/snapshot/${_name}-${_gitcommit}.tar.bz2"
-        "smb.conf")
-sha1sums=('fbea3c7bc87c766910e41b78d73bfe2f4f48c731'
-          'c343d104f0fc91390ac07024c2375b5b459f711b')
+source=("http://git.xfce.org/thunar-plugins/${_name}/snapshot/${_name}-${_gitcommit}.tar.bz2")
+sha1sums=('14387c9c4d166a6cc689f5abceb6863ccc0eb375')
 
 build() {
   cd "${srcdir}/${_name}-${_gitcommit}"
@@ -34,7 +31,6 @@ package() {
   cd "${srcdir}/${_name}-${_gitcommit}"
   make DESTDIR="${pkgdir}" install
   
-  install -Dm644 "${srcdir}/smb.conf" "${pkgdir}/etc/samba/smb.conf"
   mkdir -p "${pkgdir}/var/lib/samba/usershare"
-  chmod 1775 "${pkgdir}/var/lib/samba/usershare"
+  chmod 1770 "${pkgdir}/var/lib/samba/usershare"
 }

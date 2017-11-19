@@ -2,7 +2,7 @@
 # Maintainer: Stefano Capitani <stefanoatmanjarodotorg>
 
 pkgname=lightdm-settings
-pkgver=1.1.0
+pkgver=1.1.3
 pkgrel=1
 pkgdesc="A configuration tool for the LightDM display manager "
 arch=('any')
@@ -11,7 +11,7 @@ license=('GPL3')
 depends=('hicolor-icon-theme' 'lightdm-slick-greeter' 'python-setproctitle' 'python-xapp' 'python-gobject' 'polkit')
 makedepends=('desktop-file-utils' 'gettext')
 source=("${pkgname}-${pkgver}.tar.gz::$url/archive/${pkgver}.tar.gz")
-sha256sums=('f47c218e5c0bcfbe49b1847fbedb748f73a055ae171a2eb3139267a6a786f76f')
+sha256sums=('8aa50dbb4dccf5a9f66dd62c909207639d6a82012bf5503af494ea105444fb52')
 
 build() {
   cd $pkgname-$pkgver

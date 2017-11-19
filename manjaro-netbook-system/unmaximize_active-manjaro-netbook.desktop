@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=Maximize/Unmaximize
-Comment=Toggle maximization for the active window
-Exec=wmctrl -r :ACTIVE: -b toggle,maximized_vert,maximized_horz
-Terminal=false
-Type=Application
-Icon=/usr/share/icons/gnome/scalable/actions/view-restore-symbolic.svg
-StartupNotify=false
-Hidden=true

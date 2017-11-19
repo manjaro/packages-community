@@ -1,0 +1,56 @@
+From 4ce678292442748784ba74e526f1c1aa548690e6 Mon Sep 17 00:00:00 2001
+From: Zygmunt Krynicki <me@zygoon.pl>
+Date: Wed, 23 Aug 2017 11:27:45 +0200
+Subject: [PATCH 2/4] snap/snapenv: backport fixes for how SNAP is computed
+
+The SNAP environment variable must use the internal (core) layout where
+/snap is always there, regardless of how the distribution chooses to
+mount things on the outside.
+
+Signed-off-by: Zygmunt Krynicki <me@zygoon.pl>
+---
+ snap/snapenv/snapenv.go      | 4 +++-
+ snap/snapenv/snapenv_test.go | 2 +-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/snap/snapenv/snapenv.go b/snap/snapenv/snapenv.go
+index 0267949e1..bbaaeaafd 100644
+--- a/snap/snapenv/snapenv.go
++++ b/snap/snapenv/snapenv.go
+@@ -23,9 +23,11 @@ import (
+ 	"fmt"
+ 	"os"
+ 	"os/user"
++	"path/filepath"
+ 	"strings"
+ 
+ 	"github.com/snapcore/snapd/arch"
++	"github.com/snapcore/snapd/dirs"
+ 	"github.com/snapcore/snapd/snap"
+ )
+ 
+@@ -76,7 +78,7 @@ func snapEnv(info *snap.Info) map[string]string {
+ // somewhere more reasonable like the snappy module.
+ func basicEnv(info *snap.Info) map[string]string {
+ 	return map[string]string{
+-		"SNAP":          info.MountDir(),
++		"SNAP":          filepath.Join(dirs.CoreSnapMountDir, info.Name(), info.Revision.String()),
+ 		"SNAP_COMMON":   info.CommonDataDir(),
+ 		"SNAP_DATA":     info.DataDir(),
+ 		"SNAP_NAME":     info.Name(),
+diff --git a/snap/snapenv/snapenv_test.go b/snap/snapenv/snapenv_test.go
+index 7c29b276d..fb594897a 100644
+--- a/snap/snapenv/snapenv_test.go
++++ b/snap/snapenv/snapenv_test.go
+@@ -67,7 +67,7 @@ func (ts *HTestSuite) TestBasic(c *C) {
+ 	env := basicEnv(mockSnapInfo)
+ 
+ 	c.Assert(env, DeepEquals, map[string]string{
+-		"SNAP":              fmt.Sprintf("%s/foo/17", dirs.SnapMountDir),
++		"SNAP":              fmt.Sprintf("%s/foo/17", dirs.CoreSnapMountDir),
+ 		"SNAP_ARCH":         arch.UbuntuArchitecture(),
+ 		"SNAP_COMMON":       "/var/snap/foo/common",
+ 		"SNAP_DATA":         "/var/snap/foo/17",
+-- 
+2.14.1
+

@@ -3,16 +3,16 @@
 
 pkgname=gnome-shell-extension-gnomenu
 _pkgname=gno-menu
-pkgver=21
-pkgrel=7
-_git=yes
+pkgver=23
+pkgrel=1
+_git=no
 pkgdesc="GnoMenu is a traditional styled full featured Gnome-Shell apps-menu, that aims to offer all the essentials in a simple uncluttered intuitive interface."
 arch=(any)
 url="https://github.com/The-Panacea-Projects/Gnomenu"
 license=(GPL3)
 depends=('gnome-shell' 'gnome-tweak-tool')
 makedepends=(git)
-md5sums=('SKIP'
+md5sums=('ad998dabeb658436a060db61c07852ce'
          'e3e8538d7c57eb723fb92388f0f4a5f1')
 
 if [ "$_git" == "yes" ]; then

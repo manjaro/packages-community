@@ -1,23 +1,29 @@
 # Maintainer: Stefano Capitani <stefanoatmanjarodotorg>
 
 pkgname=manjaro-aur-support
-pkgver=0.4
+pkgver=0.6
 pkgrel=1
 pkgdesc="Manjaro AUR support packages"
 _check=check-aur
 arch=(any)
 url=https://github.com/manjaro/packages-community
-source=("$pkgname.hook" "$pkgname.script" "$_check" "$_check.desktop")
-depends=('yad' 'adwaita-icon-theme')
-md5sums=('a0a6e492c083be59ec3a0fc90ffde304'
-         'c8faea48f3a6b05e93fbbd57ab2a5e51'
-         '8be03ee51eeb8f40781edce4614513d0'
-         'b06f747debd88e456e63ae0b1f4a046b')
+depends=('yad' 'manjaro-icons')
+source=("$pkgname.hook"
+    "$pkgname.script"
+    "$_check"
+    "$_check.desktop"
+    'aur-warning.png')
+md5sums=('60f0c1fdd75b452573f13fe70b9a3e56'
+         '67c814ff1d3c10a1358e24bef9043ba8'
+         'a8129f1542a14a858964ff471975bc04'
+         'b06f747debd88e456e63ae0b1f4a046b'
+         '9ba5e40b801da994a909ae5fc1a36d24')
 
 package() {
-install -Dm644 ${srcdir}/manjaro-aur-support.hook ${pkgdir}/usr/share/libalpm/hooks/manjaro-aur-support.hook
-install -Dm755 ${srcdir}/manjaro-aur-support.script ${pkgdir}/usr/share/libalpm/scripts/manjaro-aur-support
-install -Dm755 ${srcdir}/$_check ${pkgdir}/usr/bin/$_check
-install -Dm644 ${srcdir}/$_check.desktop ${pkgdir}/etc/skel/.config/autostart/$_check.desktop
+    install -Dm644 manjaro-aur-support.hook $pkgdir/usr/share/libalpm/hooks/manjaro-aur-support.hook
+    install -Dm755 manjaro-aur-support.script $pkgdir/usr/share/libalpm/scripts/manjaro-aur-support
+    install -Dm755 $_check $pkgdir/usr/bin/$_check
+    install -Dm644 $_check.desktop $pkgdir/etc/skel/.config/autostart/$_check.desktop
+    install -Dm644 aur-warning.png $pkgdir/usr/share/icons/hicolor/40x40/status/aur-warning.png
 }
 

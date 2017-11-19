@@ -1,37 +1,30 @@
 # Maintainer: Fabian Bornschein <plusfabi@gmail.com>
-pkgname=('mhwd-addon-amdgfx-hwe' 'amdgpu-experimental')
-pkgver=20170617 #date +%Y%m%d
+pkgname=('mhwd-db-amdgpu-experimental' 'amdgpu-experimental')
+pkgver=20171017 #date +%Y%m%d
 pkgrel=1
 arch=('any')
-url="https://github.com/Tids/mhwd-addon-amdgfx-hwe"
 license=('GPL3')
-conflicts=('mhwd-addon-amdgpu-hwe')
-source=('amdgpu-experimental.install'
-        'mhwd-addon-amdgfx-hwe.install'
-        '10-amdgpu-experimental.conf'
+source=('10-amdgpu-experimental.conf'
         'amdgpu.conf'
         'radeon_blacklist.conf'
         'amdgpu-exp_hw_support.conf'
         'amdgpu-experimental.hook'
         'MHWDCONFIG_video-amdgpu-experimental'
         'MHWDCONFIG_video-hybrid-intel-amdgpu-experimental-prime')
-sha512sums=('d15f690fac33b1ed33677ff40bd998c137bb2b65b41c8c0c3a8634977aee83379ebf7e8d81951c4673b46f7fb810147936612f59360f3140100d8d2a147f8d9f'
-            'e9db80cddd6daec4352c08d062856f73ff9827a8c4069847c2b3ecf669cfb3355c26f418c491d1a2224b4ac71e119e16359b86b322d22c936639facfa3e96e50'
-            'cafa0fbb4f965bf3eef450d0192fd038aefad75c1a6c6ec239088aaec2575eed99b3aad65797ed6c705a427528142cdd7d04cf1f01d3fed839574c800be06a04'
+sha512sums=('cafa0fbb4f965bf3eef450d0192fd038aefad75c1a6c6ec239088aaec2575eed99b3aad65797ed6c705a427528142cdd7d04cf1f01d3fed839574c800be06a04'
             '5a02d330aec5f6a5aa7876b4d0ce768409284afda996ad310ec3811ebc862f78501fb1e35621b7e216b4e972b772a4f72d1f31c47a791604b7963981feff2ee8'
             'f409269608148c8c420be5584e8bf47fdc87c8861ea6847ec1431c2a1441fba6f06577f85878f01fad3c3fba51d23256eed4bcada48db44d27b834fb628408fe'
-            'ca4643ab1a189f62eff027d472af431b1e3767c5fad948b99b3e11f480a464836f95d8122e574b37da495b0f653b90f2bfcbadb88e3c88073e5423d1006681f0'
+            '5b18f0d5a78c0e2d6768abe006cb2adf3c5ad19770ee8aa212182bec168d50d6a4b3e789cfbb6c2001b313fe5398bf6b91278b8ad83bf5a2ea7333d5d5703cde'
             '42106abe5bfedd63f7c2e06e2e362ab75060ced6f1e3a86502870ff0248a40d404fd415742f2a0bbfa1c55c479af9dee4c08c9191793b86bd7a99d06f518abc3'
             '25660c9a2dc6a25d05685732033893f519f10448740f64b43b5e0ca7a701d7c468d2185f425189427118c5db2141a8cd04ce028cf51d45b99f884466f8b89f76'
             '81727fd894cbbce650e17ecb20a3e54c06bf38ad56028ad1627c6b774bc925b45d344b2d470e02071570e0dbfb2bfd67a05e5e15fe9b00ce9aac1ec80fce6de2')
 
-package_mhwd-addon-amdgfx-hwe()
+package_mhwd-db-amdgpu-experimental()
 {
     pkgdesc="Enables experimental AMDGPU support for Sea Islands(GCN1.1) and Southern Islands(GCN 1.0)"
-    depends=('bash')
-    optdepends=('radeonjet-git: AMDGPU overclocking'
-                'radeontop: Radeon cards monitoring utility')
-    install='mhwd-addon-amdgfx-hwe.install'
+    depends=('bash' 'mhwd-amdgpu')
+    replaces=("mhwd-addon-amdgpu-hwe")
+    conflicts=("mhwd-addon-amdgpu-hwe")
 
     cd "${srcdir}"
 
@@ -47,9 +40,9 @@ package_mhwd-addon-amdgfx-hwe()
 package_amdgpu-experimental()
 {
     pkgdesc="Enables experimental AMDGPU support for Sea Islands(GCN1.1) and Southern Islands(GCN 1.0)."
-    depends=('linux>=4.9')
+    depends=('linux>=4.9' 'xf86-video-amdgpu')
     conflicts=('xf86-video-ati')
-    install='amdgpu-experimental.install'
+    install="amdgpu-experimental.install"
 
     cd "${srcdir}"
 

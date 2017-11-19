@@ -2,7 +2,7 @@
 # Contributor: Christian METZLER <neroth@xeked.com>
 
 pkgname=gnome-shell-extension-openweather
-pkgver=1.0.r162.g62a751d
+pkgver=1.0.r194.ga86b949
 pkgrel=1
 pkgdesc="A simple extension for displaying weather informations from several cities in GNOME Shell."
 arch=('any')

@@ -2,10 +2,10 @@
 # Maintainer: Bernhard Landauer <oberon@manjaro.org>
 
 pkgname=i3-gaps
-_pkgsourcename=i3
-pkgver=4.13
+pkgver=4.14.1
 pkgrel=1
 pkgdesc='A fork of i3wm tiling window manager with more features, including gaps'
+url=https://github.com/Airblader/i3
 arch=('i686' 'x86_64')
 license=('BSD')
 provides=('i3-wm')
@@ -23,16 +23,11 @@ optdepends=('dmenu: As menu.'
 	'rxvt-unicode: The terminal emulator used in the default config.')
 	
 options=('docs' '!strip')
-source=("https://github.com/Airblader/i3/archive/${pkgver}.tar.gz")
-sha1sums=('49ea9c91137b658697d50da1548b5d4410c0b9da')
-
-#pkgver() {
-#  cd "$_gitname"
-#  git describe --long | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
-#}
+source=("$url/archive/$pkgver.tar.gz")
+sha1sums=('0df480d25f915f312813d9223e9b2025d20e2d56')
 
 build() {
-  cd "${srcdir}/${_pkgsourcename}-${pkgver}"
+  cd i3-$pkgver
 
   autoreconf --force --install
 
@@ -49,11 +44,11 @@ build() {
 }
 
 package() {
-  cd "${srcdir}/${_pkgsourcename}-${pkgver}"
+  cd i3-$pkgver
   cd build/
 
-  make DESTDIR="${pkgdir}/" install
+  make DESTDIR=$pkgdir/ install
 
   install -Dm644 ../LICENSE \
-    "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+    $pkgdir/usr/share/licenses/$pkgname/LICENSE
 }

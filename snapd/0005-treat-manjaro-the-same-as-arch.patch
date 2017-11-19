@@ -1,0 +1,39 @@
+From 990a1c998aa9ae739dacdb2839c827cc1fa7e2d7 Mon Sep 17 00:00:00 2001
+From: Zygmunt Krynicki <me@zygoon.pl>
+Date: Thu, 14 Sep 2017 13:06:45 +0200
+Subject: [PATCH] cmd,dirs: treat manjaro the same as arch
+
+Manjaro is a derivative of Arch and needs to be treated as such.
+
+Signed-off-by: Zygmunt Krynicki <me@zygoon.pl>
+---
+ cmd/cmd.go   | 2 +-
+ dirs/dirs.go | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/cmd/cmd.go b/cmd/cmd.go
+index b7528d3e2e..9d2a2f2d7c 100644
+--- a/cmd/cmd.go
++++ b/cmd/cmd.go
+@@ -67,7 +67,7 @@ func distroSupportsReExec() bool {
+ 		return false
+ 	}
+ 	switch release.ReleaseInfo.ID {
+-	case "fedora", "centos", "rhel", "opensuse", "suse", "poky", "arch":
++	case "fedora", "centos", "rhel", "opensuse", "suse", "poky", "arch", "manjaro":
+ 		logger.Debugf("re-exec not supported on distro %q yet", release.ReleaseInfo.ID)
+ 		return false
+ 	}
+diff --git a/dirs/dirs.go b/dirs/dirs.go
+index dc6755c0d1..47f0e45f74 100644
+--- a/dirs/dirs.go
++++ b/dirs/dirs.go
+@@ -157,7 +157,7 @@ func SetRootDir(rootdir string) {
+ 	GlobalRootDir = rootdir
+ 
+ 	switch release.ReleaseInfo.ID {
+-	case "fedora", "centos", "rhel", "arch":
++	case "fedora", "centos", "rhel", "arch", "manjaro":
+ 		SnapMountDir = filepath.Join(rootdir, "/var/lib/snapd/snap")
+ 	default:
+ 		SnapMountDir = filepath.Join(rootdir, defaultSnapMountDir)

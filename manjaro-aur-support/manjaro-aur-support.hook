@@ -1,11 +1,10 @@
 [Trigger]
 Operation = Install
-Operation = Upgrade
 Type = Package
 Target = pacaur
 Target = yaourt
 
 [Action]
-Description = Manjaro AUR Support metapackage
+Description = AUR Disclaimer
 When = PostTransaction
 Exec = /usr/share/libalpm/scripts/manjaro-aur-support

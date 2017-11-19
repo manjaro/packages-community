@@ -2,7 +2,7 @@
 # AUR-Maintainer: Nate Simon <aurpkg (at natesimon.net)>
 
 pkgname=pix
-pkgver=1.4.5
+pkgver=1.6.1
 pkgrel=1
 pkgdesc="Image viewer and browser based on gthumb. X-Apps Project"
 arch=('i686' 'x86_64')
@@ -34,14 +34,14 @@ optdepends=('brasero: Burn discs'
     'libopenraw: Support for RAW photos'
     'libtiff: Tiff writing support'    )
 source=("${url}/archive/${pkgver}.tar.gz")
-md5sums=('c8616719e6ba62b5bca08f28c94f40fa')
+md5sums=('26dfd88ab0cd1200ee4c130cb1c90450')
 
 build() {
     cd ${srcdir}/${pkgname}-${pkgver}
     gnome-autogen.sh --prefix="/usr" \
         --localstatedir="/var" \
         --libexecdir="/usr/lib/pix" \
-        -disable-static
+        --disable-static
 
     # Copy some files that ended up in the wrong directory.
     # This doesn't happen on mint. See this github issue:

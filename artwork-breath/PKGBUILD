@@ -3,7 +3,7 @@
 pkgbase=artwork-breath
 pkgname=('breath-icon-theme' 'breath-dark-icon-theme' 'plasma5-themes-breath' 'sddm-breath-theme' 'breath-wallpaper')
 pkgver=0.3.0
-pkgrel=1
+pkgrel=2
 _gitcommit=f560447260bd26d38812cbef8134de68b25224e0
 url=https://github.com/manjaro/artwork-breath/
 arch=('any')
@@ -29,7 +29,7 @@ build() {
 
 package_breath-wallpaper() {
   pkgdesc='breath wallpaper'
-  install -D ${srcdir}/breath/wallpapers/Breath/contents/images/1920x1080.png ${pkgdir}/usr/share/backgrounds/breath.png
+  install -Dm644 ${srcdir}/breath/wallpapers/Breath/contents/images/1920x1080.png ${pkgdir}/usr/share/backgrounds/breath.png
 }
 
 package_breath-icon-theme() {

@@ -8,8 +8,8 @@ _linuxprefix=linux-rt-manjaro
 _extramodules=extramodules-4.11-rt-MANJARO
 pkgname=$_linuxprefix-nvidia-304xx
 _pkgname=nvidia
-pkgver=304.134
-pkgrel=24
+pkgver=304.137
+pkgrel=4
 epoch=1
 pkgdesc="NVIDIA drivers for linux."
 arch=('x86_64')
@@ -26,15 +26,13 @@ options=(!strip)
 source=("http://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run"
         'nvidia-3.18.patch'
         'disable-mtrr.patch'
-        'linux49.patch'
         'linux410.patch'
         'linux411.patch')
-md5sums=('2ecfa6bd145f673264f7977e0366e259'
+md5sums=('485506ee6a7c54780488dacddf1d56b1'
          '79671a27131da619a33eb02ed0c2c031'
          'c4becf1145a139cc0121be9ad340bcd8'
-         'f1003d21dcadde47d532a27bdfc79b55'
-         'a2518ee171134b4d0aa2d96483746a34'
-         'b44ca6919a2001c977f0aeb3e9af4484')
+         '3153a8f79bec5f8259ae0602f2d2fd44'
+         'a15f61c7d64675eda881bf7820f31557')
 
 _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
 
@@ -47,8 +45,6 @@ prepare() {
   patch -p0 --no-backup-if-mismatch -i ${srcdir}/nvidia-3.18.patch
   # FS#47092
   (cd kernel; patch -p1 --no-backup-if-mismatch -i "$srcdir"/disable-mtrr.patch)
-  # Fix "already registered" problem with 4.9
-  (cd kernel; patch -p1 --no-backup-if-mismatch -i "$srcdir"/linux49.patch)
   # Fix compile problem with 4.10
   (cd kernel; patch -p2 --no-backup-if-mismatch -i "$srcdir"/linux410.patch)
   # Fix compile problem with 4.11

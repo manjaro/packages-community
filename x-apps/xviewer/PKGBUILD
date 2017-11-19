@@ -2,7 +2,7 @@
 # AUR-Maintainer: Nate Simon <aurpkg (at natesimon.net)>
 
 pkgname=xviewer
-pkgver=1.4.3
+pkgver=1.6.0
 pkgrel=1
 pkgdesc="A simple and easy to use image viewer. X-Apps Project"
 arch=('i686' 'x86_64')
@@ -18,7 +18,7 @@ makedepends=('gnome-common'
     'gobject-introspection'
     'libglade')
 source=("${url}/archive/${pkgver}.tar.gz")
-md5sums=('ca5b414dba67ea0a056f4e4a6131969f')
+md5sums=('fd85824cf70bf3cca4f9aba43508f8e8')
 
 build() {
     cd ${srcdir}/${pkgname}-${pkgver}

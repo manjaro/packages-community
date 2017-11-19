@@ -1,0 +1,35 @@
+diff -rupN a/gtk/sass/3.22/_3rd-party.scss b/gtk/sass/3.22/_3rd-party.scss
+--- a/gtk/sass/3.22/_3rd-party.scss	2017-10-30 08:21:51.000000000 +0100
++++ b/gtk/sass/3.22/_3rd-party.scss	2017-10-31 04:26:53.314609836 +0100
+@@ -2681,6 +2681,31 @@ window.background:not(.csd) > box.vertic
+ // /*********
+ //  * XFce4 *
+ //  *********/
++ 
++XfdesktopIconView.view {
++  background-color: rgba(0,0,0,0.0);
++}
++
++XfdesktopIconView.view:active {
++    background-color: rgba(0,0,0,0.1);
++    color: $selected_bg_color;
++    border-radius: 1px;
++}
++
++XfdesktopIconView.rubberband {
++  background-color: rgba(0,0,0,0.3);
++}
++
++XfdesktopIconView.label {
++  color: white;
++  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
++}
++
++XfdesktopIconView.label:active {
++  background-color: rgba(0,0,0,0.15);
++  color: white;
++  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
++}
+ 
+ .XfceHeading {
+   margin: 0;

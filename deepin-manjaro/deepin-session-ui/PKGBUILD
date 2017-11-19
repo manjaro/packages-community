@@ -4,37 +4,38 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-session-ui
-_pkgname=$pkgname-manjaro
-pkgver=4.0.14
-pkgrel=2
+pkgver=4.1.4
+pkgrel=1.1
 pkgdesc='Deepin desktop-environment - Session UI module'
 arch=('i686' 'x86_64')
-url="https://github.com/oberon2007/$_pkgname"
+url="https://github.com/linuxdeepin/dde-session-ui"
 license=('GPL3')
 groups=('deepin')
-depends=('deepin-control-center'
-    'deepin-daemon'
-    'deepin-qt-dbus-factory'
-    'dtkwidget'
-    'gsettings-qt'
-    'liblightdm-qt5'
-    'qt5-svg'
-    'startdde'
-    'xorg-xrandr')
-makedepends=('git' 'qt5-tools' 'deepin-gettext-tools')
+depends=('gsettings-qt' 'dtkwidget' 'liblightdm-qt5' 'qt5-svg' 'deepin-daemon' 'xorg-server'
+         'deepin-control-center' 'startdde' 'xorg-xrandr' 'deepin-qt-dbus-factory')
+makedepends=('qt5-tools' 'deepin-gettext-tools')
 provides=('lightdm-deepin-greeter')
 conflicts=('dde-workspace' 'dde-session-ui')
 replaces=('dde-workspace' 'dde-session-ui')
-source=("$url/archive/$pkgver.tar.gz")
-md5sums=('8a5758885c4a1bf5b8f28d40bcdf114a')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/dde-session-ui/archive/$pkgver.tar.gz"
+    disable_wm-chooser.patch::https://github.com/oberon2007/deepin-session-ui-manjaro/commit/5a000964ecd0011acd26aaf217c58cfa20f85f83.patch)
+#    wm-chooser-text.patch::https://github.com/oberon2007/$pkgname-manjaro/commit/3c02f306ee18070757c88e61bd7c8c964bb14a85.patch)
+sha512sums=('1f582cb07f155269f3cca4bbdc48dad81dbb5b9b74f6846085800ad1fafea7f80eb7004ab21fd5dcd55bc1c05b1d46120bbc82a1045f38dd9ca928efca6e9706'
+            '80a9ebf29e45ceaff82524cc2f323b17ea9130af77a6ca11b747d0a4a5c940785b191f17540671e070f7334634f3e611b31c82f3e183b247837dc425957313e0')
+
+prepare() {
+  cd dde-session-ui-$pkgver
+#  patch -p1 -i $srcdir/wm-chooser-text.patch
+  patch -p1 -i $srcdir/disable_wm-chooser.patch
+}
 
 build() {
-    cd $_pkgname-$pkgver
-    qmake-qt5 PREFIX=/usr
-    make
+  cd dde-session-ui-$pkgver
+  qmake-qt5 PREFIX=/usr
+  make
 }
 
 package() {
-    cd $_pkgname-$pkgver
-    make INSTALL_ROOT="$pkgdir" install
+  cd dde-session-ui-$pkgver
+  make INSTALL_ROOT="$pkgdir" install
 }

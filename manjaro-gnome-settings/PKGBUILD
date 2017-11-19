@@ -4,8 +4,8 @@
 pkgbase=manjaro-gnome-settings
 pkgname=('manjaro-gnome-settings' 'manjaro-gnome-extension-settings')
 #          'manjaro-gnome-minimal-settings')
-pkgver=20170822
-pkgrel=2
+pkgver=20171103
+pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/manjaro-gnome-settings"
 license=('GPL')
@@ -54,7 +54,7 @@ depends=('gnome-shell'
 		 'manjaro-gnome-extension-settings'
 		 'chrome-gnome-shell'
          'gnome-wallpapers'
-         'arc-themes-maia'
+         'adapta-maia-theme'
 		 'arc-maia-icon-theme'
          'xcursor-breeze'
          'manjaro-base-skel'
@@ -62,9 +62,9 @@ depends=('gnome-shell'
          'qt5ct'
          'ttf-hack'
          'noto-fonts')
-optdepends=('plymouth-theme-manjaro-gnome-17.0: Plymouth theme')
-			#'firefox-arc-maia-settings: Firefox theme'
-		 	#'moka-icon-theme: Fallback icon theme for Arc Maia Icon theme')
+optdepends=('plymouth-theme-manjaro-gnome-17.0: Plymouth theme'
+			'manjaro-gnome-maia-theme: Branding theme for Gdm and Dash to Dock'
+			'lighter-gnome: some gnome-settings-daemon components')
 conflicts=('manjaro-desktop-settings')
 provides=('manjaro-desktop-settings')
 backup=('etc/gdm/PostLogin/Default')

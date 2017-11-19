@@ -6,12 +6,12 @@
 # Author: horst3180 @ deviantart
 
 pkgname=vertex-maia-gtk3
-pkgver=20170702
+pkgver=20171114
 pkgrel=1
 pkgdesc='gtk3-only version of the official Manjaro theme'
 _gnomever=3.22
-_vertex_commit=b814f289738164bd35b0f1a7cf4bdbc1600299bd
-_manjaro_commit=90f0c210f458e9e610f8dc1699470a808bbc2577
+_vertex_commit=67a36e8968eab4405614b86a746954fdcfb138a6
+_manjaro_commit=ca836dd9326c3f0efe2923175f527a0af2904c8e
 arch=('any')
 url='http://horst3180.deviantart.com/art/Vertex-Theme-470663601'
 license=('GPL3')

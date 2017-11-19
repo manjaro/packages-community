@@ -8,8 +8,8 @@ _linuxprefix=linux-rt-manjaro
 _extramodules=extramodules-4.11-rt-MANJARO
 pkgname=$_linuxprefix-nvidia
 _pkgname=nvidia
-pkgver=375.82
-pkgrel=5
+pkgver=384.98
+pkgrel=1
 epoch=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
@@ -24,7 +24,7 @@ install=nvidia.install
 options=(!strip)
 durl="http://us.download.nvidia.com/XFree86/Linux-x86"
 source=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-sha256sums=('bfbff9d4bf567b62d5298d36c7981abfc3344b9dedc1f463c96055997f2b6c4e')
+sha256sums=('169909c756ce01abcb676d704638003f3b782173a8ea82f2de798e40212780f5')
 
 _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
 
@@ -33,6 +33,7 @@ prepare() {
     cd "${_pkg}"
     # patches here
     sed -i -e 's|MODULE_LICENSE("MIT")|MODULE_LICENSE("GPL")|g' kernel/nvidia-drm/nvidia-drm-linux.c
+    sed -i -e 's|PREEMPT_RT_PRESENT=1|PREEMPT_RT_PRESENT=0|g' kernel/conftest.sh
 }
 
 build() {

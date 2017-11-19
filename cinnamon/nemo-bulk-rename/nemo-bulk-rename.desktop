@@ -1,0 +1,6 @@
+[Desktop Entry]
+Exec=nemo-bulk-rename
+Name=nemo-bulk-rename
+Comment=configure nemo bulk-rename-tool
+Type=Application
+Icon=gprename

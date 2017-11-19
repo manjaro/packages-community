@@ -6,8 +6,8 @@
 # Contributor: Anders Bostrom <anders.bostrom@home.se>
 
 pkgname=thunderbird-kde
-pkgver=52.3.0
-pkgrel=1
+pkgver=52.4.0
+pkgrel=2
 provides=(thunderbird=${pkgver})
 pkgdesc="Standalone mail and news reader from mozilla.org"
 arch=(i686 x86_64)
@@ -16,24 +16,27 @@ url="https://www.mozilla.org/thunderbird/"
 depends=(gtk3 gtk2 mozilla-common libxt startup-notification mime-types dbus-glib alsa-lib ffmpeg
          nss hunspell sqlite ttf-font icu libvpx libnotify)
 makedepends=(unzip zip diffutils python2 yasm mesa imake gconf libpulse inetutils xorg-server-xvfb
-             autoconf2.13 cargo)
+             autoconf2.13 rust clang llvm)
 optdepends=('libcanberra: sound support')
 conflicts=('thunderbird' 'thunderbird-kde-opensuse')
 options=(!emptydirs !makeflags)
 # For patch look here: https://build.opensuse.org/package/show/mozilla:Factory/MozillaThunderbird
 source=(https://ftp.mozilla.org/pub/mozilla.org/thunderbird/releases/$pkgver/source/thunderbird-$pkgver.source.tar.xz
-        thunderbird.desktop
-        thunderbird-install-dir.patch no-crmf.diff rust-i686.patch fix-wifi-scanner.diff
+        0001-Bug-1338655-Don-t-try-to-build-mp4parse-bindings.-r-.patch
+        no-crmf.diff rust-i686.patch glibc-2.26-fix.diff fix-wifi-scanner.diff
+        thunderbird.desktop thunderbird-install-dir.patch
         mozilla-kde.patch
         mozilla-language.patch
         mozilla-nongnome-proxies.patch
         kde.js)
-sha256sums=('050acc320a9c50365a53e4faa6538a0ad7f9a302d5f2cfb6edf0c6fe1b573b18'
-            '44c52e9d135bab6d107fab67d279612a4d2750996fa45f4530d8ede6a2fb031c'
-            '24599eab8862476744fe1619a9a53a5b8cdcab30b3fc5767512f31d3529bd05d'
+sha256sums=('7f57b5b4d4ec42b04afcff8327abc2d3c6185c0bcc1ad138825d021a2d3f578c'
+            '413cd6d366d78f325d80ebebccfd0afa0d266b40b2e54b66ba2fa03c15f3ea67'
             'a7317caba56e89932bd9e3b9352d94701dd9a419685057f238b1ded8dc0adcd7'
             'f61ea706ce6905f568b9bdafd1b044b58f20737426f0aa5019ddb9b64031a269'
+            'cd7ff441da66a287f8712e60cdc9e216c30355d521051e2eaae28a66d81915e8'
             '9765bca5d63fb5525bbd0520b7ab1d27cabaed697e2fc7791400abc3fa4f13b8'
+            '44c52e9d135bab6d107fab67d279612a4d2750996fa45f4530d8ede6a2fb031c'
+            '24599eab8862476744fe1619a9a53a5b8cdcab30b3fc5767512f31d3529bd05d'
             '50f5a58f65f1dd5585b145dbfe9486dae120ba5b9bfbda7bb0f1f3baa647faca'
             '34df7ba917c69cb6d3c214e41ff3d5d414eece9d7d061a83e564393e71efb282'
             'e8289ea4c1f8191e1e23661312ceee2128b8e790501b9a589d0d7bfc4384553f'
@@ -58,15 +61,22 @@ prepare() {
 
   cd thunderbird-$pkgver
   patch -Np1 -i ../thunderbird-install-dir.patch
-  
-  # https://bugzilla.mozilla.org/show_bug.cgi?id=1371991
-  patch -Np1 -i ../no-crmf.diff
 
   # https://bugzilla.mozilla.org/show_bug.cgi?id=1314968
   patch -d mozilla -Np1 < ../fix-wifi-scanner.diff
 
+  # https://bugzilla.mozilla.org/show_bug.cgi?id=1371991
+  patch -Np1 -i ../no-crmf.diff
+  
+  # https://bugzilla.mozilla.org/show_bug.cgi?id=1385667
+  # https://bugzilla.mozilla.org/show_bug.cgi?id=1394149
+  patch -d mozilla/toolkit/crashreporter/google-breakpad/src/client -Np4 < ../glibc-2.26-fix.diff
+
   # Build with the rust targets we actually ship
   patch -d mozilla -Np1 < ../rust-i686.patch
+
+  # https://bugs.archlinux.org/task/53890
+  patch -d mozilla -Np1 < ../0001-Bug-1338655-Don-t-try-to-build-mp4parse-bindings.-r-.patch
 
   echo -n "$_google_api_key" >google-api-key
   echo -n "$_mozilla_api_key" >mozilla-api-key
@@ -104,13 +114,12 @@ ac_add_options --enable-system-ffi
 ac_add_options --enable-system-pixman
 
 # Features
+ac_add_options --enable-alsa
+ac_add_options --disable-jack
 ac_add_options --enable-startup-notification
 ac_add_options --disable-crashreporter
-ac_add_options --enable-alsa
 ac_add_options --disable-updater
 ac_add_options --enable-calendar
-
-STRIP_FLAGS="--strip-debug"
 END
 
   msg "Patching for KDE"

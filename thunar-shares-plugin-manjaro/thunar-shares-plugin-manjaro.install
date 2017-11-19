@@ -25,7 +25,7 @@ add_users() {
 }
 
 add_group() {
-    getent group "sambashare" &>/dev/null || groupadd -g 617 sambashare
+    getent group "sambashare" &>/dev/null || groupadd -r sambashare
     add_users
     chgrp sambashare var/lib/samba/usershare
 }

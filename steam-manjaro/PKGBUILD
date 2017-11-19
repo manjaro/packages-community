@@ -8,7 +8,7 @@
 pkgname=steam-manjaro
 _package=steam
 pkgver=1.0.0.54
-pkgrel=8
+pkgrel=9
 pkgdesc="Valve's digital software delivery system"
 url='http://steampowered.com/'
 arch=('i686' 'x86_64')
@@ -27,10 +27,7 @@ source=(http://repo.steampowered.com/${_package}/pool/${_package}/s/${_package}/
         '0003-alsa-sdl-audiodriver.patch'
         '0004-dbus_fatal_warning.patch'
         '0005-manjaro-steam-native.patch'
-# 20170503 (date +%Y%m%d) disable ld_library_path_fallback for now.
-#        '0006-ld_library_path_fallback_x86.patch'
-#        '0006-ld_library_path_fallback_x86_64.patch'
-# bug #4816 https://github.com/ValveSoftware/steam-for-linux/issues/4816
+        '0006-steam_frame_force_close.patch'
         'steam_install_workaround'
         )
 sha512sums=('1820f596359d829a4e119f1f916a741ecb7973d36684916cdbbfa435fcdc9c288852491fd6d0b064e8154a43c60d8dcce3c7ed9275aed8f5f116c2782489bf32'
@@ -41,6 +38,7 @@ sha512sums=('1820f596359d829a4e119f1f916a741ecb7973d36684916cdbbfa435fcdc9c28885
             'ec57f189fbc25633799c553b0eb30bd074f02befd9c7e7ca1c052be0a66ca3745b511b0fccb21ddb57885d60a23c8d40eaa8d63f8da2fc2fff3b8e7f5d23b091'
             '12d8b5786e2a375ec03131ff5c246c64793acc24cf42e74b40cd77a031c17543da05f7dd33b1f17f63524710f5d96636f35908e1953292f44e949f84fb753c27'
             'fec7a63231c502debaa8ccdac73270e47ad42dd85e420eee44100ed0e4e4678e9ad70e36a3df02cc9ebe9936b710737d0867532a9b319bc1bee141c420db5900'
+            'b859a12ba096d7f2bee7eac53316afdd881bb336f5c5f2c014b8cbc9b4cb4da6c0c41cd86c71cea3f78888b781368628bf0886c6da625d3c0b600b695fa56398'
             'a5eb16810f2e1f1b6fbb627dba7ae74da2f375885f79ab829f918f541861ccde360c6d658b30236e7b8fad789ab98a1c35be1a08f6b19853ec338863b8caccc8')
 
 prepare()
@@ -51,12 +49,7 @@ prepare()
     patch -Np1 < "${srcdir}/0003-alsa-sdl-audiodriver.patch"
     patch -Np1 < "${srcdir}/0004-dbus_fatal_warning.patch"
     patch -Np1 < "${srcdir}/0005-manjaro-steam-native.patch"
-#    if [[ "$CARCH" == "x86_64" ]]
-#        then
-#            patch -Np1 < "${srcdir}/0006-ld_library_path_fallback_x86_64.patch"
-#        else
-#            patch -Np1 < "${srcdir}/0006-ld_library_path_fallback_x86.patch"
-#    fi
+    patch -Np1 < "${srcdir}/0006-steam_frame_force_close.patch"
 }
 
 package()

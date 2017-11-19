@@ -1,6 +1,0 @@
-#!/bin/bash
-if [ "$(glxinfo | grep -i 'llvmpipe')" != "" ]; then
-    compton -cCG --backend xrender
-else
-    compton -cCG --backend glx --unredir-if-possible-delay 100000000
-fi

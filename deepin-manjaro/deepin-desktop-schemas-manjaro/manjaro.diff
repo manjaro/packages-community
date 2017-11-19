@@ -23,7 +23,7 @@ diff -rupN a/overrides/x86/com.deepin.dde.dock.override b/overrides/x86/com.deep
 +++ b/overrides/x86/com.deepin.dde.dock.override	2017-06-29 15:28:42.711304316 +0200
 @@ -1,4 +1,4 @@
  [com.deepin.dde.dock]
--docked-apps=['deepin-toggle-desktop', 'deepin-wm-multitaskingview','dde-file-manager','deepin-appstore','deepin-music','deepin-movie','google-chrome','dde-control-center']
+-docked-apps=['deepin-toggle-desktop', 'deepin-wm-multitaskingview','dde-file-manager','deepin-appstore','com.deepin.Music','deepin-music','com.deepin.Movie','deepin-movie','google-chrome','dde-control-center']
 -hide-mode='keep-showing'
 +docked-apps=['dde-file-manager','firefox','deepin-terminal','deepin-toggle-desktop','deepin-wm-multitaskingview','dde-control-center']
 +hide-mode='smart-hide'
@@ -44,7 +44,7 @@ diff -rupN a/schemas/com.deepin.dde.appearance.gschema.xml b/schemas/com.deepin.
          <description></description>
      </key>
      <key name="background-uris" type="as">
--        <default>['file:///usr/share/backgrounds/default_background.jpg', 'file:///usr/share/wallpapers/deepin/Sunset_of_the_Lake_Nam_by_Wang_Jinyu.jpg', 'file:///usr/share/wallpapers/deepin/Reflection_of_the_Kanas%20Lake_by_Wang_Jinyu.jpg', 'file:///usr/share/wallpapers/deepin/Autumn_in_Kanas_by_Wang_Jinyu.jpg']</default>
+-        <default>['file:///usr/share/backgrounds/default_background.jpg', 'file:///usr/share/wallpapers/deepin/Sunset_of_the_Lake_Nam_by_Wang_Jinyu.jpg', 'file:///usr/share/wallpapers/deepin/Reflection_of_the_Kanas_Lake_by_Wang_Jinyu.jpg', 'file:///usr/share/wallpapers/deepin/Autumn_in_Kanas_by_Wang_Jinyu.jpg']</default>
 +        <default>['file:///usr/share/backgrounds/ant_man_deepin03.jpg', 'file:///usr/share/backgrounds/floor_wood.jpg', 'file:///usr/share/backgrounds/abstract-gray.jpg', 'file:///usr/share/backgrounds/Ocean_by_Shu_Le.jpg']</default>
          <summary>desktop background picture URIs for workspaces</summary>
          <description>Note that the backend only supports local (file://) URIs.</description>

@@ -1,0 +1,17 @@
+EXTRAMODULES='extramodules-4.11-rt-MANJARO'
+
+post_install() {
+    depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
+    echo 'In order to use nvidia module, reboot the system.'
+}
+
+post_upgrade() {
+    depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
+    if  [ "$(vercmp $2 310.19-2)" -lt 0 ]; then
+        echo 'If your card is from the 7xxx series or earlier, install nvidia-304xx'
+    fi
+}
+
+post_remove() {
+    depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
+}

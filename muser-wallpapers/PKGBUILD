@@ -1,0 +1,34 @@
+# Maintainer: Stefano Capitani <stefanoatmanjarodotorg>
+# Author: Muser <forumatmanjarodotorg>
+pkgname=muser-wallpapers
+_repo=muser-collection
+pkgver=20171008
+pkgrel=1
+_snapshot=5c6702d36f9c85ab439e075ede2cc624f9bc6494
+pkgdesc='Collection of Muser artwork wallpapers'
+arch=('any')
+url="https://github.com/Ste74/$_repo"
+license=('CC0')
+source=("$_repo-$_snapshot.tar.gz::$url/archive/$_snapshot.tar.gz")
+sha256sums=('7c3279aed6917c275723913f1ad42b7568547b4387023b90732980e87edfd061')
+
+pkgver() {
+	date +%Y%m%d
+}
+
+package() {
+	cd $srcdir
+	install -dm755 $pkgdir/usr/share/backgrounds/muser-collection
+	for i in gnome mate; do
+	install -dm755 $pkgdir/usr/share/$i-background-properties
+	done
+	
+	cd $_repo-$_snapshot
+	rm *.md *.sh
+	cp * $pkgdir/usr/share/backgrounds/muser-collection/
+	for i in gnome mate; do
+	mv muser-collection-$i.xml $pkgdir/usr/share/$i-background-properties/
+	done
+}
+
+

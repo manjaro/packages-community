@@ -16,8 +16,9 @@ cd ${pwd}/*bbswitch && makepkg -sf --noconfirm
 cd ${pwd}/*broadcom-wl && makepkg -sf --noconfirm
 cd ${pwd}/*catalyst && makepkg -df --noconfirm
 cd ${pwd}/*ndiswrapper && makepkg -sf --noconfirm
-cd ${pwd}/*nvidia && makepkg -sf -d --noconfirm
+cd ${pwd}/*nvidia && makepkg -sf --noconfirm
 cd ${pwd}/*nvidia-304xx && makepkg -d --noconfirm
+cd ${pwd}/*nvidia-340xx && makepkg -d --noconfirm
 cd ${pwd}/*nvidiabl && makepkg -sf --noconfirm
 cd ${pwd}/*r8168 && makepkg -sf --noconfirm
 cd ${pwd}/*rt3562sta && makepkg -sf --noconfirm

@@ -1,0 +1,28 @@
+# Maintainer: Bernhard Landauer <oberon@manjaro.org>
+# Contributor: ceyhunnabiyev
+
+pkgname=kvantum-manjaro
+pkgver=0.10.5
+pkgrel=3
+pkgdesc="Maia and Breath themes for kvantum-qt5"
+arch=('any')
+url="https://github.com/manjaro/$pkgname"
+license=('GPL3')
+depends=('kvantum-qt5')
+makedepends=('git')
+optdepends=('adapta-black-breath-theme'
+    'adapta-black-maia-theme'
+    'adapta-breath-theme'
+    'adapta-gtk-theme'
+    'adapta-maia-theme')
+source=("git+$url.git")
+md5sums=('SKIP')
+
+package() {
+    cd $pkgname
+    install -dm755 $pkgdir/usr/share
+    install -dm755 $pkgdir/usr/share/kde4/apps
+    cp -r color-schemes $pkgdir/usr/share
+    cp -r Kvantum $pkgdir/usr/share
+    cp -r color-schemes $pkgdir/usr/share/kde4/apps
+}

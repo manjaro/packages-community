@@ -5,11 +5,10 @@ post_install() {
 	echo 'Simply map the following scripts to keyboard shortcuts in your DE or WM.'
 	echo 'Xfce4 allows for this under Settings > Keyboard > Application Shortcuts.'
 	echo
-	echo '/usr/bin/pulseaudio-ctl mute   ==>  Toggle status of mute'
-	echo '/usr/bin/pulseaudio-ctl full   ==>  Increase vol by 100 %'
-	echo '/usr/bin/pulseaudio-ctl normal ==>  Increase vol by 70 %'
-	echo '/usr/bin/pulseaudio-ctl up     ==>  Increase vol by 5 %'
-	echo '/usr/bin/pulseaudio-ctl down   ==>  Decrease vol by 5 %'
+	echo '/usr/bin/pulseaudio-ctl mute ==>  Toggle status of mute'
+	echo '/usr/bin/pulseaudio-ctl mute-input ==>  Toggle status of mute for mic'
+	echo '/usr/bin/pulseaudio-ctl up   ==>  Increase vol by 5 %'
+	echo '/usr/bin/pulseaudio-ctl down ==>  Decrease vol by 5 %'
 	echo '--------------------------------------------------------------------------'
 }
 
@@ -25,6 +24,17 @@ post_upgrade() {
 	oldpkgver=${2%-*}
 	#newpkgver=${1%-*}
 
+	for i in 1.62 1.46; do
+		if [[ $oldpkgver < $i ]]; then
+			echo '--> Please check ~/.config/pulseaudio-ctl/config against the'
+			echo '--> provided /usr/share/pulseaudio-ctl/config.skel to ensure'
+			echo '--> it is current as the script does not do this automatically.'
+		else
+			/bin/true
+		fi
+
+	done
+
 	if [[ $oldpkgver < 1.20 ]]; then
 		echo '--> Support for the older three script solution has been removed.'
 		echo '--> You MUST remaps your shortcut keys.'
@@ -36,4 +46,3 @@ post_upgrade() {
 		/bin/true
 	fi
 }
-

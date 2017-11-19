@@ -1,0 +1,24 @@
+# Maintainer: Bernhard Landauer <oberon@manjaro.org>
+# Contributor: Rafael Fontenelle <rafaelff@gnome.org>
+
+pkgname=gtksourceview-pkgbuild
+pkgver=3
+pkgrel=2
+arch=(any)
+pkgdesc="PKGBUILD syntax highlighting for gtksourceview2/3 "
+depends=('shared-mime-info' 'gtksourceview2' 'gtksourceview3')
+conflicts=('mime-pkgbuild' 'gtksourceview2-pkgbuild' 'gtksourceview3-pkgbuild')
+provides=('mime-pkgbuild' 'gtksourceview2-pkgbuild' 'gtksourceview3-pkgbuild')
+license=('free')
+source=(pkgbuild.lang
+    pkgbuild.xml)
+md5sums=('d3652c6043c45ba40ffdcb33c66c1c84'
+         '1ebd783f76c5ae95d9a34fc91b50fbdd')
+
+package() {
+    install -Dm644 pkgbuild.xml "$pkgdir"/usr/share/mime/packages/pkgbuild.xml
+    install -Dm644 pkgbuild.lang "$pkgdir"/usr/share/gtksourceview-3.0/language-specs/pkgbuild.lang
+    mkdir -p $pkgdir/usr/share/gtksourceview-2.0/language-specs/
+    ln -s /usr/share/gtksourceview-3.0/language-specs/pkgbuild.lang \
+      $pkgdir/usr/share/gtksourceview-2.0/language-specs/pkgbuild.lang
+}

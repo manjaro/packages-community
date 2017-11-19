@@ -1,35 +1,10 @@
+post_install(){
 
-post_install() {
-  
-#Rebuild the gsettings schemas
-	rm -f /usr/share/gnome-shell/extensions/manjaro-update@Chrysostomus/schemas/gschemas.compiled
-	
-	glib-compile-schemas /usr/share/gnome-shell/extensions/manjaro-update@Chrysostomus/schemas/
-	
-	echo
-	echo ">> Enable no-tray-icon.service :"
-	echo ">> systemctl enable no-tray-icon.service"
-	echo
+	rm -f $pkgdir/usr/share/gnome-shell/extensions/manjaro-update@Chrysostomus/schemas/gschemas.compiled
+	glib-compile-schemas $pkgdir/usr/share/gnome-shell/extensions/manjaro-update@Chrysostomus/schemas/
 }
 
-post_upgrade() {
+post_update(){
 
 	post_install
-	
 }
-
-# This re enable all 
-post_remove() {
-  
-  if [ -f "/etc/xdg/autostart/pamac-tray.desktop.save" ] ; then
-    echo "Enable autostart for pamac-tray in /etc/xdg/autostart"
-    mv -f /etc/xdg/autostart/pamac-tray.desktop.save /etc/xdg/autostart/pamac-tray.desktop
-  fi
-  
-  if [ -f "/etc/xdg/autostart/msm_notifier.desktop.save" ] ; then
-    echo "Enable autostart for pamac-tray in /etc/xdg/autostart"
-    mv -f /etc/xdg/autostart/msm_notifier.desktop.save /etc/xdg/autostart/msm_notifier.desktop
-  fi
-
-}
-

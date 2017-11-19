@@ -1,0 +1,19 @@
+{
+    "application": {
+
+        "name": "Microsoft Office Online",
+        "description": "Work together online"
+    },
+
+    "window": {
+
+        "width": "1024",
+        "height": "600",
+        "window_icon": "_icon_"
+    },
+
+    "webkit": {
+
+        "cache": "online"
+    }
+}

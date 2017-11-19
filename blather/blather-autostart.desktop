@@ -1,7 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Exec=blather -c
-Name=Blather
-Type=Application
-Terminal=false
-Comment=Speech recognition using sphinx

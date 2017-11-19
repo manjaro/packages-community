@@ -13,9 +13,9 @@ _basekernel=4.9
 _basever=49-rt-lts
 #_aufs=20170327
 _bfq=v8r12
-_sub=40
+_sub=47
 _pkgver=${_basekernel}.${_sub}
-_rtpatchver=rt30
+_rtpatchver=rt37
 pkgver=${_pkgver}_${_rtpatchver}
 pkgrel=1
 arch=('x86_64')
@@ -33,7 +33,7 @@ source=("https://www.kernel.org/pub/linux/kernel/v4.x/linux-${_basekernel}.tar.x
         # standard config files for mkinitcpio ramdisk
         "${pkgname}.preset"
         "${pkgname}.hook"
-        "0001-BFQ-${_bfq}-v${_pkgver}.patch::https://github.com/linusw/linux-bfq/compare/69973b8...7994bcf.patch"
+        "0001-BFQ-${_bfq}-v${_pkgver}.patch::https://github.com/linusw/linux-bfq/compare/69973b8...67c883e.patch"
         # ARCH Patches
         'change-default-console-loglevel.patch'
         # Manjaro Patches
@@ -41,12 +41,17 @@ source=("https://www.kernel.org/pub/linux/kernel/v4.x/linux-${_basekernel}.tar.x
         '0002-HID-multitouch-enable-the-Surface-4-Type-Cover-Pro-JP-to-report-multitouch-data.patch::https://github.com/torvalds/linux/commit/4fed0231994b27b3896bc63885ac66d02fff625b.patch'
         '0003-HID-multitouch-enable-Surface-4-Type-Cover-Pro-non-JP-to-report-multitouch-data.patch::https://github.com/torvalds/linux/commit/66e5c5ffc7a5e4d36d136ce4fd8bdb4e92ecec7b.patch'
         '0004-HID-multitouch-enable-Surface-3-Type-Cover-Pro-to-report-multitouch-data.patch::https://github.com/torvalds/linux/commit/0a76ac80e84d0be0aba24ab60ac3bc14bc49bbc9.patch'
+        # Zen temperature
+        '0001-zen-temp.patch::https://github.com/torvalds/linux/commit/0c36d72e57dfdc7bb7a3c39411a675d85f8e672c.patch'
+        '0002-zen-temp.patch::https://lkml.org/lkml/diff/2017/9/6/682/1'
+        '0003-zen-temp.patch::https://lkml.org/lkml/diff/2017/9/6/683/1'
+        '0004-zen-temp.patch::https://lkml.org/lkml/diff/2017/9/6/684/1'
         # RT Patch
         "https://www.kernel.org/pub/linux/kernel/projects/rt/${_basekernel}/older/patch-${_pkgver}-${_rtpatchver}.patch.xz"
         "https://www.kernel.org/pub/linux/kernel/projects/rt/${_basekernel}/older/patch-${_pkgver}-${_rtpatchver}.patch.sign"
         'fix-race-in-PRT-wait-for-completion-simple-wait-code_Nvidia-RT-160319.patch')
 sha256sums=('029098dcffab74875e086ae970e3828456838da6e0ba22ce3f64ef764f3d7f1a'
-            '8e85a7e9de8fcc2f06f8539b743de30e2ba1f5b9e6784da0701c3ab2b896f019'
+            'bdbc18434c6891c126adb2982b0ff9f954783f2e381ab06cfbdeeaef74a0d3c6'
             'eaa482628b60b3420dcd72a0017195d39c0c52d60e848f549bfe4b6f20137973'
             '99750417273c71b9b03b16c4bef4ba8f68cf18c50994a4fcc21f2d380c66eb6c'
             'ca4712f892ec934e660a0423bd5198f5a02fcb81557f608df8318247cc2f28ba'
@@ -58,7 +63,11 @@ sha256sums=('029098dcffab74875e086ae970e3828456838da6e0ba22ce3f64ef764f3d7f1a'
             '3aaca014f7e4768965dfe5e9740f2007d49f2319db6b6cf566ac7b8b869a6506'
             'dc464866c4b773644b729803ec3e99c0cdd9781727db35337ac6b06ccd3f458b'
             '555b6a27b3a34a81e422f0ac935ee72ae8bfd798799aea443f8036518bdaea00'
-            '3b490d49f37b7716d08771191588d980c225a5a5baa9c3eeafa94ff8ccf2d3a1'
+            '4d55d497f1c3ebc7afa82909c3fc63a37855d1753b4cd7dfdbaac21d91fe6968'
+            'a1b1c30d53d0a7ffe2b84331f634388807489b807b20cc24041e2591f7da2ec1'
+            'df9ff4580281ce431b42490a69f51d0a839471983930044bebe268aaee70c5ad'
+            '009da98553e3c9b5d452b7850aac25b9e81fa39de9f2aa33744c012c1a912006'
+            'efb772f6cee20764a5d4012683810edd0a46e058dd6f26b2d129ec8bbf77a0cb'
             'SKIP'
             '85f7612edfa129210343d6a4fe4ba2a4ac3542d98b7e28c8896738e7e6541c06')
 validpgpkeys=('64254695FFF0AA4466CC19E67B96E8162A8CF5D1' # Sebastian Andrzej Siewior
@@ -88,7 +97,11 @@ prepare() {
   # (relevant patch sent upstream: https://lkml.org/lkml/2011/7/26/227)
   msg "change-default-console-loglevel.patch"
   patch -p1 -i "${srcdir}/change-default-console-loglevel.patch"
-
+  # Add support for temperature sensors on Family 17h (Ryzen) processors.
+  patch -Np1 -i "${srcdir}/0001-zen-temp.patch"
+  patch -Np1 -i "${srcdir}/0002-zen-temp.patch"
+  patch -Np1 -i "${srcdir}/0003-zen-temp.patch"
+  patch -Np1 -i "${srcdir}/0004-zen-temp.patch"
   # extend Microsoft Surface support
   patch -p1 -i "${srcdir}/0001-HID-microsoft-Add-Surface-4-type-cover-pro-4-not-JP-versions.patch"
   patch -p1 -i "${srcdir}/0002-HID-multitouch-enable-the-Surface-4-Type-Cover-Pro-JP-to-report-multitouch-data.patch"

@@ -1,0 +1,33 @@
+# Maintainer: Bernhard Landauer <oberon@manjaro.org>
+
+pkgname=xfce-theme-greybird
+pkgver=3.22.5.r3.gff3f88e
+pkgrel=1
+pkgdesc="Xubuntu desktop theme suite."
+arch=('any')
+url="https://github.com/shimmerproject/Greybird"
+license=('CCPL:by-sa-3.0' 'GPL')
+depends=('gtk-engine-murrine')
+makedepends=('git' 'ruby-sass')
+optdepends=('elementary-xfce-icons: Matching icon set; use the dark icon theme'
+    'lightdm-gtk-greeter: Required for the LightDM GTK theme'
+    'shimmer-wallpapers: Contains the Greybird wallpaper, among others')
+options=('!strip')
+source=("git+$url.git")
+md5sums=('SKIP')
+
+pkgver() {
+    cd Greybird
+    git describe --long | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+build() {
+    cd Greybird
+    ./autogen.sh --prefix=/usr
+    make
+}
+
+package() {
+    cd Greybird
+    make install DESTDIR="$pkgdir/"
+}

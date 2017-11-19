@@ -1,0 +1,9 @@
+#!/usr/bin/sh
+
+autostart=$HOME/.config/autostart/nemo-bulk-rename.desktop
+
+gsettings set org.nemo.preferences bulk-rename-tool "b'gprename'"
+[[ -f $autostart ]] && rm $autostart
+echo "nemo-bulk-rename configured."
+
+exit 0

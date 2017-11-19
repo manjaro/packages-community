@@ -2,33 +2,26 @@
 # Maintainer: Philip Müller (manjaro)
 
 pkgname=brisk-menu
-pkgver=0.4.5
+pkgver=0.5.0
 pkgrel=1
 #_commit=8a4e5f7f440a7cb62921dda823888d5bf3dcd132
 pkgdesc="An efficient menu for the MATE Desktop"
 arch=('i686' 'x86_64')
 url="https://github.com/solus-project/brisk-menu"
 license=('GPL')
-depends=('mate-panel')
-makedepends=('gnome-common')
+depends=('mate-panel' 'libnotify')
+makedepends=('meson' 'ninja')
 #source=("$pkgname-$pkgver-$pkgrel.tar.gz::${url}/archive/${_commit}.tar.gz")
-source=("${url}/releases/download/v$pkgver/$pkgname-$pkgver.tar.xz")
-sha256sums=('2dbb6da64d5dd571de8e00db795e8ec58a08453055fd82c024743dd54ba3456e')
+source=("${url}/releases/download/v$pkgver/$pkgname-v$pkgver.tar.xz")
+sha256sums=('1377ffbb784e576c290bb4d11a2dd376bc0ad017bb9f56a080bccdbc4fbe88ce')
 
 build() {
-  cd $srcdir/${pkgname}-${pkgver}
-  ./configure \
-	--prefix=/usr \
-	--bindir=/usr/bin \
-	--sbindir=/usr/bin \
-	--libdir=/usr/lib \
-	--libexecdir=/usr/lib/${pkgname}
-
-  make
+  cd $srcdir/${pkgname}-v${pkgver}
+  meson --buildtype plain build --prefix=/usr
+  ninja -C build -j$(($(getconf _NPROCESSORS_ONLN)+1))
 }
 
-
 package() {
-  cd ${pkgname}-${pkgver}
-  make DESTDIR="${pkgdir}/" install
+  cd ${pkgname}-v${pkgver}
+  DESTDIR="$pkgdir" ninja -C build install
 }

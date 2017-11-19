@@ -4,7 +4,7 @@ pkgname=ttf-font-icons
 pkgver=1.1
 pkgrel=4
 pkgdesc="A non-overlapping mix of Ionicons and Awesome iconic fonts"
-url="https://www.dropbox.com/s/9iysh2i0gadi4ic/icons.pdf"
+url="http://kageurufu.net/icons.pdf"
 license=('MIT')
 depends=('fontconfig'
 	'xorg-font-utils')

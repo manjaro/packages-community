@@ -1,15 +1,13 @@
 # Maintainer: Bernhard Landauer <oberon@manjaro.org>
 # Maintainer: Alexandre Filgueira <alexfilgueira@cinnarch.com>
-# Contributor: M0Rf30
-# Contributor: unifiedlinux
-# Contributor: CReimer
 
 pkgname=cinnamon
-pkgver=3.4.4
-pkgrel=1
+pkgver=3.6.3
+pkgrel=1.1
 pkgdesc="Linux desktop which provides advanced innovative features and a traditional user experience"
 arch=('i686' 'x86_64')
-url="https://github.com/linuxmint/Cinnamon"
+#url="https://github.com/linuxmint/Cinnamon"
+url="https://github.com/oberon2007/Cinnamon"
 license=('GPL2')
 depends=('accountsservice'
     'caribou'
@@ -18,11 +16,11 @@ depends=('accountsservice'
     'cinnamon-translations'
     'cjs'
     'clutter-gtk'
+    'gettext'
     'gnome-backgrounds'
     'gnome-themes-standard'
     'gstreamer'
     'iso-flag-png'
-    'libgnome-keyring'
     'libkeybinder3'
     'librsvg'
     'muffin'
@@ -42,25 +40,27 @@ depends=('accountsservice'
     'nemo'
     'polkit-gnome'
     'xapps'
+    'xdg-utils'
     'python2-gobject')
 makedepends=('autoconf-archive'
+    'git'
     'gnome-common'
     'intltool'
-    'gtk-doc'
     'gobject-introspection')
 optdepends=('blueberry: Bluetooth support'
-     'gnome-panel: fallback mode'
-     'metacity: fallback mode'
-     'system-config-printer: printer settings'
-     'tint2: fallback mode')
+    'gnome-panel: fallback mode'
+    'metacity: fallback mode'
+    'system-config-printer: printer settings'
+    'tint2: fallback mode')
 options=('!emptydirs')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxmint/Cinnamon/archive/$pkgver.tar.gz"
-        "set_wheel.patch"
-        "default-theme.patch"
-        'add-msm.patch')
-sha256sums=('94ae97470216ba2d78e05f46cd11612fbe6d1d7e72fbf683a34089cac3114924'
-            '97542a424fa83c18c8c8a6d27c089129f30b6fb4cc128c662ac0da3aebf42dcc'
-            '566585873f38a79ec248b916645a2e081abec3c6d4df2c34339cde1f35375cc5'
+source=( #"$pkgname-$pkgver.tar.gz::https://github.com/linuxmint/Cinnamon/archive/$pkgver.tar.gz"
+    "git+$url#branch=adapta-thumbnails"
+    "set_wheel.patch"
+    "default-theme.patch"
+    'add-msm.patch')
+sha256sums=('SKIP'
+            '5890a3723c28a6679db92cbd87d7e06ea5e5ecf6b7be3494b38decbe814c1f0e'
+            'bb60a2bb27efbef132798677f61ac46aa6d17f5432f0f81117ec97c1b4601aad'
             '6bd365915fc400be2e245104659744a038c61fe618c47d96977d750ba3e4e3d7')
             
 prepare() {
@@ -105,12 +105,13 @@ build() {
   cd ${srcdir}/Cinnamon*
 
   ./autogen.sh --prefix=/usr \
-               --sysconfdir=/etc \
-               --libexecdir=/usr/lib/cinnamon \
-               --localstatedir=/var \
-               --disable-static \
-               --disable-schemas-compile \
-               --enable-compile-warnings=yes
+    --sysconfdir=/etc \
+    --libexecdir=/usr/lib/cinnamon \
+    --localstatedir=/var \
+    --disable-static \
+    --disable-schemas-compile \
+    --disable-gtk-doc \
+    --enable-compile-warnings=yes
 
   #https://bugzilla.gnome.org/show_bug.cgi?id=656231
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
@@ -121,4 +122,9 @@ build() {
 package() {
   cd ${srcdir}/Cinnamon*
   make DESTDIR="${pkgdir}" install
+
+  # enable Adwaita themes
+  mkdir -p $pkgdir/usr/share/themes/Adwaita{,-dark}/metacity-1/
+  echo 'native' > $pkgdir/usr/share/themes/Adwaita/metacity-1/muffin-adwaita.txt
+  echo 'native' > $pkgdir/usr/share/themes/Adwaita-dark/metacity-1/muffin-adwaita.txt
 }

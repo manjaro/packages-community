@@ -1,0 +1,40 @@
+# Maintainer: Stefano Capitani <stefano@manjarodotorg>
+
+_pkgbase=timeshift
+pkgname=$_pkgbase
+_ver=17.11
+pkgver=v$_ver
+pkgrel=1
+pkgdesc="A system restore utility for Linux"
+arch=('i686' 'x86_64')
+url="https://github.com/teejee2008/$_pkgbase"
+license=('GPL')
+depends=('gtk3' 'libsoup' 'desktop-file-utils' 'cron' 'rsync' 'libgee' 'vte3')
+makedepends=('vala' 'diffutils' 'coreutils')
+conflicts=("$_pkgbase")
+
+source=("https://github.com/teejee2008/$_pkgbase/archive/$pkgver.tar.gz")
+sha256sums=('2cdcd3a6c8c0a78240c944423ba49b488144924524d9e7a2e787e29aea5ab38b')
+
+#pkgver() {
+#    cd $_pkgbase
+#    git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
+#}
+
+#prepare() {
+#workaround for wayland session otherwise no GUI 
+#  cd $_pkgbase/src
+#  sed -i '4d' timeshift-gtk.desktop
+#  echo "Exec=sh -c 'xhost +SI:localuser:root && timeshift-launcher'" >> timeshift-gtk.desktop
+#}
+
+build() {
+  cd $_pkgbase-$_ver
+  make
+}
+
+package() {
+  cd $_pkgbase-$_ver
+  make DESTDIR=$pkgdir install
+}
+

@@ -1,0 +1,51 @@
+# $Id$
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=deepin-qt5integration
+pkgver=0.2.5
+pkgrel=1.1
+_commit=75f877d46a51aa4e72062584e1dbdb6cc961408a
+pkgdesc='Deepin Qt5 platform plugin'
+arch=('i686' 'x86_64')
+url="https://github.com/linuxdeepin/qt5integration"
+license=('GPL3')
+depends=('dtkwidget' 'libqtxdg' 'qt5-styleplugins')
+makedepends=('xcb-util-renderutil' 'deepin-file-manager' 'qt5-xcb-private-headers' 'git')
+replaces=('qt5dxcb-plugin')
+conflicts=('qt5dxcb-plugin')
+groups=('deepin')
+source=( #"$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/qt5integration/archive/$pkgver.tar.gz"
+        "git+https://github.com/linuxdeepin/qt5integration#commit=$_commit"
+        qt5.7.1.patch
+        https://github.com/linuxdeepin/qt5integration/commit/9226ba1681d1fb383140e59bfac9fb7785193ece.patch
+        https://github.com/linuxdeepin/qt5integration/commit/3978429f33b2acc7d870a119bb6baf3216d74543.patch
+        https://github.com/linuxdeepin/qt5integration/commit/d5d93dbae8cdc21e887da17b8d710b0403f3b0aa.patch)
+sha512sums=('SKIP'
+            '1f94c0925deb6659721ced265d690b5d058c8e8482cadfad572efe4a0d1888ba42bb214de5d8c29236087d96c4ab7266c5fb1c8eeeb7b30cef6c3708744e1f0a'
+            '3f9217fa35c93419107252f7e062b84b53f3d8643a803c11a6533b3ffa7257ce2e431e91724c877fa5ab19fdec9eb12b1469e1227c6e03f1e2113f23d41fd21c'
+            '56460f04f342a18db42144880a2bbc5e4c85c079c5bb10d21052fedb2513255bb8cc25b98408a786984c2541b0632459efe8e22d7bcebec8d462b01914f1de6c'
+            'a5c47f5689d91e65c74507378ad6c27749fdc3b79ccd3240690fef6ec517f4e7aecc1fd3860223d40abc78945c45b6f1f2d74fb3e27a861014322b398cf13005')
+
+prepare() {
+  cd qt5integration
+  patch -p1 -i ../qt5.7.1.patch
+  patch -p1 -i ../9226ba1681d1fb383140e59bfac9fb7785193ece.patch
+  patch -p1 -i ../3978429f33b2acc7d870a119bb6baf3216d74543.patch
+  patch -p1 -i ../d5d93dbae8cdc21e887da17b8d710b0403f3b0aa.patch
+
+  rm -r platformplugin/libqt5xcbqpa-dev
+  sed -i 's|error(Not support Qt Version: .*)|INCLUDEPATH += /usr/include/qtxcb-private|' platformplugin/linux.pri
+
+  sed -i 's|qt5xdgiconloader/2.0.0|qt5xdgiconloader/3.1.0|' platformthemeplugin/main.cpp
+}
+
+build() {
+  cd qt5integration
+  qmake-qt5 QMAKE_CFLAGS_ISYSTEM= PREFIX=/usr
+  make
+}
+
+package() {
+  cd qt5integration
+  make INSTALL_ROOT="$pkgdir" install
+}

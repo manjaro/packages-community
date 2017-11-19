@@ -4,13 +4,13 @@
 pkgbase=desktop-settings
 pkgname=('manjaro-bspwm-settings'
         'manjaro-budgie-settings'
-        'manjaro-awesome-settings'
+        #'manjaro-awesome-settings'
         'manjaro-jwm-settings'
         'manjaro-lxde-settings'
         'manjaro-mate-settings'
-        'manjaro-netbook-settings'
-        'manjaro-pantheon-settings')
-pkgver=20170829
+        #'manjaro-netbook-settings'
+		)
+pkgver=20171113
 pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/desktop-settings"
@@ -47,7 +47,6 @@ package_manjaro-bspwm-settings() {
     depends=('bspwm-wallpapers'
         'xcursor-breeze'
         'feh'
-        'gcc' # needed for .extend.Xresources
         'rootmenu'
         'mygtkmenui'
         'limepanel'
@@ -58,29 +57,29 @@ package_manjaro-bspwm-settings() {
     _inst_dir 'community/bspwm'
 }
 
-package_manjaro-awesome-settings() {
-    pkgdesc='Manjaro Linux awesome settings'
-    conflicts=('manjaro-desktop-settings')
-    provides=('manjaro-desktop-settings')
-    depends=('bspwm-wallpapers'
-        'xcursor-breeze'
-        'awesome'
-        'lain'
-        'awesome-freedesktop'
-        'cesious-theme'
-        'dmenu-manjaro'
-        'st-manjaro'
-        'arc-maia-icon-theme'
-        'arc-themes-maia'
-        'manjaro-base-skel')
-    _inst_dir 'community/awesome'
-}
+#package_manjaro-awesome-settings() {
+#    pkgdesc='Manjaro Linux awesome settings'
+#    conflicts=('manjaro-desktop-settings')
+#    provides=('manjaro-desktop-settings')
+#    depends=('bspwm-wallpapers'
+#        'xcursor-breeze'
+#        'awesome'
+#        'lain'
+#        'awesome-freedesktop'
+#       'cesious-theme'
+#        'dmenu-manjaro'
+#        'st-manjaro'
+#        'arc-maia-icon-theme'
+#        'arc-themes-maia'
+#        'manjaro-base-skel')
+#    _inst_dir 'community/awesome'
+#}
 
 package_manjaro-budgie-settings() {
     pkgdesc='Manjaro Linux budgie settings'
     depends=('budgie-desktop'
-        'vertex-maia-themes'
-        'vertex-maia-icon-theme'
+        'adapta-maia-theme'
+        'arc-maia-icon-theme'
         'budgie-wallpapers'
         'xcursor-breeze'
 		'qt5-styleplugins'
@@ -96,7 +95,6 @@ package_manjaro-budgie-settings() {
 package_manjaro-jwm-settings() {
     pkgdesc='Manjaro Linux jwm settings'
     depends=('cantarell-fonts'
-        'gcc' # needed for .extend.Xresources
         'gtk-theme-stylishdark'
         'jwm-artwork'
         'jwm-wallpapers'
@@ -158,20 +156,20 @@ package_manjaro-mate-settings() {
     _inst_dir 'community/mate'
 }
 
-package_manjaro-netbook-settings() {
-    pkgdesc='Manjaro Linux netbook settings'
-    depends=('manjaro-base-skel')
-    conflicts=('manjaro-desktop-settings')
-    provides=('manjaro-desktop-settings')
+#package_manjaro-netbook-settings() {
+#    pkgdesc='Manjaro Linux netbook settings'
+#    depends=('manjaro-base-skel')
+#    conflicts=('manjaro-desktop-settings')
+#    provides=('manjaro-desktop-settings')
 
-    _inst_dir 'community/netbook'
-}
+#    _inst_dir 'community/netbook'
+#}
 
-package_manjaro-pantheon-settings() {
-    pkgdesc='Manjaro Linux pantheon settings'
-    depends=('manjaro-base-skel')
-    conflicts=('manjaro-desktop-settings')
-    provides=('manjaro-desktop-settings')
+#package_manjaro-pantheon-settings() {
+#    pkgdesc='Manjaro Linux pantheon settings'
+#    depends=('manjaro-base-skel')
+#    conflicts=('manjaro-desktop-settings')
+#    provides=('manjaro-desktop-settings')
 
-    _inst_dir 'community/pantheon'
-}
+#    _inst_dir 'community/pantheon'
+#}
