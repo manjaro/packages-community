@@ -1,0 +1,29 @@
+# Maintainer: Vitor Lopes <vmnlop@gmail.com>
+
+_pkgname=manjaro-webdad-settings
+pkgname="$_pkgname-git"
+pkgver=r1.8392459
+pkgrel=1
+pkgdesc="Manjaro WebDad Settings"
+arch=('any')
+url="https://github.com/codesardine/manjaro-webdad-settings"
+license=('GPL')
+makedepends=('git')
+source=("git+$url.git")
+sha256sums=('SKIP')
+conflicts=('manjaro-webdad-settings')
+provides=('manjaro-webdad-settings')
+depends=('webdad-theming')
+
+pkgver() {
+    cd "$_pkgname"
+    (
+        printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+    )
+}
+
+package(){
+	install -d $pkgdir/etc
+	cp -r $srcdir/$_pkgname/etc $pkgdir/
+}
+

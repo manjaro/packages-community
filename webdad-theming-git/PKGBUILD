@@ -1,0 +1,29 @@
+# Maintainer: Vitor Lopes <vmnlop@gmail.com>
+
+_pkgname=webdad-theming
+pkgname="$_pkgname-git"
+pkgver=r1.2b9447a
+pkgrel=1
+pkgdesc="Theming for Manjaro WebDad"
+arch=('any')
+url="https://github.com/codesardine/webdad-theming"
+license=('GPL')
+makedepends=('git')
+source=("git+$url.git")
+sha256sums=('SKIP')
+conflicts=('webdad-theming')
+provides=('webdad-theming')
+depends=('adapta-maia-theme')
+
+pkgver() {
+    cd "$_pkgname"
+    (
+        printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+    )
+}
+
+package(){
+	install -d $pkgdir/usr
+	cp -r $srcdir/$_pkgname/usr $pkgdir/
+}
+
