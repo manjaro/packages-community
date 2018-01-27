@@ -4,9 +4,7 @@
  # This is the Steam script that typically resides in /usr/bin
  # It will create the Steam bootstrap if necessary and then launch steam.
 
-+# default to minimize on close, so we never have a running steam process
-+# in the background because of a broken Tray Icon on some desktops/WM
-+export STEAM_FRAME_FORCE_CLOSE=0
++export STEAM_FRAME_FORCE_CLOSE=1
 +
  # Steam runtime settings
  # if STEAM_RUNTIME=1, ignore this entirely
