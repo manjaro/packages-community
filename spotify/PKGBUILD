@@ -22,7 +22,7 @@ source=("http://repository.spotify.com/pool/non-free/s/spotify-client/spotify-cl
         'spotify.protocol'
         'LICENSE')
 sha256sums=('0698d2dbda43f2866d2a6f6ed9816bf8022aa8cf67d0dba347f486410093e1a4'
-            '694d5f124e55f6dfe62d053ff41d5ff9ecca915c6335874db5efb8d2ac5468b0'
+            '2bd1072e1c9d0466e0f64a99e5d5b3c558c596b59a9730e627e65e57e02caa87'
             'af54f3b90cac46fa100b3f919a9225d10d847617d24aa9af3d832e7689f482c3'
             '4e8bea31ca27e16cac9c9dcd8f6ec27e1f82b45de86d6fee7a1e77e23f884b92')
 
