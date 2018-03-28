@@ -20,6 +20,6 @@ if [ -d "$HOME/.cache/spotify" ] && [ -d "$HOME/.cache/spotify/Browser/Cache" ] 
     printf "${BD}INFO :: AFTER CLEANING${NM}\n"
     du -h -d 0 $HOME/.cache/spotify
 else
-    printf "${BD}ERROR :: Spotify cache directories was not found. Exit.${NM}\n"
+    printf "${BD}ERROR :: Spotify cache directories were not found. Exit.${NM}\n"
     exit 1
 fi
