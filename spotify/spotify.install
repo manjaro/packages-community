@@ -17,5 +17,5 @@ post_install() {
 }
 
 post_upgrade() {
-    post_install
+    note "Use clean-sc tool for cleanup spotify cache if needed."
 }
