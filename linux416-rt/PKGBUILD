@@ -24,6 +24,7 @@ license=('GPL2')
 makedepends=('bc'
     'docbook-xsl'
     'elfutils'
+    'git'
     'inetutils'
     'kmod'
     'xmlto')
