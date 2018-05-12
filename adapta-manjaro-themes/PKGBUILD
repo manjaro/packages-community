@@ -9,7 +9,7 @@ pkgname=('adapta-maia-theme'
 )
 _pkgname=adapta-gtk-theme
 _theme=manjaro-gnome-theme
-pkgver=3.93.1.12
+pkgver=3.93.1.14
 pkgrel=1
 arch=(any)
 url="https://github.com/adapta-project/${_pkgname}"
@@ -29,12 +29,10 @@ makedepends=('libxml2'
 validpgpkeys=('2C675EC71CF31D4652AB608616A443152D7A865E')	     
 source=("${_pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
         "${url}/releases/download/${pkgver}/${_pkgname}-${pkgver}.tar.gz.asc"
-        'XfdesktopIconView.patch'
-        'no-thumbnails.patch')
-sha256sums=('7f6c2d3c52104943c7497e71a1bdab241572e5387aa9f5a74cdc147d820b1f4b'
+        'XfdesktopIconView.patch')
+sha256sums=('4bd612078a1acace953f3c46757441356c94d5bd70c58950562a3ce1633a20fe'
             'SKIP'
-            '143c1440e8173ddf49a37ad148c7f6e1a8259cf395933a9ffd4eb59d0d2781da'
-            'fafc7f53ad4e4390b8e71cd8ce750775c11308102a7c7c650829f6c1fbe15194')
+            '143c1440e8173ddf49a37ad148c7f6e1a8259cf395933a9ffd4eb59d0d2781da')
             
 prepare() {    
     cd $_pkgname-$pkgver
