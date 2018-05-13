@@ -9,9 +9,9 @@ _linuxprefix=linux414-rt
 _extramodules=extramodules-4.14-rt-MANJARO
 pkgbase=$_linuxprefix-virtualbox-modules
 pkgname=("$_linuxprefix-virtualbox-host-modules" "$_linuxprefix-virtualbox-guest-modules")
-pkgver=5.2.10
+pkgver=5.2.12
 _pkgver="${pkgver}_OSE"
-pkgrel=3
+pkgrel=1
 arch=('x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -87,3 +87,4 @@ package_linux414-rt-virtualbox-guest-modules(){
   echo "vboxsf" >> "$pkgdir/etc/modules-load.d/$_linuxprefix-virtualbox-guest-modules.conf"
   echo "vboxvideo" >> "$pkgdir/etc/modules-load.d/$_linuxprefix-virtualbox-guest-modules.conf"
 }
+
