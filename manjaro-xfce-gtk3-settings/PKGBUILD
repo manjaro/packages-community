@@ -5,7 +5,7 @@
 pkgbase=manjaro-xfce-gtk3-settings
 pkgname=('manjaro-xfce-gtk3-settings'
          'manjaro-xfce-gtk3-minimal-settings')
-pkgver=20180502
+pkgver=20180513
 pkgrel=1
 pkgdesc="Manjaro Linux Xfce settings"
 arch=('any')
