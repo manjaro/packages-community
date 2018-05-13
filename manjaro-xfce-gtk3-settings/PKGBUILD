@@ -11,16 +11,16 @@ pkgdesc="Manjaro Linux Xfce settings"
 arch=('any')
 url="https://github.com/manjaro/manjaro-xfce-settings"
 license=('GPL')
-depends=('breath-wallpaper'
+depends=('illyria-wallpaper'
+         'kvantum-manjaro'
+         'kvantum-qt5'
          'manjaro-base-skel'
          'manjaro-icons'
-         'qt5ct'
+         'papirus-maia-icon-theme'
          'qt5-styleplugins'
-         'vibrancy-icons-teal'
-         'adapta-maia-theme'
-         'kvantum-qt5'
-         'kvantum-manjaro'
-         'xcursor-breeze')
+         'qt5ct'
+         'xcursor-breeze'
+         'adapta-maia-theme')
 makedepends=('git')
 source=("$pkgbase::git+$url.git" 'manjaro-xfce-settings.hook' 'mxs-bgd-sym')
 sha256sums=('SKIP'
