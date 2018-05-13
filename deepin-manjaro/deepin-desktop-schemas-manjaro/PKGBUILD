@@ -3,8 +3,8 @@
 
 _pkgname=deepin-desktop-schemas
 pkgname=$_pkgname-manjaro
-pkgver=3.2.10
-pkgrel=2
+pkgver=3.2.11
+pkgrel=1
 pkgdesc='Manjaro Linux Deepin gschemas'
 arch=('any')
 url="https://github.com/linuxdeepin/$_pkgname"
@@ -23,7 +23,7 @@ replaces=('deepin-artwork-themes' 'deepin-artwork-themes-manjaro')
 provides=("$_pkgname")
 source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/deepin-desktop-schemas/archive/$pkgver.tar.gz"
     'manjaro.diff')
-sha256sums=('683c7f6e5a33db50b3a01e8acc69a0ca2ab734d65f6936d7c1491c2918cc5d20'
+sha256sums=('30757e68ea66dea4ee251cf70abcaa4897ad3e7b4e0269c56b829e9734c3c923'
             'c8b465e80bf72636768b156eb99086a3c428e32e3e05ba0171212c01da7271d0')
 
 prepare() {
