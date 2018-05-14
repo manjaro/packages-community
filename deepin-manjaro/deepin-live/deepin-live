@@ -1,0 +1,8 @@
+#!/bin/bash
+
+gsettings set com.deepin.dde.power battery-screen-black-delay 0
+gsettings set com.deepin.dde.power battery-sleep-delay 0
+gsettings set com.deepin.dde.power lid-closed-sleep false
+gsettings set com.deepin.dde.power line-power-screen-black-delay 0
+gsettings set com.deepin.dde.power line-power-sleep-delay 0
+gsettings set com.deepin.dde.power power-module-initialized true

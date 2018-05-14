@@ -1,0 +1,20 @@
+# Maintainer: Bernhard Landauer <oberon@manjaro.org>
+
+pkgname=deepin-live
+pkgver=1.1
+pkgrel=1
+pkgdesc="Scripts and config for Manjaro-Deepin live session"
+arch=('any')
+depends=('deepin-desktop-schemas-manjaro')
+source=('deepin-live'
+    'deepin-live.desktop'
+    'dde-file-manager.conf')
+sha256sums=('1109e3ecd3e0de6fda6cee8eafbe086b525830db0731df1947ba3437fc5b56a8'
+            'bd8048b5720e92d2e5c7be4f7d0c95cb058a7c35c80288aeb93436d13db0cb40'
+            '2ec3e8f61061732e45a089d673c8cf4d8dfc81e528cf7f5658b91163bbdfea75')
+
+package() {
+    install -Dm755 $pkgname $pkgdir/usr/bin/$pkgname
+    install -Dm644 $pkgname.desktop $pkgdir/etc/skel/.config/autostart/$pkgname.desktop
+    install -Dm644 dde-file-manager.conf $pkgdir/etc/skel/deepin/dde-file-manager/dde-file-manager.conf
+}
