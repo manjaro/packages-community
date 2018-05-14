@@ -10,14 +10,6 @@ diff -rupN a/overrides/common/com.deepin.wrap.gnome.desktop.override b/overrides
  gtk-im-module='fcitx'
  
  [com.deepin.wrap.gnome.desktop.wm.keybindings]
-diff -rupN a/overrides/common/com.deepin.wrap.gnome.metacity.override b/overrides/common/com.deepin.wrap.gnome.metacity.override
---- a/overrides/common/com.deepin.wrap.gnome.metacity.override	2017-06-29 15:30:02.771062859 +0200
-+++ b/overrides/common/com.deepin.wrap.gnome.metacity.override	2017-06-29 15:29:27.631774848 +0200
-@@ -1,3 +1,3 @@
- [com.deepin.wrap.gnome.metacity]
- theme='deepin'
--
-+compositing-manager=true
 diff -rupN a/overrides/x86/com.deepin.dde.dock.override b/overrides/x86/com.deepin.dde.dock.override
 --- a/overrides/x86/com.deepin.dde.dock.override	2017-06-29 15:30:02.772062469 +0200
 +++ b/overrides/x86/com.deepin.dde.dock.override	2017-06-29 15:28:42.711304316 +0200
