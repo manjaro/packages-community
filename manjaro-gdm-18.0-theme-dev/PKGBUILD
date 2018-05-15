@@ -2,8 +2,8 @@
 
 _pkgbase=manjaro-gdm-18.0-theme
 pkgname=$_pkgbase-dev
-pkgver=20180409
-_commit=af0a6e135b4433cc91ff7502bc58ac1473ddd9eb
+pkgver=20180515
+_commit=47e5ff6493a5913ccda6dcce252533e173c08a50
 _branch=18.0-Illyria
 _theme=manjaro-gnome-theme
 _hook=gdm-theme-maia
@@ -15,7 +15,7 @@ license=('GPL3')
 depends=(gnome-shell)
 source=("$_theme-$_commit.tar.gz::$url/archive/$_branch/_$commit.tar.gz")
 conflicts=('$_pkgbase' 'manjaro-gnome-maia-theme')
-md5sums=('365cb4d03d32e1950c3ce5f1f930a8ac')
+md5sums=('3bc9e97a6b538418536bd34f4ecdc849')
 
 pkgver() {
 	date +%Y%m%d
@@ -32,5 +32,7 @@ package() {
     install -Dm755 $srcdir/$_theme-$_branch/$_hook-install.script $pkgdir/usr/share/libalpm/scripts/$_hook-install
     install -Dm644 $srcdir/$_theme-$_branch/$_hook-remove.hook $pkgdir/usr/share/libalpm/hooks/$_hook-remove.hook
     install -Dm755 $srcdir/$_theme-$_branch/$_hook-remove.script $pkgdir/usr/share/libalpm/scripts/$_hook-remove
+    install -Dm644 $srcdir/$_theme-$_branch/gdm-theme-backup.hook $pkgdir/usr/share/libalpm/hooks/gdm-theme-backup.hook
+    install -Dm755 $srcdir/$_theme-$_branch/gdm-theme-backup.script $pkgdir/usr/share/libalpm/scripts/gdm-theme-backup
 }
 
