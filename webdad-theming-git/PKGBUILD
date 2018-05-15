@@ -2,7 +2,7 @@
 
 _pkgname=webdad-theming
 pkgname="$_pkgname-git"
-pkgver=r11.a7ab6e4
+pkgver=r12.b7dc451
 pkgrel=1
 pkgdesc="Theming for Manjaro WebDad"
 arch=('any')
