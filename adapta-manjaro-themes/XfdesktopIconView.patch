@@ -1,7 +1,7 @@
 diff -rupN a/gtk/sass/3.22/_3rd-party.scss b/gtk/sass/3.22/_3rd-party.scss
 --- a/gtk/sass/3.22/_3rd-party.scss	2017-10-30 08:21:51.000000000 +0100
 +++ b/gtk/sass/3.22/_3rd-party.scss	2017-10-31 04:26:53.314609836 +0100
-@@ -2681,6 +2681,31 @@ window.background:not(.csd) > box.vertic
+@@ -2409,6 +2409,31 @@ window.background:not(.csd) > box.vertic
  // /*********
  //  * XFce4 *
  //  *********/
