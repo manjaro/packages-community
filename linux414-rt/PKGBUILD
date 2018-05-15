@@ -8,8 +8,8 @@
 pkgbase=linux414-rt
 pkgname=("$pkgbase" "$pkgbase-headers")
 _basekernel=4.14
-_sub=39
-_rtpatchver=rt29
+_sub=40
+_rtpatchver=rt30
 _bfq=v8r12
 _bfqdate=20171108
 _bfqdate2=20180404
@@ -32,6 +32,10 @@ options=('!strip')
 source=("https://www.kernel.org/pub/linux/kernel/v4.x/linux-${_basekernel}.tar.xz"
         # upstream patch
         "http://www.kernel.org/pub/linux/kernel/v4.x/patch-${_pkgver}.xz"
+        # gcc8 ojtool patches
+        '0001-objtool_Fix_noreturn_detection_for_recursive_sibling_calls.patch'
+        '0002-objtool_support_GCC8_cold_subfunctions.patch'
+        '0003-objtool_support_GCC8_switch_tables.patch'
         # rt-config
         'config.rt'
         # config for mkinitcpio ramdisk
@@ -73,7 +77,10 @@ source=("https://www.kernel.org/pub/linux/kernel/v4.x/linux-${_basekernel}.tar.x
         https://www.kernel.org/pub/linux/kernel/projects/rt/${_basekernel}/older/patch-${_pkgver}-${_rtpatchver}.patch.{xz,sign}
         'fix-race-in-PRT-wait-for-completion-simple-wait-code_Nvidia-RT-160319.patch')
 sha256sums=('f81d59477e90a130857ce18dc02f4fbe5725854911db1e7ba770c7cd350f96a7'
-            '8686e9a0ff123163799f098767c91af4a0d58bc789a7de2cfe9d7b886f5b4fbd'
+            '128ee971b97421aea56ddf093d860586054419b166a7a21a55a4389bd4dbbb2f'
+            '0d2ac82871694368a563f6082ffffc891cbbb7a5a16ca1d18792fdda95ed4840'
+            '46d7929976781187de803b1d600e7e5577d633b0c9ae4e6e222801e9787594a1'
+            '94b1f14b4cdb336556e23d4c737e9a805c798380508a75c18c23a5a7ff11eda8'
             '6da6b599086cf8c124fa6db275eae24deff7c495c2f2b728b02018aaabe9eb2e'
             '0fb6d51e5d8cd1dc737104c2d1487a38ff7cb50b1f8cce74e1776caa2d51490b'
             'ae2e95db94ef7176207c690224169594d49445e04249d2499e9d2fbc117a0b21'
@@ -102,11 +109,13 @@ sha256sums=('f81d59477e90a130857ce18dc02f4fbe5725854911db1e7ba770c7cd350f96a7'
             '27471eee564ca3149dd271b0817719b5565a9594dc4d884fe3dc51a5f03832bc'
             '60e295601e4fb33d9bf65f198c54c7eb07c0d1e91e2ad1e0dd6cd6e142cb266d'
             '035ea4b2a7621054f4560471f45336b981538a40172d8f17285910d4e0e0b3ef'
-            '9a107cbfb6d4db1fc0efe7661b1c86eec2ee4119cb1732119317a2f99b1c66b1'
+            'bd28eeaf487a7dde3a6dd061972ecaa00336c6236a04ae412d954260e089df75'
             'SKIP'
             '85f7612edfa129210343d6a4fe4ba2a4ac3542d98b7e28c8896738e7e6541c06')
 validpgpkeys=('64254695FFF0AA4466CC19E67B96E8162A8CF5D1' # Sebastian Andrzej Siewior
-            '4FE5E3262872E4CC')
+            '4FE5E3262872E4CC'
+            '5ED9A48FC54C0A22D1D0804CEBC26CDB5A56DE73' # Steven Rostedt
+            )
 
 prepare() {
   cd "linux-${_basekernel}"
@@ -115,6 +124,12 @@ prepare() {
   msg "upstream mainline patch..."
   patch -p1 -i "../patch-${_pkgver}"
   chmod +x tools/objtool/sync-check.sh # GNU patch doesn't support git-style file mode
+
+  # gcc8 ojtool patches
+  msg "gcc8 objtool patches..."
+  patch -p1 -i '../0001-objtool_Fix_noreturn_detection_for_recursive_sibling_calls.patch'
+  patch -p1 -i '../0002-objtool_support_GCC8_cold_subfunctions.patch'
+  patch -p1 -i '../0003-objtool_support_GCC8_switch_tables.patch'
 
   # Add RT patch
   msg "realtime patch..."
