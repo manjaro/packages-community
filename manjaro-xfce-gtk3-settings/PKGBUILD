@@ -5,8 +5,8 @@
 pkgbase=manjaro-xfce-gtk3-settings
 pkgname=('manjaro-xfce-gtk3-settings'
          'manjaro-xfce-gtk3-minimal-settings')
-pkgver=20180513
-pkgrel=2
+pkgver=20180515
+pkgrel=1
 pkgdesc="Manjaro Linux Xfce settings"
 arch=('any')
 url="https://github.com/manjaro/manjaro-xfce-settings"
@@ -16,6 +16,7 @@ depends=('illyria-wallpaper'
          'kvantum-qt5'
          'manjaro-base-skel'
          'manjaro-icons'
+         'noto-fonts'
          'papirus-maia-icon-theme'
          'qt5-styleplugins'
          'qt5ct'
