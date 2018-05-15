@@ -1,4 +1,5 @@
 # Maintainer: Stefano Capitani <stefano_at_manjaro_dot_org>
+# Maintainer: Bernhard Landauer <oberon@manjaro.org>
 # Contributor: ceyhunnabiyev for Breath color and Adapta Black variation <https://github.com/ceyhunnabiyev>
 
 pkgname=('adapta-maia-theme'
@@ -9,7 +10,7 @@ pkgname=('adapta-maia-theme'
 )
 _pkgname=adapta-gtk-theme
 _theme=manjaro-gnome-theme
-pkgver=3.93.1.14
+pkgver=3.93.1.16
 pkgrel=1
 arch=(any)
 url="https://github.com/adapta-project/${_pkgname}"
@@ -29,25 +30,30 @@ makedepends=('libxml2'
 validpgpkeys=('2C675EC71CF31D4652AB608616A443152D7A865E')	     
 source=("${_pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
         "${url}/releases/download/${pkgver}/${_pkgname}-${pkgver}.tar.gz.asc"
-        'XfdesktopIconView.patch')
-sha256sums=('4bd612078a1acace953f3c46757441356c94d5bd70c58950562a3ce1633a20fe'
+        'XfdesktopIconView.patch'
+        'whiskermenu.patch')
+sha256sums=('b8608829471018584ed5b6a66c8abe4a4fa5994d87bff8769f94da539c94e705'
             'SKIP'
-            '143c1440e8173ddf49a37ad148c7f6e1a8259cf395933a9ffd4eb59d0d2781da')
+            'a7b7d3ac846a671a683d7cf8036b3cd81f7e2896d0ab506db3dc2f03b83e3223'
+            '425b3ac39fb8671bb2a47b89ba627b0f3f6b20fb16a422f89814818980ee6205')
             
 prepare() {    
     cd $_pkgname-$pkgver
     patch -p1 -i $srcdir/XfdesktopIconView.patch
 
     cd $srcdir
-    #Create separate dir theme
+    #Create separate theme dirs
     for theme in adapta-maia-theme adapta-breath-theme adapta-black-maia-theme adapta-black-breath-theme; do
         cp -r $_pkgname-$pkgver $theme-$pkgver
     done
+
+    # custom two-colored whiskermenu for maia variants
+    cd adapta-maia-theme-$pkgver
+    patch -p1 -i $srcdir/whiskermenu.patch
 }
 
 build_maia-theme() {
 
-    #build
     cd "adapta-maia-theme-${pkgver}"
     msg "Apply Maia theme"
 
@@ -59,7 +65,8 @@ build_maia-theme() {
     ./autogen.sh --prefix "${pkgdir}/usr" \
       --enable-plank \
       --enable-telegram \
-      --enable-parallel #--enable-gtk_next --with-selection_color=#16A085 --with-second_selection_color=#16A085
+      --enable-parallel
+      #--enable-gtk_next --with-selection_color=#16A085 --with-second_selection_color=#16A085
     make
 }
 
@@ -79,7 +86,8 @@ build_breath-theme() {
     ./autogen.sh --prefix "${pkgdir}/usr" \
       --enable-plank \
       --enable-telegram \
-      --enable-parallel #--enable-gtk_next --with-selection_color=#1abc9c --with-second_selection_color=#2fe2bf --with-accent_color=#2fe2bf --with-suggestion_color=#1abc9c
+      --enable-parallel
+      #--enable-gtk_next --with-selection_color=#1abc9c --with-second_selection_color=#2fe2bf --with-accent_color=#2fe2bf --with-suggestion_color=#1abc9c
     make
 }
 
