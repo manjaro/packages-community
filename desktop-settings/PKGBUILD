@@ -27,7 +27,7 @@ sha256sums=('SKIP')
 _inst_dir(){
     if [[ -d $srcdir/$pkgbase/$1/skel ]]; then
         install -d $pkgdir/etc
-        cp -r $srcdir/$pkgbase/$1/skel $pkgdir/etc
+        cp -rL $srcdir/$pkgbase/$1/skel $pkgdir/etc
     fi
 
     if [[ -d $srcdir/$pkgbase/$1/scripts ]]; then

@@ -6,7 +6,7 @@ pkgbase=manjaro-xfce-gtk3-settings
 pkgname=('manjaro-xfce-gtk3-settings'
          'manjaro-xfce-gtk3-minimal-settings')
 pkgver=20180515
-pkgrel=1
+pkgrel=2
 pkgdesc="Manjaro Linux Xfce settings"
 arch=('any')
 url="https://github.com/manjaro/manjaro-xfce-settings"
@@ -34,7 +34,7 @@ pkgver() {
 
 _inst_dir(){
 	install -d $pkgdir/etc
-	cp -r $srcdir/$pkgbase$1/skel $pkgdir/etc
+	cp -rL $srcdir/$pkgbase$1/skel $pkgdir/etc
 
 	install -d $pkgdir/usr/share/glib-2.0/schemas
 	cp $srcdir/$pkgbase/schemas/* $pkgdir/usr/share/glib-2.0/schemas
