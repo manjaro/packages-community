@@ -2,8 +2,7 @@
 # Maintainer: Bernhard Landauer <oberon@manjaro.org>
 
 pkgname=lightdm-settings
-_commit=f25d985c19a3e5e0a07856aa34337d5eceb883d5
-pkgver=1.1.4.r4.gf25d985
+pkgver=1.2.0
 pkgrel=1
 pkgdesc="A configuration tool for the LightDM display manager "
 _add_group=add-autologin-group
@@ -16,34 +15,29 @@ depends=('hicolor-icon-theme'
     'python-gobject'
     'python-setproctitle'
     'python-xapp')
-makedepends=('desktop-file-utils' 'gettext' 'git')
+makedepends=('desktop-file-utils' 'gettext')
 install=$_add_group.install
-source=("git+$url.git"
+source=("$url/archive/$pkgver.tar.gz"
     'user_background.patch'
     "$_add_group.script"
     "$_add_group.service")
-sha256sums=('SKIP'
-            'c406f5b8625f99250d14059c20446641e87958a9e17078138f7c988851f4b7e3'
+sha256sums=('7bf9ece76dc3f28b418bc68313de365e265cd6d50a27a5b3157d37e45e511e17'
+            '00cb1a34dba3c3300fc81e0bacf8f5806c0d8937de35c021e50430de5a8acdc4'
             '475bb4805a419aca106f9f42bcb837c7dc53eeb84b5c50d8ee8d892b55d6c2b4'
             'a356ee9dc1e876d73c49ab30fdc6417edb7a817639122fff7fe0ebff72e33190')
 
-pkgver() {
-  cd $pkgname
-  git describe --long | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
-}
-
 prepare() {
-  cd $pkgname
+  cd $pkgname-$pkgver
   patch -p1 -i ../user_background.patch
 }
 
 build() {
-  cd $pkgname
+  cd $pkgname-$pkgver
   make
 }
 
 package() {
-  cd $pkgname
+  cd $pkgname-$pkgver
   cp -r usr $pkgdir
   
 #install systemd service

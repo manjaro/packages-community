@@ -1,7 +1,7 @@
 diff -rupN a/usr/lib/lightdm-settings/lightdm-settings b/usr/lib/lightdm-settings/lightdm-settings
---- a/usr/lib/lightdm-settings/lightdm-settings	2018-05-07 22:10:54.012157590 +0200
-+++ b/usr/lib/lightdm-settings/lightdm-settings	2018-05-07 22:12:51.507765963 +0200
-@@ -136,13 +136,9 @@ class Application(Gtk.Application):
+--- a/usr/lib/lightdm-settings/lightdm-settings	2018-05-10 15:36:02.000000000 +0200
++++ b/usr/lib/lightdm-settings/lightdm-settings	2018-05-16 01:59:53.865609297 +0200
+@@ -137,13 +137,9 @@ class Application(Gtk.Application):
          row.set_tooltip_text(_("Background color"))
          section.add_row(row)
  
@@ -18,7 +18,7 @@ diff -rupN a/usr/lib/lightdm-settings/lightdm-settings b/usr/lib/lightdm-setting
  
          row = SettingsRow(Gtk.Label(_("Draw a grid")), SettingsSwitch(keyfile, settings, "draw-grid"))
          row.set_tooltip_text(_("Draw a grid of white dots on top of the background."))
-@@ -363,81 +359,6 @@ class Application(Gtk.Application):
+@@ -371,81 +367,6 @@ class Application(Gtk.Application):
                          pass
          return (value)
  
@@ -97,6 +97,6 @@ diff -rupN a/usr/lib/lightdm-settings/lightdm-settings b/usr/lib/lightdm-setting
 -
 -        return True
 -
- if __name__ == "__main__":
-     app = Application()
-     app.run(None)
+     def get_monitors(self):
+         monitors = []
+ 
