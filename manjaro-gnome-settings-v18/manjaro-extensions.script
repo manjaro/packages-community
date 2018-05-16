@@ -1,0 +1,12 @@
+#!/bin/sh
+
+#override extensions settings
+
+for i in dash-to-dock@micxgx.gmail.com arc-menu@linxgem33.com; do
+	if [[ -f "/usr/share/gnome-shell/extensions/$i/schemas/gschemas.compiled" ]]; then
+	rm -f /usr/share/gnome-shell/extensions/$i/schemas/gschemas.compiled
+	glib-compile-schemas /usr/share/gnome-shell/extensions/$i/schemas
+	else glib-compile-schemas /usr/share/gnome-shell/extensions/$i/schemas	
+	fi
+done
+

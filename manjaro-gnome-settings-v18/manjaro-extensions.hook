@@ -1,0 +1,11 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = gnome-shell-extension-*
+Target = manjaro-gnome-settings
+
+[Action]
+Description = Install Manjaro extensions settings
+When = PostTransaction
+Exec = /usr/share/libalpm/scripts/manjaro-extensions

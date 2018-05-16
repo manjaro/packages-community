@@ -1,0 +1,11 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = gdm
+Target = manjaro-gnome-settings
+
+[Action]
+Description = Disable night-light feature in GDM
+When = PostTransaction
+Exec = /usr/share/libalpm/scripts/disable-gdm-night-light

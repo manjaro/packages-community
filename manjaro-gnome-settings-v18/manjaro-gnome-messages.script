@@ -1,0 +1,38 @@
+#!/bin/sh
+
+## Colored message
+
+msg() {
+ALL_OFF="\e[1;0m"
+BOLD="\e[1;1m"
+GREEN="${BOLD}\e[1;32m"
+local mesg=$1; shift
+printf "${GREEN}==>${ALL_OFF}${BOLD} ${mesg}${ALL_OFF}" "$@" >&2
+}
+ 
+## Symple script to check if printing support is installed
+
+if pacman -Qi cups > /dev/null 2>&1; then
+   echo ""
+   msg "Printing support installed"
+   echo ""
+else 
+   echo ""
+   msg "Printing support not installed, to enable please type this in a terminal:
+	 -> sudo pacman -S manjaro-printer
+	 -> or install manjaro-printer pkg via pamac"
+   echo ""
+fi
+
+## Revert backupped Default file into /etc/gdm/PostLogin folder
+
+if [[ -f /etc/gdm/PostLogin/Default.pacsave ]]; then
+	cp -f /etc/gdm/PostLogin/Default.pacsave /etc/gdm/PostLogin/Default
+	echo ""
+	msg "Your settings into /etc/gdm/PostLogin/Default are restored"
+	echo ""
+fi
+	
+
+
+

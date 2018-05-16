@@ -1,0 +1,98 @@
+# Maintainer: Ramon Buldó <rbuldo@gmail.com>
+# Maintainer: Stefano Capitani  <stefanoatmanjarodotorg>
+
+pkgbase=manjaro-gnome-settings
+_branch=18.0
+pkgname=(manjaro-gnome-settings-$_branch manjaro-gnome-extension-settings-$_branch)
+#          'manjaro-gnome-minimal-settings')
+pkgver=20180425
+pkgrel=1
+arch=('any')
+url="https://github.com/manjaro/manjaro-gnome-settings"
+license=('GPL')
+source=(manjaro-gnome-settings::git+$url.git#branch=$_branch
+		'disable-gdm-night-light.hook'
+		'disable-gdm-night-light.script'
+		'manjaro-gnome-messages.hook'
+		'manjaro-gnome-messages.script'
+		'manjaro-extensions.hook'
+		'manjaro-extensions.script')
+makedepends=('git')
+sha256sums=('SKIP'
+            '430c34abc34b7016eb649dafb4580223bc48d3131a01dd1b1c017dcb8b9d290c'
+            'b88f69aafc874428d2638c342f3532c7570aa9979f43354bdb66accdfb3b0986'
+            '746a179ac4aa716e151253c90cd9e2f897710fdcbb0e6ad0641327db46c33189'
+            '9dded6c9e7fdacdd97efe4719fe008ac8077d3ebe48fef6db62e7c5110c1e468'
+            '4e17fac482415309fddf61de1ae67e25e1646f61dc5596bfe760011dcc5c9dbd'
+            '45ddcda03b504a9f7ab8ab8795b6187d8467ab37b2bd722c9515fcfa3a5fb7c1')
+
+_inst_dir(){
+	install -d $pkgdir/etc
+	cp -r $srcdir/$pkgbase/skel $pkgdir/etc
+
+	install -d $pkgdir/usr/share/glib-2.0/schemas
+	cp $srcdir/$pkgbase/schemas/99_manjaro-settings.gschema.override $pkgdir/usr/share/glib-2.0/schemas
+}
+
+_inst_dir-extension(){
+
+#add here extensions : for any extension repeat the follow schemas
+
+	install -d $pkgdir/usr/share/gnome-shell/extensions/dash-to-dock@micxgx.gmail.com/schemas
+	cp $srcdir/$pkgbase/schemas/10_dash-to-dock.gschema.override $pkgdir/usr/share/gnome-shell/extensions/dash-to-dock@micxgx.gmail.com/schemas
+		
+	install -d $pkgdir/usr/share/gnome-shell/extensions/arc-menu@linxgem33.com/schemas
+	cp $srcdir/$pkgbase/schemas/10_arc-menu.gschema.override $pkgdir/usr/share/gnome-shell/extensions/arc-menu@linxgem33.com/schemas
+}
+
+pkgver() {
+    date +%Y%m%d
+}
+
+package_manjaro-gnome-settings-18.0() {
+pkgdesc="Manjaro Linux Gnome settings v$_branch"
+
+optdepends=('plymouth-theme-manjaro-gnome-17.0: Plymouth theme'
+			'manjaro-gnome-maia-theme: Branding theme for Gdm and Dash to Dock'
+			'lighter-gnome: some gnome-settings-daemon components'
+			'papirus-maia-icon-theme: default icons set')
+conflicts=("manjaro-gnome-settings" "manjaro-gnome-settings-$_branch")
+replaces=("manjaro-gnome-settings")
+provides=("manjaro-desktop-settings")
+backup=('etc/gdm/PostLogin/Default')
+
+	_inst_dir
+	
+#Add Postlogin script here (remove in future)
+	
+	install -Dm755 ${srcdir}/$pkgbase/PostLogin/Default ${pkgdir}/etc/gdm/PostLogin/Default
+	
+#Add Hook to inform user about night-light bug into GDM (https://bugzilla.gnome.org/show_bug.cgi?id=785273)
+	
+	install -Dm644 ${srcdir}/disable-gdm-night-light.hook ${pkgdir}/usr/share/libalpm/hooks/disable-gdm-night-light.hook
+	install -Dm755 ${srcdir}/disable-gdm-night-light.script ${pkgdir}/usr/share/libalpm/scripts/disable-gdm-night-light
+	
+	install -Dm644 ${srcdir}/manjaro-gnome-messages.hook ${pkgdir}/usr/share/libalpm/hooks/manjaro-gnome-messages.hook
+	install -Dm755 ${srcdir}/manjaro-gnome-messages.script ${pkgdir}/usr/share/libalpm/scripts/manjaro-gnome-messages
+}
+
+
+package_manjaro-gnome-extension-settings-18.0() {
+
+pkgdesc="Manjaro Linux Gnome extensions settings v$_branch"
+optdepends=("manjaro-gnome-settings-$_branch")
+conflicts=('manjaro-gnome-extension-settings' "manjaro-gnome-extension-settings-$_branch")
+replaces=('manjaro-gnome-extension-settings')
+
+	_inst_dir-extension	
+	install -Dm644 ${srcdir}/manjaro-extensions.hook ${pkgdir}/usr/share/libalpm/hooks/manjaro-extensions.hook	
+	install -Dm755 ${srcdir}/manjaro-extensions.script ${pkgdir}/usr/share/libalpm/scripts/manjaro-extensions
+}
+
+# package_manjaro-gnome-minimal-settings() {
+# 	pkgdesc='Manjaro Linux gnome-minimal settings'
+# 	depends=()
+# 	provides=('manjaro-desktop-settings')
+#
+# 	_inst_dir '/minimal'
+# }
