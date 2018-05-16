@@ -11,11 +11,10 @@ pkgname=('manjaro-awesome-settings'
         'manjaro-lxde-settings'
         'manjaro-mate-settings'
         #'manjaro-netbook-settings'
-        'manjaro-openbox-settings-extra'
-        'manjaro-openbox-settings-minimal'
+        'manjaro-openbox-settings'
         )
-pkgver=20180515
-pkgrel=1
+pkgver=20180516
+pkgrel=2
 arch=('any')
 #url="https://github.com/manjaro/desktop-settings"
 url="https://github.com/fhdk/desktop-settings"
@@ -228,22 +227,15 @@ package_manjaro-mate-settings() {
     install -Dm755 $srcdir/$pkgbase/community/mate/scripts/set-terminal-color $pkgdir/usr/bin/set-terminal-color
 }
 
-package_manjaro-openbox-settings-extra() {
-    pkgdesc='Manjaro Linux Openbox Extra Settings'
-    depends=('manjaro-base-skel' 'manjaro-openbox-extra-skel')
+package_manjaro-openbox-settings() {
+    pkgdesc='Manjaro Linux Openbox Settings'
+    depends=('manjaro-base-skel')
+    optdepends=('manjaro-openbox-extra-skel' 'manjaro-openbox-minimal-skel')
     conflicts=('manjaro-desktop-settings' 'manjaro-openbox-settings')
+    replaces=('manjaro-openbox-settings-extra' 'manjaro-openbox-settings-minimal')
     provides=('manjaro-desktop-settings')
 
     _inst_dir 'community/openbox-extra'
-}
-
-package_manjaro-openbox-settings-minimal() {
-    pkgdesc='Manjaro Linux Openbox Minimal Settings'
-    depends=('manjaro-base-skel' 'manjaro-openbox-minimal-skel')
-    conflicts=('manjaro-desktop-settings' 'manjaro-openbox-settings')
-    provides=('manjaro-desktop-settings')
-
-    _inst_dir 'community/openbox-minimal'
 }
 
 #package_manjaro-netbook-settings() {
