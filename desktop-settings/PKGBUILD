@@ -14,8 +14,8 @@ pkgname=('manjaro-awesome-settings'
         'manjaro-openbox-settings-extra'
         'manjaro-openbox-settings-minimal'
         )
-pkgver=20180505
-pkgrel=2
+pkgver=20180515
+pkgrel=1
 arch=('any')
 #url="https://github.com/manjaro/desktop-settings"
 url="https://github.com/fhdk/desktop-settings"

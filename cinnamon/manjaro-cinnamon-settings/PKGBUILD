@@ -2,8 +2,8 @@
 
 _pkgbase=desktop-settings
 pkgname=manjaro-cinnamon-settings
-pkgver=20180415
-pkgrel=2
+pkgver=20180515
+pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/$_pkgbase"
 _branch=17.1.x
