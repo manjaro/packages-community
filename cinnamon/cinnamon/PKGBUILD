@@ -3,7 +3,7 @@
 
 pkgname=cinnamon
 pkgver=3.8.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Linux desktop which provides advanced innovative features and a traditional user experience"
 arch=('i686' 'x86_64')
 url="https://github.com/linuxmint/Cinnamon"
@@ -116,4 +116,7 @@ package() {
   mkdir -p $pkgdir/usr/share/themes/Adwaita{,-dark}/metacity-1/
   echo 'native' > $pkgdir/usr/share/themes/Adwaita/metacity-1/muffin-adwaita.txt
   echo 'native' > $pkgdir/usr/share/themes/Adwaita-dark/metacity-1/muffin-adwaita.txt
+
+  # workaround for lightdm-settings launcher
+  sed -i 's/lightdm-settings\",                    /ppkexec lightdm-settings\",             /' $pkgdir/usr/share/cinnamon/cinnamon-settings/cinnamon-settings.py
 }
