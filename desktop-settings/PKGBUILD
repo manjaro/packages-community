@@ -40,9 +40,9 @@ _inst_dir(){
     fi
 }
 
-#pkgver() {
-#    date +%Y%m%d
-#}
+pkgver() {
+    date +%Y%m%d
+}
 
 package_manjaro-bspwm-settings() {
     pkgdesc='Manjaro Linux bspwm settings'
