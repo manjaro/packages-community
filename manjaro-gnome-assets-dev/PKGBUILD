@@ -1,0 +1,38 @@
+# Maintainer: Stefano Capitani  <stefanoatmanjarodotorg>
+
+pkgname=manjaro-gnome-assets-dev
+pkgver=20180517
+pkgrel=1
+_branch=18.0
+url="www.manjaro.org"
+license=('GPL')
+pkgdesc="Manjaro Gnome assets (development)"
+arch=('any')
+depends=("manjaro-gnome-settings-$_branch"
+		"manjaro-gnome-extension-settings-$_branch"
+		'gnome-shell'
+		'gnome-shell-extension-taskbar'
+       	'gnome-shell-extensions'
+	    'gnome-shell-extension-openweather'
+	    'gnome-shell-extension-arc-menu'
+		'gnome-shell-extension-dash-to-dock'
+		'gnome-shell-extension-appindicator'
+		'chrome-gnome-shell'
+        'gnome-wallpapers'
+        'adapta-maia-theme'
+        'xcursor-breeze'
+        'manjaro-base-skel'
+        'qt5-styleplugins'
+        'qt5ct'
+        'ttf-hack'
+        'noto-fonts-compat'
+        'kvantum-manjaro'
+        'papirus-maia-icon-theme')
+optdepends=('manjaro-gnome-maia-theme: Branding theme for GDM'
+			'lighter-gnome: some gnome-settings-daemon components')
+
+pkgver() {
+    date +%Y%m%d
+}
+
+
