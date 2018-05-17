@@ -31,7 +31,7 @@ package() {
     # fix pamac-updater icon 16px
     cd $target
     for theme in ${themes[@]:1}; do
-        install -Dm644 Vibrancy-Colors/apps/16/system-software-update.png \
+        install -Dm644 ${themes[0]}/apps/16/system-software-update.png \
           $theme/apps/16/system-software-update.png
     done
 
