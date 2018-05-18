@@ -8,8 +8,8 @@
 pkgbase=linux416-rt
 pkgname=("$pkgbase" "$pkgbase-headers")
 _basekernel=4.16
-_sub=7
-_rtpatchver=rt1
+_sub=8
+_rtpatchver=rt3
 _bfq=v8r12
 _bfqdate=20180412
 _basever=${pkgbase//linux}
@@ -32,6 +32,10 @@ options=('!strip')
 source=("$url/pub/linux/kernel/v4.x/linux-${_basekernel}.tar.xz"
         # upstream patch
         "$url/pub/linux/kernel/v4.x/patch-${_pkgver}.xz"
+        # gcc8 ojtool patches
+        '0001-objtool_Fix_noreturn_detection_for_recursive_sibling_calls.patch'
+        '0002-objtool_support_GCC8_cold_subfunctions.patch'
+        '0003-objtool_support_GCC8_switch_tables.patch'
         # rt-config
         'config.rt'
         # aufs config
@@ -47,10 +51,6 @@ source=("$url/pub/linux/kernel/v4.x/linux-${_basekernel}.tar.xz"
         'aufs4-standalone.patch'
         'tmpfs-idr.patch'
         'vfs-ino.patch'
-        # gcc8 ojtool patches
-        '0001-objtool_Fix_noreturn_detection_for_recursive_sibling_calls.patch'
-        '0002-objtool_support_GCC8_cold_subfunctions.patch'
-        '0003-objtool_support_GCC8_switch_tables.patch'
         # BFQ
         "0001-BFQ-${_bfq}-${_bfqdate}.patch"
         # ARCH Patches
@@ -79,7 +79,10 @@ source=("$url/pub/linux/kernel/v4.x/linux-${_basekernel}.tar.xz"
         $url/pub/linux/kernel/projects/rt/${_basekernel}/older/patch-${_pkgver}-${_rtpatchver}.patch.{xz,sign}
         'fix-race-in-PRT-wait-for-completion-simple-wait-code_Nvidia-RT-160319.patch')
 sha256sums=('63f6dc8e3c9f3a0273d5d6f4dca38a2413ca3a5f689329d05b750e4c87bb21b9'
-            'f5ef83461054024814846eb816c76eba1b903f7e3e38c3417027b33070b60d91'
+            '6fb2db1e38f762e6a028dfa5e6d094f0eb4324572667923aca3d64c87117772d'
+            '0d2ac82871694368a563f6082ffffc891cbbb7a5a16ca1d18792fdda95ed4840'
+            '46d7929976781187de803b1d600e7e5577d633b0c9ae4e6e222801e9787594a1'
+            '94b1f14b4cdb336556e23d4c737e9a805c798380508a75c18c23a5a7ff11eda8'
             '91a3dee321852dfd64720cc19b3f2fa04c12655426d1ed66de7f4816ec368031'
             'b44d81446d8b53d5637287c30ae3eb64cae0078c3fbc45fcf1081dd6699818b5'
             '0fb6d51e5d8cd1dc737104c2d1487a38ff7cb50b1f8cce74e1776caa2d51490b'
@@ -93,9 +96,6 @@ sha256sums=('63f6dc8e3c9f3a0273d5d6f4dca38a2413ca3a5f689329d05b750e4c87bb21b9'
             'a8d6c0d5ae96ea722ad7842134684a4d44f7d90dd306eca82a88bf3f753fa732'
             'dd4f4de182a1807796dd6756f67edcf2f354335976c309532157716be07882c1'
             '00f0e0862dd31e7248df557672ebc540d5b38d34eca57d14d796540b274bf52b'
-            '0d2ac82871694368a563f6082ffffc891cbbb7a5a16ca1d18792fdda95ed4840'
-            '46d7929976781187de803b1d600e7e5577d633b0c9ae4e6e222801e9787594a1'
-            '94b1f14b4cdb336556e23d4c737e9a805c798380508a75c18c23a5a7ff11eda8'
             'add5d66f3ab452514dbd2591922f440f94fbc003f6e33e588c17f627c2dc80e4'
             '37b86ca3de148a34258e3176dbf41488d9dbd19e93adbd22a062b3c41332ce85'
             'd365ce80dab359d5277bd2f8568cad50a30ab269f222ed1bb12b8d74571e24a6'
@@ -116,7 +116,7 @@ sha256sums=('63f6dc8e3c9f3a0273d5d6f4dca38a2413ca3a5f689329d05b750e4c87bb21b9'
             '27471eee564ca3149dd271b0817719b5565a9594dc4d884fe3dc51a5f03832bc'
             '60e295601e4fb33d9bf65f198c54c7eb07c0d1e91e2ad1e0dd6cd6e142cb266d'
             '035ea4b2a7621054f4560471f45336b981538a40172d8f17285910d4e0e0b3ef'
-            '41110dcb050fb40e1f7553ab96f1e27b552262f24abf69669590b160352f46b0'
+            '7db2144b16314b1dcc3aefc993d6c9c54690de342a043d0b02d0f114713e880d'
             'SKIP'
             '85f7612edfa129210343d6a4fe4ba2a4ac3542d98b7e28c8896738e7e6541c06')
 validpgpkeys=('64254695FFF0AA4466CC19E67B96E8162A8CF5D1' # Sebastian Andrzej Siewior
