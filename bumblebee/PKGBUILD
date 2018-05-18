@@ -9,7 +9,7 @@
 _commit=0851da6818e265d354d61947021c512f2e51ffce # lastest commit from 20170227
 pkgname=bumblebee
 pkgver=3.2.1
-pkgrel=18
+pkgrel=19
 pkgdesc="NVIDIA Optimus support for Linux through Primus/VirtualGL"
 arch=('i686' 'x86_64')
 depends=('kmod' 'primus' 'glib2' 'mesa-libgl')

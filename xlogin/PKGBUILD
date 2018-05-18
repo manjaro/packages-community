@@ -3,7 +3,7 @@
 
 pkgname=xlogin
 _ver=0
-pkgver=0.r11.a578cf2
+pkgver=0.r14.6e566b5
 pkgrel=1
 pkgdesc="X login service for systemd"
 url="https://github.com/joukewitteveen/xlogin"

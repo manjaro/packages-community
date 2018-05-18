@@ -4,7 +4,7 @@
 
 
 pkgname=skippy-xd
-pkgver=2015.12.21.r0.gd0a11f4
+pkgver=2016.10.20.r0.g72d1ddf
 pkgrel=1
 pkgdesc="A full-screen task-switcher for X11, similar to Apple's Expose."
 url="https://github.com/antonio-malcolm/skippy-xd/"

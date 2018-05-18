@@ -1,6 +1,6 @@
 # Maintainer: Fabian Bornschein <plusfabi@gmail.com>
 pkgname='amdgpu-experimental'
-pkgver=20180301 #date +%Y%m%d
+pkgver=20180518 #date +%Y%m%d
 pkgrel=1
 arch=('any')
 license=('GPL3')
@@ -10,7 +10,7 @@ source=('98-amdgpu-experimental.hook'
 	    'x-amdgpu-radeon.si_support.conf'
         'x-amdgpu.deep_color.conf'
         'x-amdgpu.dc.conf')
-        
+
 sha512sums=('ab6430c9d789ff7587ee47a699159d3929d6e19eac2a0683b7cdaafe6bf39fe7e1821773da30c465484bee30b529c70ca4ee89fdc1ad321f03796f4a4b0334ac'
             '559de3c42c093b7954f184789d17795f27e1840fc204959b97e8642f2a0485d1355dc5e4bfe69f4d59dca665bb437e447fb60b391ad07f5faa97f8da76c68413'
             '8d216d0026be04acff561b7b51792294090b067c37a81776764a6e6c1c38a775a435614cb3c05ff1bc56cab5ec5d26e76fed63883ae801369a7c9f713b37a927'

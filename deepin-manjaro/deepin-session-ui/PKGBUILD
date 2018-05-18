@@ -5,7 +5,7 @@
 
 pkgname=deepin-session-ui
 pkgver=4.3.7.3
-pkgrel=1
+pkgrel=2
 _commit=aecb143c528d7fe151ceb7886bb6f342cf126025
 pkgdesc='Deepin desktop-environment - Session UI module'
 arch=('i686' 'x86_64')
