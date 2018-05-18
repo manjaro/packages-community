@@ -8,8 +8,8 @@ _linuxprefix=linux416-rt
 _extramodules=extramodules-4.16-rt-MANJARO
 pkgname=$_linuxprefix-nvidia-390xx
 _pkgname=nvidia
-pkgver=390.48
-pkgrel=3
+pkgver=390.59
+pkgrel=1
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="NVIDIA drivers for linux."
@@ -23,7 +23,7 @@ install=nvidia.install
 options=(!strip)
 durl="http://us.download.nvidia.com/XFree86/Linux-x86"
 source=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-sha256sums=('2d4bf72801f101a85df6fd1464021380ad51f5a30df05dadaf1fb546a175a441')
+sha256sums=('397adf2f725f6d27aaf583431efe8d1182d926930e73f1bfd6f9e6fbc03c0484')
 
 _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
 
