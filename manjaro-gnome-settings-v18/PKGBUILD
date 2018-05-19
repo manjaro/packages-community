@@ -5,7 +5,7 @@ pkgbase=manjaro-gnome-settings
 _branch=18.0
 pkgname=(manjaro-gnome-settings-$_branch manjaro-gnome-extension-settings-$_branch)
 #          'manjaro-gnome-minimal-settings')
-pkgver=20180517
+pkgver=20180519
 pkgrel=1
 arch=('any')
 url="https://github.com/manjaro/manjaro-gnome-settings"
@@ -22,7 +22,7 @@ sha256sums=('SKIP'
             '430c34abc34b7016eb649dafb4580223bc48d3131a01dd1b1c017dcb8b9d290c'
             'b88f69aafc874428d2638c342f3532c7570aa9979f43354bdb66accdfb3b0986'
             '746a179ac4aa716e151253c90cd9e2f897710fdcbb0e6ad0641327db46c33189'
-            '9dded6c9e7fdacdd97efe4719fe008ac8077d3ebe48fef6db62e7c5110c1e468'
+            '248e34d9a3c11206c318dff3ac12b3bda92b1b3deba7c8f0d527e12373f43531'
             '4e17fac482415309fddf61de1ae67e25e1646f61dc5596bfe760011dcc5c9dbd'
             '45ddcda03b504a9f7ab8ab8795b6187d8467ab37b2bd722c9515fcfa3a5fb7c1')
 
@@ -59,13 +59,13 @@ optdepends=('plymouth-theme-manjaro-gnome-17.0: Plymouth theme'
 conflicts=("manjaro-gnome-settings" "manjaro-gnome-settings-$_branch")
 replaces=("manjaro-gnome-settings")
 provides=("manjaro-desktop-settings")
-backup=('etc/gdm/PostLogin/Default')
+#backup=('etc/gdm/PostLogin/Default')
 
 	_inst_dir
 	
 #Add Postlogin script here (remove in future)
 	
-	install -Dm755 ${srcdir}/$pkgbase/PostLogin/Default ${pkgdir}/etc/gdm/PostLogin/Default
+	#install -Dm755 ${srcdir}/$pkgbase/PostLogin/Default ${pkgdir}/etc/gdm/PostLogin/Default
 	
 #Add Hook to inform user about night-light bug into GDM (https://bugzilla.gnome.org/show_bug.cgi?id=785273)
 	
