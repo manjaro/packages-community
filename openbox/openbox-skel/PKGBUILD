@@ -1,18 +1,21 @@
 # Maintainer: fhdk <fh at manjaro org>
 
 pkgbase=openbox-skel
-pkgname=('manjaro-openbox-minimal-skel'
-         'manjaro-openbox-extra-skel'
-         )
-pkgver=1.3.0.6
-pkgrel=4
+pkgname=(
+    'manjaro-openbox-minimal-skel'
+    'manjaro-openbox-extra-skel'
+    )
+pkgver=1.18.4
+pkgrel=2
+_branch=stable
 arch=('any')
 url="https://github.com/fhdk/openbox-skel"
 license=('MIT')
 makedepends=('git')
-source=("git+$url.git")
+source=("git+$url.git#branch=${_branch}")
 sha256sums=('SKIP')
 install=openbox-skel.install
+backup=('etc/dconf/profile/user' 'etc/dconf/db/user.d/00-gedit-settings')
 
 _inst_dir(){
     if [[ -d $srcdir/$pkgbase/$1/skel ]]; then
@@ -29,19 +32,26 @@ _inst_dir(){
         install -d $pkgdir/usr/share/glib-2.0/schemas
         cp $srcdir/$pkgbase/$1/schemas/* $pkgdir/usr/share/glib-2.0/schemas
     fi
+
+    if [[ -d $srcdir/$pkgbase/$1/dconf ]]; then
+        install -d $pkgdir/etc/dconf/db/user.d
+        install $srcdir/$pkgbase/$1/dconf/db/* $pkgdir/etc/dconf/db/user.d
+        install -d $pkgdir/etc/dconf/profile
+        install $srcdir/$pkgbase/$1/dconf/profile/user $pkgdir/etc/dconf/profile
+    fi
 }
 
 package_manjaro-openbox-minimal-skel() {
-    pkgdesc='Manjaro Linux Openbox Minimal Skel'
-    conflicts=('manjaro-openbox-skel')
+    pkgdesc='Manjaro Linux Openbox Minimal Settings'
+    conflicts=('manjaro-openbox-skel' 'manjaro-openbox-skel-dev')
     provides=('manjaro-openbox-skel')
 
     _inst_dir 'minimal'
 }
 
 package_manjaro-openbox-extra-skel() {
-    pkgdesc='Manjaro Linux Openbox Extra Skel'
-    conflicts=('manjaro-openbox-skel')
+    pkgdesc='Manjaro Linux Openbox Extra Settings'
+    conflicts=('manjaro-openbox-skel' 'manjaro-openbox-skel-dev')
     provides=('manjaro-openbox-skel')
 
     _inst_dir 'extra'

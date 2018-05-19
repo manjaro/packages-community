@@ -28,6 +28,8 @@ else
     disable_colors
 fi
 
+enable_colors
+
 plain() {
     local mesg=$1; shift
     printf "${BOLD}    ${mesg}${ALL_OFF}\n" "$@" >&2
@@ -44,8 +46,25 @@ msg2() {
 }
 
 post_install() {
-    msg("To make use of these Openbox settings copy the content")
-    msg(" of /etc/skel including hidden folders and files to your home folder")
-    msg2("$ cp -r /etc/skel/* /home/$USER")
+    sed -i '/^background=/c\background=/usr/share/backgrounds/manjaro-dog.jpg' /etc/lightdm/slick-greeter.conf
+    dconf update
+    msg '***************'
+    msg 'To make use of these Openbox settings copy the content of'
+    msg '  `/etc/skel/*`  including hidden files and folders to your home folder'
+    msg '  `$ cp -r /etc/skel/* /home/$USER`'
+    msg '***************'
 }
 
+post_upgrade() {
+    sed -i '/^background=/c\background=/usr/share/backgrounds/manjaro-dog.jpg' /etc/lightdm/slick-greeter.conf
+    dconf update
+    msg '***************'
+    msg 'To make use of these Openbox settings copy the content of'
+    msg '  `/etc/skel/*` including hidden files and folders to your home folder'
+    msg '  `$ cp -r /etc/skel/* /home/$USER`'
+    msg '***************'
+}
+
+post_remove(){
+    sed -i '/^background=/c\background=/usr/share/slick-greeter/slick-greeter.png' /etc/lightdm/slick-greeter.conf
+}

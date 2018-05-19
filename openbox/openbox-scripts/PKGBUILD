@@ -2,15 +2,16 @@
 
 pkgname="manjaro-openbox-scripts"
 _gitname="openbox-scripts"
-_branch="master"
-pkgver=1.3.0.6
-pkgrel=1
+_branch="stable"
+pkgver=1.18.4
+pkgrel=2
 pkgdesc="Manjaro Openbox Scripts"
 arch=('any')
 url="https://github.com/fhdk/${_gitname}"
 license=('MIT')
 makedepends=('git')
-depends=('manjaro-openbox-common>=1.3')
+depends=('manjaro-openbox-common>=1.3' 'polybar' 'rofi')
+conflicts=('dmenu')
 provides=('manjaro-openbox-scripts')
 source=(git+$url.git#branch=${_branch})
 makedepends=('git')
@@ -19,5 +20,5 @@ sha256sums=('SKIP')
 package() {
 	install -dm755 ${pkgdir}/usr/bin
 	cd ${srcdir}/$_gitname
-	cp scripts/* ${pkgdir}/usr/bin
+	cp -P scripts/* ${pkgdir}/usr/bin
 }

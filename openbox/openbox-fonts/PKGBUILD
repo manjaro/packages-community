@@ -1,7 +1,7 @@
 # Maintainer: fhdk <fh at manjaro org>
 
 pkgname=manjaro-openbox-fonts
-pkgver=1.2
+pkgver=1.18
 pkgrel=1
 pkgdesc="Fonts for Openbox Theming"
 arch=('any')

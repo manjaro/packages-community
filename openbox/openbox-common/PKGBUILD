@@ -2,9 +2,9 @@
 
 pkgname="manjaro-openbox-common"
 _gitname="openbox-common"
-_branch="master"
-pkgver=1.3.0.6
-pkgrel=2
+_branch=stable
+pkgver=1.18
+pkgrel=1
 pkgdesc="Manjaro Openbox Common Files"
 arch=('any')
 url="https://github.com/fhdk/${_gitname}"
