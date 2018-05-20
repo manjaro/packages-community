@@ -7,23 +7,23 @@
 
 pkgname=vertex-maia-themes
 _repo=vertex-theme
-pkgver=20180429
-pkgrel=1
+pkgver=20180519
+pkgrel=4
 pkgdesc="Manjaro's Maia colored variant of the Vertex-themes"
 _gnomever=3.22
 arch=('any')
 url="http://horst3180.deviantart.com/art/Vertex-Theme-470663601"
-_url="https://github.com/oberon2007/$_repo"
-_maia_url="https://github.com/manjaro/vertex-manjaro"
+_url="https://github.com/manjaro/$_repo"
+_maia_url="https://github.com/oberon2007/vertex-manjaro"
 license=('GPL3')
 depends=('gtk-engine-murrine')
 makedepends=('imagemagick')
 source=("$_repo-$pkgver::$_url/archive/$pkgver.tar.gz"
-	"maia-$pkgver::$_maia_url/archive/$pkgver.tar.gz"
+	"git+$_maia_url.git"
 	'whiskermenu-manjaro.patch')
 install=$pkgname.install
-sha256sums=('f20f2863bc8ba37ea27fc6bcb29cce3fbb8fdb4a741a5d966f90b63f96436bf2'
-            '66711896b9aafd9e0392f9c2b347ac02d00cb4933ac0fdecdc6f18f5f6d8d0e2'
+sha256sums=('1105a49da983c052de826d394aef247b7264537c6487b3b5816a77164a4c640f'
+            'SKIP'
             '113f6b8c94f94499d5a46633fed1bf230c9b098ada1716543ba98c22a711c1f0')
 options=('!strip')
 
@@ -36,12 +36,13 @@ build() {
 }
 
 package() {
+  target=$pkgdir/usr/share/themes
   cd $_repo-$pkgver
   make DESTDIR="$pkgdir" install
 
   cd extra
   for name in "Firefox"; do
-    find "$name" -type f -not -name *~ -exec install -Dm644 '{}' "$pkgdir/usr/share/themes/{}" \;
+    find "$name" -type f -not -name *~ -exec install -Dm644 '{}' "$target/{}" \;
   done
   install -Dm644 Vertex-Plank/dock.theme $pkgdir/usr/share/plank/themes/Vertex-Maia/dock.theme
   
@@ -51,7 +52,7 @@ package() {
   ### Manjarification ###
   msg "This next bit might take a little while..."
   
-  cd "$pkgdir/usr/share/themes"
+  cd "$target"
   mv Vertex Vertex-Maia
   mv Vertex-Dark Vertex-Maia-Dark
   mv Vertex-Light Vertex-Maia-Light
@@ -61,9 +62,11 @@ package() {
   
   ## adjust theme names, default xcursor/icons and authors
   find . -type f -exec sed -i "s/Vertex/Vertex-Maia/g;s/DMZ-Black/Breeze/g;s/gnome/Vertex-Maia/g;s/horst3180/horst3180\/korrode\/oberon\/ManjaroCinnamonFan/g" {} \;
-  
+
+  ## custom files to be added later
+  rm -rf $target/Vertex-Maia{,-Dark,-Light}/{cinnamon,gnome-shell/assets,metacity-1}
+
   ## Shift the hightlight-hue of all image files from blue to maia-greenish
-  rm $pkgdir/usr/share/themes/Vertex-Maia{,-Light,-Dark}/metacity-1/thumbnail.png
   find . ! -type l -name "*.png" -exec mogrify -modulate 100,100,71 {} \;
   find . ! -type l -name "*.svg" -exec mogrify -background none -modulate 100,100,71 {} \;
   
@@ -335,38 +338,45 @@ package() {
     s/154\;\;158/158\;\;154/" dock.theme
 
   ## add custom items and Square variant
-  cd "$srcdir/vertex-manjaro-$pkgver"
-  cp -r images/* "$pkgdir/usr/share/themes/Vertex-Maia"
-  cp -r images/gtk-{2,3}.0 "$pkgdir/usr/share/themes/Vertex-Maia-Light"
-  rm -rf $pkgdir/usr/share/themes/Vertex-Maia-Dark/{gtk-2.0/{Menu,ProgressBar},gtk-3.0/assets,xfwm4}
-  cp -r images-dark/* "$pkgdir/usr/share/themes/Vertex-Maia-Dark"
-  cp Firefox/privatebrowsing-mask.png $pkgdir/usr/share/themes/Firefox/Vertex-Maia/chrome/images
-  cp Firefox/privatebrowsing-mask.png $pkgdir/usr/share/themes/Firefox/Vertex-Maia-Light/chrome/images
-  cp -r Vertex-Maia-Square "$pkgdir/usr/share/themes"
+  cd $srcdir/vertex-manjaro
+  cp -r images/* "$target/Vertex-Maia"
+  cp -r images/gtk-{2,3}.0 "$target/Vertex-Maia-Light"
+  rm -rf $target/Vertex-Maia-Dark/{gtk-2.0/{Menu,ProgressBar},gtk-3.0/assets,xfwm4}
+  cp -r images-dark/* "$target/Vertex-Maia-Dark"
+  cp Firefox/privatebrowsing-mask.png $target/Firefox/Vertex-Maia/chrome/images
+  cp Firefox/privatebrowsing-mask.png $target/Firefox/Vertex-Maia-Light/chrome/images
+  cp -r Vertex-Maia-Square "$target"
 
   ## add .css for Palemoon
-  install -dm755 $pkgdir/usr/share/themes/Palemoon/Vertex-Maia{,-Light,-Dark}/chrome
-  cp Palemoon/userChrome.css $pkgdir/usr/share/themes/Palemoon/Vertex-Maia/chrome/userChrome.css
-  cp Palemoon/userChrome.css $pkgdir/usr/share/themes/Palemoon/Vertex-Maia-Light/chrome/userChrome.css
-  cp Palemoon/userChrome-dark.css $pkgdir/usr/share/themes/Palemoon/Vertex-Maia-Dark/chrome/userChrome.css
-  ln -s /usr/share/themes/Firefox/Vertex-Maia-Dark/chrome/userContent.css ${pkgdir}/usr/share/themes/Palemoon/Vertex-Maia-Dark/chrome/userContent.css
-  ln -s /usr/share/themes/Firefox/Vertex-Maia/chrome/images $pkgdir/usr/share/themes/Palemoon/Vertex-Maia/chrome/images
-  ln -s /usr/share/themes/Firefox/Vertex-Maia-Light/chrome/images $pkgdir/usr/share/themes/Palemoon/Vertex-Maia-Light/chrome/images
-  ln -s /usr/share/themes/Firefox/Vertex-Maia-Dark/chrome/images $pkgdir/usr/share/themes/Palemoon/Vertex-Maia-Dark/chrome/images
+  install -dm755 $target/Palemoon/Vertex-Maia{,-Light,-Dark}/chrome
+  cp Palemoon/userChrome.css $target/Palemoon/Vertex-Maia/chrome/userChrome.css
+  cp Palemoon/userChrome.css $target/Palemoon/Vertex-Maia-Light/chrome/userChrome.css
+  cp Palemoon/userChrome-dark.css $target/Palemoon/Vertex-Maia-Dark/chrome/userChrome.css
+  ln -s /usr/share/themes/Firefox/Vertex-Maia-Dark/chrome/userContent.css $target/Palemoon/Vertex-Maia-Dark/chrome/userContent.css
+  ln -s /usr/share/themes/Firefox/Vertex-Maia/chrome/images $target/Palemoon/Vertex-Maia/chrome/images
+  ln -s /usr/share/themes/Firefox/Vertex-Maia-Light/chrome/images $target/Palemoon/Vertex-Maia-Light/chrome/images
+  ln -s /usr/share/themes/Firefox/Vertex-Maia-Dark/chrome/images $target/Palemoon/Vertex-Maia-Dark/chrome/images
+
+  ## add some custom cinnamon, gnome-shell and metacity files
+  cp -r Vertex-Maia/cinnamon $target/Vertex-Maia
+  cp -r Vertex-Maia/gnome-shell/assets $target/Vertex-Maia/gnome-shell
+
+  cp -r Vertex-Maia/metacity-1/ $target/Vertex-Maia
+  cp -r Vertex-Maia/metacity-1 $target/Vertex-Maia-Dark
+  find "$target/Vertex-Maia-Dark" -name '*.xml' -exec sed -i 's/Maia/Maia-Dark/g' {} \;
+  cp -r Vertex-Maia/metacity-1 $target/Vertex-Maia-Light
+  ## overwrite differing files
+  cp -r Vertex-Maia-Light/metacity-1 $target/Vertex-Maia-Light
 
   ## add links for ff-theme-util
-  ln -s /usr/share/themes/Firefox/Vertex-Maia $pkgdir/usr/share/themes/Firefox/Vertex-Maia-Square
-  ln -s /usr/share/themes/Firefox/Vertex-Maia $pkgdir/usr/share/themes/Palemoon/Vertex-Maia-Square
-
-  ## fix corrupt metacity thumbnail
-  tee $pkgdir/usr/share/themes/Vertex-Maia{,-Dark}/metacity-1/thumbnail.png < $srcdir/$_repo-$pkgver/common/metacity-1/thumbnail.png >/dev/null
-  cp $srcdir/$_repo-$pkgver/common/metacity-1/thumbnail-light.png $pkgdir/usr/share/themes/Vertex-Maia-Light/metacity-1/thumbnail.png
-
-  ## customization for whiskermenu
-  cd $pkgdir/usr/share/themes
-  patch -p1 < $srcdir/whiskermenu-manjaro.patch
+  ln -s /usr/share/themes/Firefox/Vertex-Maia $target/Firefox/Vertex-Maia-Square
+  ln -s /usr/share/themes/Firefox/Vertex-Maia $target/Palemoon/Vertex-Maia-Square
   
   ## add openbox themes
-  cd $srcdir/vertex-manjaro-$pkgver
-  cp -r Vertex-Maia{,-Dark} $pkgdir/usr/share/themes
+  cp -r Vertex-Maia/openbox-3 $target/Vertex-Maia
+  cp -r Vertex-Maia-Dark/openbox-3 $target/Vertex-Maia-Dark
+
+  ## customization for whiskermenu
+  cd $target
+  patch -p1 < $srcdir/whiskermenu-manjaro.patch
 }

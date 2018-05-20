@@ -4,7 +4,7 @@
 # Contributor: @Photon89
 
 pkgname=vertex-theme
-pkgver=20180429
+pkgver=20180519
 pkgrel=1
 pkgdesc='Vertex Gtk2, Gtk3, Metacity, Xfwm, Cinnamon and GNOME Shell themes.'
 _gnomever=3.22
@@ -16,7 +16,7 @@ depends=('gtk-engine-murrine')
 conflicts=('vertex-themes')
 replaces=('vertex-themes')
 source=("$_url/archive/$pkgver.tar.gz")
-md5sums=('40e863530c2b015dd0fef5dcedd34195')
+md5sums=('d5bc047feb361a6c34ff8355c31f48d2')
 
 build() {
   cd $pkgname-$pkgver
@@ -34,7 +34,7 @@ package() {
     find "$name" -type f -not -name *~ -exec install -Dm644 '{}' "$pkgdir/usr/share/themes/{}" \;
   done
   install -Dm644 Vertex-Plank/dock.theme $pkgdir/usr/share/plank/themes/Vertex/dock.theme
-  
+
   cd ..
   install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
   install -Dm644 README.md "$pkgdir/usr/share/themes/Vertex/README"

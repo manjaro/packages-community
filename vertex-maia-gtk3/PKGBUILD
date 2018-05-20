@@ -6,7 +6,7 @@
 # Author: horst3180 @ deviantart
 
 pkgname=vertex-maia-gtk3
-pkgver=20180429
+pkgver=20180519
 pkgrel=1
 pkgdesc='gtk3-only version of the official Manjaro theme'
 _repo=vertex-theme
@@ -20,8 +20,8 @@ makedepends=('imagemagick')
 conflicts=('vertex-maia-themes')
 source=("$_repo-$pkgver::$_url/archive/$pkgver.tar.gz"
 	"maia-$pkgver::$_maia_url/archive/$pkgver.tar.gz")
-sha256sums=('f20f2863bc8ba37ea27fc6bcb29cce3fbb8fdb4a741a5d966f90b63f96436bf2'
-            '66711896b9aafd9e0392f9c2b347ac02d00cb4933ac0fdecdc6f18f5f6d8d0e2')
+sha256sums=('1105a49da983c052de826d394aef247b7264537c6487b3b5816a77164a4c640f'
+            '8df71527f99e2a95081892346cb2816006ee7ceae007fdcd0915b0e8027ac2d0')
 options=('!strip')
 
 build() {
