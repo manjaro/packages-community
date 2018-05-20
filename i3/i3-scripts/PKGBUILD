@@ -1,7 +1,7 @@
 # Maintainer: Bernhard Landauer <oberon@manjaro.org>
 
 pkgname=i3-scripts
-pkgver=20180515
+pkgver=20180519
 pkgrel=1
 pkgdesc="Scripts and wrappers for manjaro-i3"
 arch=('any')
