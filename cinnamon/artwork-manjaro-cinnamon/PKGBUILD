@@ -3,7 +3,7 @@
 pkgbase=artwork-manjaro-cinnamon
 pkgname=('artwork-cinnamon-minimal' 'cinnamon-wallpapers')
 _grepo=gnome-backgrounds
-pkgver=20180507
+pkgver=20180521
 pkgrel=1
 pkgdesc="Wallpapers for Manjaro Cinnamon"
 arch=('any')
@@ -11,8 +11,8 @@ license=('GPL3')
 makedepends=('git'
     'glib2'
     'meson')
-default="backgrounds/adapta-maia.jpg"     # default wallpaper to be packaged in artwork-minimal
-greeter_default=backgrounds/MJR-tiles.jpg # default background
+default="adapta-maia.jpg" # default wallpaper to be packaged in artwork-minimal
+greeter_default="cinnamon-adapta-maia.jpg" # default background
 _gurl="https://git.gnome.org/browse/$_grepo"
 _gcommit=ebb69030864690831b431a95dcea02dcd143815f
 _murl="https://github.com/oberon2007/$pkgbase"
@@ -28,6 +28,7 @@ pkgver() {
 build() {
     mkdir build
     cd build
+    msg "build gnome-backgrounds"
     meson --prefix=/usr --buildtype=release ../$_grepo
     ninja
 }
@@ -50,18 +51,17 @@ package_artwork-cinnamon-minimal() {
     mv gnome-backgrounds.xml gnome.xml
 
 	cd $srcdir/$pkgbase
-	install -Dm644 $default $pkgdir/usr/share/$default
-    install -m644 $greeter_default $pkgdir/usr/share/$greeter_default
-    ln -s /usr/share/$default $pkgdir/usr/share/backgrounds/cinnamon_default.$ext
-    ln -s /usr/share/$greeter_default $pkgdir/usr/share/backgrounds/greeter_default.$ext2
+	install -Dm644 backgrounds/$default $pkgdir/usr/share/backgrounds/Cinnamon/$default
+    install -m644 backgrounds/$greeter_default $pkgdir/usr/share/backgrounds/Cinnamon/$greeter_default
+    ln -s /usr/share/backgrounds/Cinnamon/$default $pkgdir/usr/share/backgrounds/cinnamon_default.$ext
+    ln -s /usr/share/backgrounds/Cinnamon/$greeter_default $pkgdir/usr/share/backgrounds/greeter_default.$ext2
 
 	cp -r icons $pkgdir/usr/share/
 	ln -s /usr/share/icons/manjaro/maia/48x48.png $pkgdir/usr/share/icons/manjaro-maia.png
 }
 
 package_cinnamon-wallpapers() {
-    cd $srcdir/$pkgbase
-    install -Dm644 manjaro.xml $pkgdir/usr/share/gnome-background-properties/manjaro-backgrounds.xml
-    cp -r backgrounds $pkgdir/usr/share/
-    rm $pkgdir/usr/share/{$default,$greeter_default}
+    msg "build manjaro-cinnamon backgrounds"
+    make -C "${pkgbase}/backgrounds" install DESTDIR="$pkgdir"
+    rm $pkgdir/usr/share/backgrounds/Cinnamon/{$default,$greeter_default}
 }
