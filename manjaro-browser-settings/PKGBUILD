@@ -3,17 +3,17 @@
 # Maintainer: Stefano Capitani <stefano@manjaro.org>
 
 pkgname=manjaro-browser-settings
-pkgver=20180316
-pkgrel=2
+pkgver=20180522
+pkgrel=1
 pkgdesc="Manjaro Linux settings browser defaults"
 arch=('any')
 url="https://github.com/manjaro/$pkgname"
 license=('GPL')
-_gitcommit=cf796e2a8eef477df2b9d864cb3a2a0682b75de2
+_gitcommit=8aa826644625879f40ce43c881cf758e48b0d0f7
 conflicts=('manjaro-firefox-settings')
 replaces=('manjaro-firefox-settings')
 source=("$pkgname-$_gitcommit.tar.gz::$url/archive/$_gitcommit.tar.gz")
-md5sums=('9e6c0d2024ea14c3fd9795b566214183')
+md5sums=('8470444b5daaedeb9463821fd0382554')
 
 pkgver() {
   date +%Y%m%d
