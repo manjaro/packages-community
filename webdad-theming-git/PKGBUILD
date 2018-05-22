@@ -24,8 +24,6 @@ pkgver() {
 
 package(){
 	install -d $pkgdir/usr
-        install -d $pkgdir/etc
-	cp -r $srcdir/$_pkgname/usr $pkgdir/
-        cp -r $srcdir/$_pkgname/etc $pkgdir/
+        cp -r $srcdir/$_pkgname/usr $pkgdir/
 }
 
