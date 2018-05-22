@@ -1,0 +1,19 @@
+# Maintainer: fhdk <fh at manjaro org>
+pkgname='manjaro-openbox-wallpapers-18.0'
+_gitname='openbox-wallpapers'
+_branch="18.0"
+pkgver=1.0
+pkgrel=3
+pkgdesc='Manjaro Openbox Wallpapers 18.0'
+arch=('any')
+url="https://github.com/fhdk/${_gitname}"
+license=('MIT')
+makedepends=('git')
+source=("git+$url.git#branch=$_branch")
+md5sums=('SKIP')
+
+package() {    
+    install -d ${pkgdir}/usr/share/backgrounds/openbox
+	cd $srcdir/$_gitname
+	cp -R images/* ${pkgdir}/usr/share/backgrounds/openbox
+}

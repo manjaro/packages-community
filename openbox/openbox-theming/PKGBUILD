@@ -3,19 +3,19 @@ pkgname=('manjaro-openbox-theme-fonts'
          'manjaro-openbox-theme-18.0'
          )
 pkgver=1.18
-pkgrel=1
+pkgrel=2
 arch=('any')
 licence=('MIT')
 
 package_manjaro-openbox-theme-fonts() {
     pkgdesc='Manjaro Openbox Theme Fonts'
     depends=('manjaro-openbox-fonts'
-	         'ttf-font-awesome'
-	         'ttf-font-logos'
-	         'ttf-icomoon-icons'
-	         'ttf-material-icons'
-	         'ttf-polybar-icons'
-	         )
+        'ttf-font-awesome'
+        'ttf-font-logos'
+        'ttf-icomoon-icons'
+        'ttf-material-icons'
+        'ttf-polybar-icons'
+	)
     provides=('manjaro-openbox-theme-fonts')
 }
 
@@ -26,6 +26,8 @@ package_manjaro-openbox-theme-18.0() {
         'xcursor-breeze'
         'papirus-maia-icon-theme'
         'manjaro-wallpapers-18.0'
-        )
+        'manjaro-openbox-adapta-maia'
+        'manjaro-openbox-wallpapers-18.0'
+    )
     provides=('manjaro-openbox-theme-18.0')
 }

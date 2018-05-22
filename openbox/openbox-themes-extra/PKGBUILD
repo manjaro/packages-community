@@ -11,9 +11,8 @@ source=('git+https://github.com/fhdk/openbox-themes-extra.git')
 sha256sums=('SKIP')
 
 package() {
-    cd $srcdir/$pkgname
     install -d $pkgdir/usr/share/themes
-  	#install themes $pkgdir/usr/share/themes
-    cp -r themes $pkgdir/usr/share
+    cd $srcdir/$pkgname
+    cp -R themes $pkgdir/usr/share
 }
 

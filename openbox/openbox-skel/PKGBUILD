@@ -5,8 +5,8 @@ pkgname=(
     'manjaro-openbox-minimal-skel'
     'manjaro-openbox-extra-skel'
     )
-pkgver=1.18.4
-pkgrel=2
+pkgver=1.18.7
+pkgrel=1
 _branch=stable
 arch=('any')
 url="https://github.com/fhdk/openbox-skel"
