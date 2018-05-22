@@ -2,9 +2,9 @@
 
 pkgname=cinnamon-sounds
 _pkgname=mint-artwork-cinnamon
-pkgver=5.5
+pkgver=5.7
 _cpkg=mint-artwork-common
-_cver=2.1.8
+_cver=2.1.8.1
 pkgrel=1
 pkgdesc='Original Linux Mint sounds for the Cinnamon desktop.'
 arch=('any')
@@ -15,8 +15,8 @@ url='http://linuxmint.com'
 _durl='https://ftp.fau.de/mint/packages/pool/main/m'
 source=("$_durl/$_cpkg/${_cpkg}_$_cver.tar.gz"
         "$_durl/$_pkgname/${_pkgname}_$pkgver.tar.gz")
-sha256sums=('6c9b8052492dd3c2d0179e70dfe6f182819be1790e526ef31a78f169971ce2bd'
-            'd331cfb7bfb56d0b5af2a60458e545ffd2ad774181d9d05d388c7c052729a9fd')
+sha256sums=('b3fae5391f87c909f66fb4aaa95dcbe53e521bbb37ab8784411bc620d2e5f5e8'
+            '9ba01cdd98d91b374663e719a7db2df72aa9a45e1e7373062a5db097b1952ffa')
 
 package() {
     install -dm755 $pkgdir/usr/share/sounds

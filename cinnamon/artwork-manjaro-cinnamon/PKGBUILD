@@ -18,7 +18,7 @@ target="/usr/share/backgrounds/cinnamon"
 _gurl="https://download.gnome.org/sources/$_grepo"
 _murl="https://github.com/oberon2007/$pkgbase"
 source=("$_gurl/${_gver:0:4}/$_grepo-$_gver.tar.xz"
-        "git+$_murl.git")
+    "git+$_murl.git")
 sha256sums=('b25b963d9d1ce076b489ef1e85c6540166f2312c77132f4ec0ecc90f3da8f1e1'
             'SKIP')
 
@@ -27,14 +27,14 @@ pkgver() {
 }
 
 build() {
-  msg "build gnome-backgrounds"
-  arch-meson $_grepo-$_gver build
-  ninja -C build
+    msg "build gnome-backgrounds"
+    arch-meson $_grepo-$_gver build
+    ninja -C build
 }
 
 check() {
-  cd build
-  meson test
+    cd build
+    meson test
 }
 
 package_artwork-cinnamon-minimal() {
@@ -53,7 +53,7 @@ package_artwork-cinnamon-minimal() {
     rm adwaita.xml
     mv gnome-backgrounds.xml gnome.xml
 
-	cd $srcdir/$pkgbase
+    cd $srcdir/$pkgbase
     install -Dm644 backgrounds/$default $pkgdir/$target/$default
     install -m644 backgrounds/$greeter_default $pkgdir/$target/$greeter_default
     ln -s $target/$default $pkgdir/usr/share/backgrounds/cinnamon_default.$ext
