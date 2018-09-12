@@ -1,0 +1,33 @@
+# Maintainer: Hayder Majid <hayder@riseup.net>
+
+pkgname=masalla-colors
+pkgver=1.2
+pkgrel=1
+pkgdesc="A flat design icon theme by Hayder Majid"
+arch=('any')
+url="https://notabug.org/masalla-art/$pkgname"
+license=('GPL3')
+makedepends=('git')
+depends=('masalla-icon-theme')
+source=("$url/archive/$pkgver.tar.gz")
+md5sums=('82ebe8259e35b314cc0cf67953c7b885')
+
+package() {
+  cd $pkgname-$pkgver
+  install -dm 755 $pkgdir/usr/share/icons
+  cp -r masalla-red $pkgdir/usr/share/icons
+  cp -r masalla-red-dark $pkgdir/usr/share/icons
+  cp -r masalla-yellow $pkgdir/usr/share/icons
+  cp -r masalla-yellow-dark $pkgdir/usr/share/icons
+  cp -r masalla-grey $pkgdir/usr/share/icons
+  cp -r masalla-grey-dark $pkgdir/usr/share/icons
+  cp -r masalla-green $pkgdir/usr/share/icons
+  cp -r masalla-green-dark $pkgdir/usr/share/icons
+  cp -r masalla-violet $pkgdir/usr/share/icons
+  cp -r masalla-violet-dark $pkgdir/usr/share/icons
+  cp -r masalla-brown $pkgdir/usr/share/icons
+  cp -r masalla-brown-dark $pkgdir/usr/share/icons
+  cp -r masalla-black $pkgdir/usr/share/icons
+  cp -r masalla-black-dark $pkgdir/usr/share/icons
+}
+
