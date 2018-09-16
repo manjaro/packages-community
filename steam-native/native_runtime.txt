@@ -1,8 +1,0 @@
-This file is part of the steam-native package by Manjaro.
-
-As long as this file sits in /usr/lib/steam/, steam will use
-the native system runtime instead of the steam-runtime-libraries.
-
-Please do not change or remove this file, but always uninstall steam-native
-
-Thanks!
