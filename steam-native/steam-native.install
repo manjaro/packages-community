@@ -1,8 +1,0 @@
-post_install() {
-    echo "--> Steam will now use the native runtime"
-}
-
-post_upgrade()
-{
-    post_install
-}
